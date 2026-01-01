@@ -1,0 +1,41 @@
+import { google } from "googleapis"
+import { JWT } from "google-auth-library"
+
+export async function appendLead(data: {
+  name: string
+  email: string
+  website: string
+  message: string
+}) {
+  try {
+    const client = new JWT({
+      email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+      key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+      scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+    })
+
+    const sheets = google.sheets({ version: "v4", auth: client })
+
+    const response = await sheets.spreadsheets.values.append({
+      spreadsheetId: process.env.GOOGLE_SHEET_ID,
+      range: "Sheet1!A:E", // Assumes columns: Timestamp, Name, Email, Website, Message
+      valueInputOption: "USER_ENTERED",
+      requestBody: {
+        values: [
+          [
+            new Date().toISOString(),
+            data.name,
+            data.email,
+            data.website,
+            data.message,
+          ],
+        ],
+      },
+    })
+
+    return response.data
+  } catch (error) {
+    console.error("Google Sheets Error:", error)
+    throw new Error("Failed to write to Google Sheets")
+  }
+}

@@ -1,0 +1,33 @@
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+
+export function Navbar() {
+  return (
+    <header className="sticky top-0 z-50 w-full border-b border-muted/50 bg-background/80 backdrop-blur-xl">
+      <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
+        <Link href="/" className="font-heading text-xl font-bold tracking-tighter text-white">
+          JOE<span className="text-accent">.AUTOMATION</span>
+        </Link>
+        <nav className="hidden gap-6 md:flex">
+          <Link href="#services" className="text-sm font-medium text-muted-foreground transition-colors hover:text-white">
+            Services
+          </Link>
+          <Link href="#process" className="text-sm font-medium text-muted-foreground transition-colors hover:text-white">
+            Process
+          </Link>
+          <Link href="#about" className="text-sm font-medium text-muted-foreground transition-colors hover:text-white">
+            About
+          </Link>
+        </nav>
+        <div className="flex items-center gap-4">
+          <Button variant="outline" size="sm" className="hidden sm:inline-flex">
+            Client Login
+          </Button>
+          <Button variant="accent" size="sm">
+            Book Audit
+          </Button>
+        </div>
+      </div>
+    </header>
+  )
+}
