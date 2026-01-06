@@ -54,7 +54,7 @@ export const HeroKinetic = () => {
 
                 {/* Standard Tech CTA */}
                 <div className="relative mt-8 md:mt-12 z-20">
-                    <button className="group relative flex items-center justify-center px-8 py-4 rounded-full bg-white/10 text-white border border-white/50 md:bg-white md:text-black md:border-white transition-all duration-300 hover:bg-zinc-200 hover:text-black hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                    <button className="group relative flex items-center justify-center px-8 py-4 rounded-full bg-white text-black border border-white transition-all duration-300 hover:bg-zinc-200 hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
                          <span className="font-heading text-xs md:text-sm font-black tracking-wide flex items-center gap-2">
                             <span className="relative flex h-2 w-2">
                               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
