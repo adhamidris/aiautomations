@@ -32,10 +32,12 @@ const services = [
 ];
 
 export function ServicesDossier() {
+  const [activeService, setActiveService] = React.useState<string | null>(null);
+
   return (
     <section className="relative w-full py-24 md:py-32 bg-transparent overflow-hidden">
       {/* Hero-Style Background Grid (Replicated) */}
-      <div className="absolute inset-0 z-0 opacity-20" 
+      <div className="absolute inset-0 z-0 opacity-10" 
            style={{ 
                backgroundImage: "linear-gradient(to right, #333 1px, transparent 1px), linear-gradient(to bottom, #333 1px, transparent 1px)", 
                backgroundSize: "4rem 4rem" 
@@ -43,7 +45,7 @@ export function ServicesDossier() {
       />
       
       {/* Edge Fade Mask */}
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,transparent_0%,#09090b_100%)] opacity-80 pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,transparent_0%,#09090b_100%)] opacity-40 pointer-events-none" />
 
       {/* Top Fade for Smooth Transition */}
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-zinc-950 to-transparent z-0 pointer-events-none" />
@@ -51,40 +53,35 @@ export function ServicesDossier() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         <div className="text-center mb-16 md:mb-24">
-             <h2 className="text-zinc-400 underline decoration-zinc-400/30 underline-offset-4 decoration-1 font-mono text-xs uppercase tracking-[0.2em] mb-4">
+             <h2 className="text-white/70 underline decoration-zinc-400/30 underline-offset-4 decoration-1 font-mono text-xs uppercase tracking-[0.2em] mb-4">
                 Full Stack Solutions
              </h2>
              <h3 className="text-3xl md:text-5xl font-bold text-white tracking-tight">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/50 to-white">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white">
                     Web Development. <br/> SaaS Building.
                 </span>
              </h3>
         </div>
 
-        <CyberPanel
-          variant="list"
-        >
-            <div className="p-8 md:p-12">
-
-
-
-                {/* The Dossier List */}
-                <div className="border-t border-white/10">
+        <div className="relative">
+             {/* The Dossier List */}
+             <div className="border-t border-white/5">
                 {services.map((service) => (
                     <ServiceLine 
-                    key={service.number}
-                    {...service}
+                        key={service.number}
+                        {...service}
+                        isOpen={activeService === service.number}
+                        onToggle={() => setActiveService(activeService === service.number ? null : service.number)}
                     />
                 ))}
-                </div>
+             </div>
 
-                <div className="mt-12 text-center md:text-right">
-                    <p className="font-mono text-xs text-white/30 uppercase tracking-widest">
-                        {`// SYSTEM_MODULES_END`}
-                    </p>
-                </div>
-            </div>
-        </CyberPanel>
+             <div className="mt-12 text-center md:text-right">
+                <p className="font-mono text-xs text-white/20 uppercase tracking-widest">
+                    {`// SYSTEM_MODULES_END`}
+                </p>
+             </div>
+        </div>
       </div>
     </section>
   );

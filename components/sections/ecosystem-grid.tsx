@@ -98,7 +98,7 @@ export const EcosystemGrid = () => {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="text-center mb-16 md:mb-24">
-                     <h2 className="text-zinc-400 underline decoration-zinc-400/30 underline-offset-4 decoration-1 font-mono text-xs uppercase tracking-[0.2em] mb-4">
+                     <h2 className="text-white/70 underline decoration-zinc-400/30 underline-offset-4 decoration-1 font-mono text-xs uppercase tracking-[0.2em] mb-4">
                         Automations
                      </h2>
                      <h3 className="text-3xl md:text-5xl font-bold text-white tracking-tight">
@@ -162,7 +162,7 @@ const TypewriterText = () => {
     }, [text, isDeleting, typingSpeed, textToType]);
 
     return (
-        <span className="block mt-2 min-h-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-white via-white/50 to-white">
+        <span className="block mt-2 min-h-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white">
             {text}
         </span>
     );

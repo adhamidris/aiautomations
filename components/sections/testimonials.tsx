@@ -105,7 +105,7 @@ export const Testimonials = ({
       <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-zinc-950 to-black z-10 pointer-events-none" />
 
       <div className="container relative z-10 mx-auto px-4 mb-16 text-center">
-            <h2 className="text-sm font-mono text-zinc-500 uppercase tracking-[0.2em] mb-4">
+            <h2 className="text-sm font-mono text-zinc-400 uppercase tracking-[0.2em] mb-4">
                 [ TRUSTED BY INDUSTRY LEADERS ]
             </h2>
       </div>

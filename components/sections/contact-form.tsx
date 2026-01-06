@@ -13,18 +13,18 @@ export function ContactForm() {
   const [status, setStatus] = useState<"IDLE" | "PLOTTING" | "TRANSMIT" | "SUCCESS" | "ERROR">("IDLE")
   
   // Simulated "boot up" lines for the left panel terminal
-  const [terminalLines, setTerminalLines] = useState<string[]>([
-    "> SYSTEM_READY...",
-    "> INITIALIZING_SECURE_UPLINK...",
-    "> WAITING_FOR_INPUT..."
-  ])
+  // const [terminalLines, setTerminalLines] = useState<string[]>([
+  //   "> SYSTEM_READY...",
+  //   "> INITIALIZING_SECURE_UPLINK...",
+  //   "> WAITING_FOR_INPUT..."
+  // ])
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setStatus("PLOTTING") // Visual delay for effect
     
     // Simulate "Plotting coordinates" phase
-    setTerminalLines(prev => [...prev, "> PARSING_DATA_PACKET...", "> ENCRYPTING_PAYLOAD..."])
+    // setTerminalLines(prev => [...prev, "> PARSING_DATA_PACKET...", "> ENCRYPTING_PAYLOAD..."])
     
     const formData = new FormData(e.currentTarget)
     const data = Object.fromEntries(formData.entries())
@@ -42,11 +42,11 @@ export function ContactForm() {
       
       if (!res.ok) throw new Error("Failed to submit")
       
-      setTerminalLines(prev => [...prev, "> UPLINK_ESTABLISHED.", "> TRANSMISSION_COMPLETE."])
+      // setTerminalLines(prev => [...prev, "> UPLINK_ESTABLISHED.", "> TRANSMISSION_COMPLETE."])
       setStatus("SUCCESS")
     } catch (error) {
       console.error(error)
-      setTerminalLines(prev => [...prev, "> ERROR: CONNECTION_REFUSED.", "> RETRY_ADVISED."])
+      // setTerminalLines(prev => [...prev, "> ERROR: CONNECTION_REFUSED.", "> RETRY_ADVISED."])
       setStatus("ERROR")
       setTimeout(() => setStatus("IDLE"), 4000)
     }
@@ -58,7 +58,7 @@ export function ContactForm() {
       className="relative container mx-auto max-w-7xl px-4 py-24 md:px-6 overflow-hidden"
     >
       {/* Hero-Style Background Grid (Replicated) */}
-      <div className="absolute inset-0 z-0 opacity-20" 
+      <div className="absolute inset-0 z-0 opacity-10" 
            style={{ 
                backgroundImage: "linear-gradient(to right, #333 1px, transparent 1px), linear-gradient(to bottom, #333 1px, transparent 1px)", 
                backgroundSize: "4rem 4rem" 
@@ -66,7 +66,7 @@ export function ContactForm() {
       />
       
       {/* Edge Fade Mask */}
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,transparent_0%,#09090b_100%)] opacity-80 pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,transparent_0%,#09090b_100%)] opacity-40 pointer-events-none" />
 
       {/* Bottom Fade for Smooth Transition */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-zinc-950 to-transparent z-0 pointer-events-none" />
@@ -119,7 +119,7 @@ export function ContactForm() {
                   variant="outline"
                   onClick={() => {
                     setStatus("IDLE");
-                    setTerminalLines(["> SYSTEM_RESET...", "> READY."]);
+                    // setTerminalLines(["> SYSTEM_RESET...", "> READY."]);
                   }}
                   className="border-white/10 text-white/60 hover:bg-white/5 hover:text-white"
                 >

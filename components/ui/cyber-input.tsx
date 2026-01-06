@@ -33,22 +33,23 @@ export const CyberInput = React.forwardRef<HTMLInputElement, CyberInputProps>(
         <div className="relative">
             {/* Hardare Slot Chassis */}
             <div className={cn(
-                "relative flex items-center w-full rounded-sm bg-black/30 shadow-inner overflow-hidden transition-all duration-300",
-                "border border-white/10 group-hover:border-white/20",
-                isFocused && "border-accent/40 bg-accent/[0.02] shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)]",
+                "relative flex items-center w-full rounded-sm bg-black/30 shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)] overflow-hidden transition-all duration-300",
+                "border border-accent/30 hover:border-accent/50",
+                "bg-accent/[0.02]",
+                isFocused && "border-accent shadow-[inset_0_2px_8px_rgba(0,0,0,0.5)] bg-accent/[0.05]",
                 error && "border-red-500/50",
                 className
             )}>
                 {/* Active Line Indicator */}
                 <motion.div 
                     className="absolute left-0 top-0 bottom-0 w-[2px] bg-accent"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: isFocused ? 1 : 0 }}
+                    initial={{ opacity: 0.5 }}
+                    animate={{ opacity: isFocused ? 1 : 0.5 }}
                 />
 
                 <input
                     type={type}
-                    className="flex h-12 w-full bg-transparent px-4 py-2 text-sm text-white focus:outline-none placeholder:text-white/20 font-mono tracking-tight"
+                    className="flex h-12 w-full bg-transparent px-4 py-2 text-sm text-white focus:outline-none placeholder:text-white/40 font-mono tracking-tight"
                     ref={ref}
                     onFocus={(e) => {
                         setIsFocused(true);
@@ -64,8 +65,8 @@ export const CyberInput = React.forwardRef<HTMLInputElement, CyberInputProps>(
             
             {/* Tech Corner Accent */}
             <div className={cn(
-                "absolute top-0 right-0 w-2 h-2 border-t border-r border-white/10 pointer-events-none transition-colors duration-300",
-                isFocused && "border-accent/40"
+                "absolute top-0 right-0 w-2 h-2 border-t border-r border-accent/30 pointer-events-none transition-colors duration-300",
+                isFocused && "border-accent"
             )} />
         </div>
       </div>
@@ -102,20 +103,21 @@ export const CyberTextArea = React.forwardRef<HTMLTextAreaElement, CyberTextArea
         
         <div className="relative">
              <div className={cn(
-                "relative flex w-full rounded-sm bg-black/30 shadow-inner overflow-hidden transition-all duration-300",
-                "border border-white/10 group-hover:border-white/20",
-                isFocused && "border-accent/40 bg-accent/[0.02]",
+                "relative flex w-full rounded-sm bg-black/30 shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)] overflow-hidden transition-all duration-300",
+                "border border-accent/30 hover:border-accent/50",
+                "bg-accent/[0.02]",
+                isFocused && "border-accent shadow-[inset_0_2px_8px_rgba(0,0,0,0.5)] bg-accent/[0.05]",
                 error && "border-red-500/50",
                 className
             )}>
                 <motion.div 
                     className="absolute left-0 top-0 bottom-0 w-[2px] bg-accent"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: isFocused ? 1 : 0 }}
+                    initial={{ opacity: 0.5 }}
+                    animate={{ opacity: isFocused ? 1 : 0.5 }}
                 />
 
                 <textarea
-                    className="flex min-h-[120px] w-full bg-transparent px-4 py-3 text-sm text-white focus:outline-none placeholder:text-white/20 font-mono tracking-tight resize-none"
+                    className="flex min-h-[120px] w-full bg-transparent px-4 py-3 text-sm text-white focus:outline-none placeholder:text-white/40 font-mono tracking-tight resize-none"
                     ref={ref}
                     onFocus={(e) => {
                         setIsFocused(true);
@@ -129,8 +131,8 @@ export const CyberTextArea = React.forwardRef<HTMLTextAreaElement, CyberTextArea
                 />
             </div>
              <div className={cn(
-                "absolute top-0 right-0 w-2 h-2 border-t border-r border-white/10 pointer-events-none transition-colors duration-300",
-                isFocused && "border-accent/40"
+                "absolute top-0 right-0 w-2 h-2 border-t border-r border-accent/30 pointer-events-none transition-colors duration-300",
+                isFocused && "border-accent"
             )} />
         </div>
       </div>
