@@ -4,7 +4,7 @@ import { JWT } from "google-auth-library"
 export async function appendLead(data: {
   name: string
   email: string
-  website: string
+  phone: string
   message: string
 }) {
   try {
@@ -18,15 +18,14 @@ export async function appendLead(data: {
 
     const response = await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: "Sheet1!A:E", // Assumes columns: Timestamp, Name, Email, Website, Message
+      range: "Form!A:D", // Columns: Name, Phone Number, Email, Message
       valueInputOption: "USER_ENTERED",
       requestBody: {
         values: [
           [
-            new Date().toISOString(),
             data.name,
+            data.phone,
             data.email,
-            data.website,
             data.message,
           ],
         ],

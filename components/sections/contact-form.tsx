@@ -135,6 +135,13 @@ export function ContactForm() {
                   required
                 />
                 <CyberInput
+                  label="Phone Number"
+                  name="phone"
+                  type="tel"
+                  placeholder="+123 456 7890"
+                  required
+                />
+                <CyberInput
                   label="Email"
                   name="email"
                   type="email"

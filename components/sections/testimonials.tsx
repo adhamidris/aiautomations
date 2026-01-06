@@ -98,8 +98,7 @@ export const Testimonials = ({
       {/* Top Fade Blend */}
       <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-zinc-950 to-black z-10 pointer-events-none" />
 
-      {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl h-64 bg-white/[0.02] blur-[100px] rounded-full pointer-events-none z-0" />
+
       
       {/* Bottom Fade Blend */}
       <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-zinc-950 to-black z-10 pointer-events-none" />

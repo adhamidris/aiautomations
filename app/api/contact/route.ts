@@ -4,7 +4,7 @@ import { NextResponse } from "next/server"
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { name, email, website, message } = body
+    const { name, email, phone, message } = body
 
     if (!name || !email || !message) {
       return NextResponse.json(
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     // Connect to Google Sheets
     // Note: This will fail if env vars are not set, but we catch the error.
     if (process.env.GOOGLE_SHEET_ID) {
-        await appendLead({ name, email, website, message })
+        await appendLead({ name, email, phone, message })
     } else {
         console.warn("Skipping Google Sheets write: GOOGLE_SHEET_ID not set.")
     }
