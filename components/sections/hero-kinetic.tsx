@@ -7,6 +7,7 @@ export const HeroKinetic = () => {
     const { scrollY } = useScroll();
     const y1 = useTransform(scrollY, [0, 500], [0, 200]);
     const y2 = useTransform(scrollY, [0, 500], [0, -150]);
+    const blur = useTransform(scrollY, [0, 400], ["blur(0px)", "blur(12px)"]);
 
     return (
         <section className="relative h-screen w-full overflow-hidden bg-zinc-950 text-white selection:bg-white/20">
@@ -21,7 +22,7 @@ export const HeroKinetic = () => {
             {/* Main Content */}
             <div className="relative z-10 flex h-full flex-col items-center justify-center">
                 <motion.h1 
-                    style={{ y: y1 }}
+                    style={{ y: y1, filter: blur }}
                     className="flex flex-col items-center justify-center text-center font-heading font-black leading-[0.85] tracking-tighter w-full max-w-[100vw] px-4"
                 >
                     <div className="relative flex items-center justify-center w-full max-w-5xl mx-auto py-4 sm:py-8 lg:py-12">
@@ -60,7 +61,7 @@ export const HeroKinetic = () => {
                 
                 {/* Secondary data */}
                 <motion.div 
-                    style={{ y: y2 }}
+                    style={{ y: y2, filter: blur }}
                     className="absolute bottom-8 md:bottom-12 flex w-full max-w-7xl justify-center px-4 md:px-8 text-[10px] md:text-xs font-mono text-zinc-400 uppercase tracking-widest"
                 >
                      <div className="flex gap-4 md:gap-8">
