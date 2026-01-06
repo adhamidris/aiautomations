@@ -45,7 +45,7 @@ export const HeroKinetic = () => {
                     style={{ y: y1 }}
                     className="flex flex-col items-center justify-center text-center font-heading font-black leading-[0.85] tracking-tighter w-full max-w-[100vw] overflow-hidden px-4"
                 >
-                    <span className="block text-[22vw] md:text-[16vw] lg:text-[14vw] text-zinc-800 mix-blend-difference hover:text-white transition-colors duration-500">AI</span>
+                    <span className="block text-[26vw] sm:text-[22vw] md:text-[16vw] lg:text-[14vw] text-zinc-800 mix-blend-difference hover:text-white transition-colors duration-500">AI</span>
                     <StreamingText />
                 </motion.h1>
 
@@ -117,10 +117,10 @@ const StreamingText = () => {
     }, [text, isDeleting, loopNum, typingSpeed]); // Dependencies for effect loop
   
     // Consistent sizing for all phrases to ensure professionalism
-    const textSizeClass = "text-[10vw] md:text-[8vw] lg:text-[7vw]";
+    const textSizeClass = "text-[14vw] sm:text-[11vw] md:text-[8vw] lg:text-[7vw]";
   
     return (
-      <div className="relative h-[12vw] md:h-[10vw] w-full flex items-center justify-center overflow-visible">
+      <div className="relative h-[16vw] sm:h-[13vw] md:h-[10vw] w-full flex items-center justify-center overflow-visible">
           <span
               className={`block text-zinc-100 mix-blend-difference whitespace-nowrap px-4 ${textSizeClass} font-heading font-black tracking-tighter`}
           >
