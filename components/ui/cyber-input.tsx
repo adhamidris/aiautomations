@@ -19,13 +19,13 @@ export const CyberInput = React.forwardRef<HTMLInputElement, CyberInputProps>(
       <div className="group relative space-y-2">
         {label && (
           <div className="flex items-center justify-between">
-            <label className="text-xs font-mono text-zinc-400 uppercase tracking-widest group-focus-within:text-accent transition-colors duration-300">
+            <label className="text-xs font-mono text-zinc-300 uppercase tracking-widest group-focus-within:text-white transition-colors duration-300">
                {prefix} {label}
             </label>
             {/* Optional Status Indicator */}
              <div className={cn(
                 "h-1 w-1 rounded-full transition-colors duration-300",
-                isFocused ? "bg-accent" : "bg-white/10"
+                isFocused ? "bg-white" : "bg-white/20"
              )} />
           </div>
         )}
@@ -33,23 +33,23 @@ export const CyberInput = React.forwardRef<HTMLInputElement, CyberInputProps>(
         <div className="relative">
             {/* Hardare Slot Chassis */}
             <div className={cn(
-                "relative flex items-center w-full rounded-sm bg-zinc-900/50 shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)] overflow-hidden transition-all duration-300",
-                "border border-white/10 hover:border-white/20",
-                "bg-zinc-900/50",
-                isFocused && "border-accent shadow-[inset_0_2px_8px_rgba(0,0,0,0.5)] bg-accent/[0.05]",
+                "relative flex items-center w-full rounded-sm bg-zinc-900/80 shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)] overflow-hidden transition-all duration-300",
+                "border border-white/20 hover:border-white/30",
+                "bg-zinc-900/80",
+                isFocused && "border-white bg-white/[0.05] shadow-[inset_0_2px_8px_rgba(0,0,0,0.5)]",
                 error && "border-red-500/50",
                 className
             )}>
                 {/* Active Line Indicator */}
                 <motion.div 
-                    className="absolute left-0 top-0 bottom-0 w-[2px] bg-accent"
+                    className="absolute left-0 top-0 bottom-0 w-[2px] bg-white"
                     initial={{ opacity: 0.5 }}
                     animate={{ opacity: isFocused ? 1 : 0.5 }}
                 />
 
                 <input
                     type={type}
-                    className="flex h-12 w-full bg-transparent px-4 py-2 text-sm text-zinc-100 focus:outline-none placeholder:text-zinc-500 font-mono tracking-tight"
+                    className="flex h-12 w-full bg-transparent px-4 py-2 text-sm text-white focus:outline-none placeholder:text-zinc-500 font-mono tracking-tight"
                     ref={ref}
                     onFocus={(e) => {
                         setIsFocused(true);
@@ -65,8 +65,8 @@ export const CyberInput = React.forwardRef<HTMLInputElement, CyberInputProps>(
             
             {/* Tech Corner Accent */}
             <div className={cn(
-                "absolute top-0 right-0 w-2 h-2 border-t border-r border-accent/30 pointer-events-none transition-colors duration-300",
-                isFocused && "border-accent"
+                "absolute top-0 right-0 w-2 h-2 border-t border-r border-white/40 pointer-events-none transition-colors duration-300",
+                isFocused && "border-white"
             )} />
         </div>
       </div>
@@ -91,33 +91,33 @@ export const CyberTextArea = React.forwardRef<HTMLTextAreaElement, CyberTextArea
       <div className="group relative space-y-2">
          {label && (
           <div className="flex items-center justify-between">
-            <label className="text-xs font-mono text-zinc-400 uppercase tracking-widest group-focus-within:text-accent transition-colors duration-300">
+            <label className="text-xs font-mono text-zinc-300 uppercase tracking-widest group-focus-within:text-white transition-colors duration-300">
                {prefix} {label}
             </label>
              <div className={cn(
                 "h-1 w-1 rounded-full transition-colors duration-300",
-                isFocused ? "bg-accent" : "bg-white/10"
+                isFocused ? "bg-white" : "bg-white/20"
              )} />
           </div>
         )}
         
         <div className="relative">
              <div className={cn(
-                "relative flex w-full rounded-sm bg-zinc-900/50 shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)] overflow-hidden transition-all duration-300",
-                "border border-white/10 hover:border-white/20",
-                "bg-zinc-900/50",
-                isFocused && "border-accent shadow-[inset_0_2px_8px_rgba(0,0,0,0.5)] bg-accent/[0.05]",
+                "relative flex w-full rounded-sm bg-zinc-900/80 shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)] overflow-hidden transition-all duration-300",
+                "border border-white/20 hover:border-white/30",
+                "bg-zinc-900/80",
+                isFocused && "border-white bg-white/[0.05] shadow-[inset_0_2px_8px_rgba(0,0,0,0.5)]",
                 error && "border-red-500/50",
                 className
             )}>
                 <motion.div 
-                    className="absolute left-0 top-0 bottom-0 w-[2px] bg-accent"
+                    className="absolute left-0 top-0 bottom-0 w-[2px] bg-white"
                     initial={{ opacity: 0.5 }}
                     animate={{ opacity: isFocused ? 1 : 0.5 }}
                 />
 
                 <textarea
-                    className="flex min-h-[120px] w-full bg-transparent px-4 py-3 text-sm text-zinc-100 focus:outline-none placeholder:text-zinc-500 font-mono tracking-tight resize-none"
+                    className="flex min-h-[120px] w-full bg-transparent px-4 py-3 text-sm text-white focus:outline-none placeholder:text-zinc-500 font-mono tracking-tight resize-none"
                     ref={ref}
                     onFocus={(e) => {
                         setIsFocused(true);
@@ -131,8 +131,8 @@ export const CyberTextArea = React.forwardRef<HTMLTextAreaElement, CyberTextArea
                 />
             </div>
              <div className={cn(
-                "absolute top-0 right-0 w-2 h-2 border-t border-r border-accent/30 pointer-events-none transition-colors duration-300",
-                isFocused && "border-accent"
+                "absolute top-0 right-0 w-2 h-2 border-t border-r border-white/40 pointer-events-none transition-colors duration-300",
+                isFocused && "border-white"
             )} />
         </div>
       </div>

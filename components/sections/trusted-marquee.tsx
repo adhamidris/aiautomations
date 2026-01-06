@@ -24,6 +24,7 @@ export function TrustedMarquee() {
       <div className="container mx-auto max-w-7xl px-4 md:px-6 relative z-10 flex items-center">
         
         {/* Static Label */}
+        {/* Static Label */}
         <div className="hidden md:block pr-8 border-r border-white/10 mr-8 shrink-0">
              <span className="text-xs font-mono text-white/30 tracking-widest uppercase">
                 TRUSTED_BY_SYSTEMS://

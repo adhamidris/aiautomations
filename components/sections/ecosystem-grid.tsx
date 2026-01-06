@@ -113,15 +113,8 @@ export const EcosystemGrid = () => {
                      ))}
                      
                      {/* Custom CTA Card */}
-                     <div className="group relative overflow-hidden rounded-xl border border-white/5 bg-zinc-900/40 backdrop-blur-md p-8 transition-all duration-500 hover:border-white/20 hover:bg-zinc-800/80 hover:shadow-2xl flex flex-col items-center justify-center text-center h-full min-h-[220px]">
-                        <div 
-                            className="absolute inset-0 opacity-[0.03] pointer-events-none"
-                            style={{
-                            backgroundImage: `radial-gradient(#fff 1px, transparent 1px)`,
-                            backgroundSize: "4px 4px",
-                            }}
-                        />
-                        <h3 className="text-xl font-heading font-bold text-white mb-6">
+                     <div className="flex flex-col items-center justify-center text-center h-full min-h-[220px] p-8">
+                        <h3 className="text-xl font-heading text-white mb-6">
                             Have another operation you would like automated?
                         </h3>
                         <a href="#contact" className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white text-black font-bold text-sm tracking-wide hover:bg-zinc-200 transition-colors">
