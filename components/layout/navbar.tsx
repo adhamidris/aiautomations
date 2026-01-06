@@ -23,7 +23,7 @@ export function Navbar() {
           <Button variant="outline" size="sm" className="hidden sm:inline-flex">
             Client Login
           </Button>
-          <Button variant="accent" size="sm">
+          <Button size="sm" className="bg-white/90 text-black border border-white hover:bg-white">
             Book Audit
           </Button>
         </div>
