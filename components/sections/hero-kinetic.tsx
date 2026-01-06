@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 export const HeroKinetic = () => {
@@ -21,13 +22,20 @@ export const HeroKinetic = () => {
             <div className="relative z-10 flex h-full flex-col items-center justify-center">
                 <motion.h1 
                     style={{ y: y1 }}
-                    className="flex flex-col items-center justify-center text-center font-heading font-black leading-[0.85] tracking-tighter w-full max-w-[100vw] overflow-hidden px-4"
+                    className="flex flex-col items-center justify-center text-center font-heading font-black leading-[0.85] tracking-tighter w-full max-w-[100vw] px-4"
                 >
-                    <span className="relative block text-[26vw] sm:text-[22vw] md:text-[16vw] lg:text-[14vw] text-white transition-colors duration-500">
+                    <div className="relative flex items-center justify-center w-full max-w-5xl mx-auto py-4 sm:py-8 lg:py-12">
                         {/* Fixed Spotlight Glow */}
-                        <span className="absolute inset-0 -z-10 translate-y-4 scale-150 bg-[radial-gradient(closest-side,rgba(255,255,255,0.08)_0%,transparent_100%)] blur-2xl" />
-                        AI
-                    </span>
+
+                        <Image 
+                            src="/autom8ed.png" 
+                            alt="Autom8ed" 
+                            width={1371} 
+                            height={350}
+                            priority
+                            className="w-[85vw] sm:w-[65vw] md:w-[50vw] lg:w-[45vw] h-auto object-contain"
+                        />
+                    </div>
                     <StreamingText />
                 </motion.h1>
 
@@ -67,9 +75,9 @@ export const HeroKinetic = () => {
 };
 
 const PHRASES = [
-  "SOLUTIONS",
-  "AUTOMATIONS",
-  "CHAT BOTS"
+  "AI SOLUTIONS",
+  "WORKFLOWS",
+  "CHATBOTS"
 ];
 
 const StreamingText = () => {
@@ -104,13 +112,17 @@ const StreamingText = () => {
       return () => clearTimeout(timer);
     }, [text, isDeleting, loopNum, typingSpeed]); // Dependencies for effect loop
   
-    // Consistent sizing for all phrases to ensure professionalism
-    const textSizeClass = "text-[14vw] sm:text-[11vw] md:text-[8vw] lg:text-[7vw]";
+    // Consistent sizing to match logo width:
+    // Logo: w-[85vw] sm:w-[65vw] md:w-[50vw] lg:w-[45vw]
+    // Text approx: 85/10 ~ 8.5vw (mobile), 45/10 ~ 4.5vw (desktop) if matching width exactly.
+    // But keeping it slightly larger for hierarchy.
+    const textSizeClass = "text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[6vw]";
   
     return (
       <div className="relative h-[16vw] sm:h-[13vw] md:h-[10vw] w-full flex items-center justify-center overflow-visible">
           <span
-              className={`block text-zinc-100 mix-blend-difference whitespace-nowrap px-4 ${textSizeClass} font-heading font-black tracking-tighter`}
+              className={`block text-white whitespace-nowrap px-4 ${textSizeClass} font-heading font-bold tracking-tight uppercase`}
+
           >
               {text}
           </span>
