@@ -7,17 +7,6 @@ export const HeroKinetic = () => {
     const y1 = useTransform(scrollY, [0, 500], [0, 200]);
     const y2 = useTransform(scrollY, [0, 500], [0, -150]);
 
-    const [time, setTime] = useState("");
-
-    useEffect(() => {
-        const updateTime = () => {
-            const now = new Date();
-            setTime(now.toLocaleTimeString("en-US", { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" }) + ":" + now.getMilliseconds().toString().padStart(3, '0'));
-        };
-        const interval = setInterval(updateTime, 50);
-        return () => clearInterval(interval);
-    }, []);
-
     return (
         <section className="relative h-screen w-full overflow-hidden bg-zinc-950 text-white selection:bg-white/20">
             {/* Background Grid */}
@@ -28,16 +17,6 @@ export const HeroKinetic = () => {
                  }} 
             />
             
-            {/* HUD Elements */}
-            <div className="pointer-events-none absolute left-8 top-8 z-20 font-mono text-xs text-zinc-500">
-                <div>COORD: 34.0522° N, 118.2437° W</div>
-                <div>SYS.STATUS: ONLINE</div>
-            </div>
-            <div className="pointer-events-none absolute right-8 top-8 z-20 font-mono text-xs text-zinc-500 text-right">
-                <div>T: {time}</div>
-                <div>VELOCITY: LOCAL</div>
-            </div>
-
             {/* Main Content */}
             <div className="relative z-10 flex h-full flex-col items-center justify-center">
                 <motion.h1 
@@ -54,7 +33,13 @@ export const HeroKinetic = () => {
 
                 {/* Standard Tech CTA */}
                 <div className="relative mt-8 md:mt-12 z-20">
-                    <button className="group relative flex items-center justify-center px-8 py-4 rounded-full bg-white text-black border border-white transition-all duration-300 hover:bg-zinc-200 hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                    <button 
+                        onClick={(e) => {
+                            e.preventDefault();
+                            document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "center" });
+                        }}
+                        className="group relative flex items-center justify-center px-8 py-4 rounded-full bg-white text-black border border-white transition-all duration-300 hover:bg-zinc-200 hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.3)] cursor-pointer"
+                    >
                          <span className="font-heading text-xs md:text-sm font-black tracking-wide flex items-center gap-2">
                             <span className="relative flex h-2 w-2">
                               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>

@@ -11,7 +11,13 @@ export const UnifiedCTA = () => {
         className="flex-1 bg-transparent px-4 py-2 text-sm text-white placeholder-zinc-400 focus:outline-none"
         aria-label="Work Email Address"
       />
-      <button className="flex items-center gap-2 rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-500">
+      <button 
+        onClick={(e) => {
+            e.preventDefault();
+            document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "center" });
+        }}
+        className="flex items-center gap-2 rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-500 cursor-pointer"
+      >
         Start Audit
         <ArrowRight className="h-4 w-4" />
       </button>
