@@ -117,8 +117,9 @@ export const EcosystemGrid = () => {
                         <h3 className="text-xl font-heading text-white mb-6">
                             Have another operation you would like automated?
                         </h3>
-                        <a href="#contact" className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white text-black font-bold text-sm tracking-wide hover:bg-zinc-200 transition-colors">
-                            TELL US MORE
+                        <a href="#contact" className="group inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors duration-300">
+                            <span className="text-sm font-mono uppercase tracking-widest">TELL US MORE</span>
+                            <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
                         </a>
                      </div>
                 </div>

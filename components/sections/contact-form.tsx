@@ -78,16 +78,16 @@ export function ContactForm() {
           <div className="flex flex-col justify-between border-b border-white/5 bg-black/50 px-8 py-10 md:px-12 md:py-14 md:border-b-0 md:border-r">
             <div className="space-y-8">
               <CyberBadge
-                text={status === "IDLE" ? "SYSTEM_ONLINE" : status}
+                text={status === "IDLE" ? "Contact Us" : status}
                 status={status === "IDLE" ? "online" : "audit"}
                 className="border-none"
               />
               <div className="space-y-4">
                 <h2 className="font-heading text-4xl md:text-5xl font-bold tracking-tight text-white">
-                  Direct <span className="text-white/50">Uplink</span>
+                  Get in <span className="text-white/50">Touch</span>
                 </h2>
-                <p className="max-w-sm font-mono text-sm leading-relaxed text-white/40">
-                  Initialize a secure channel to our ops team. All transmissions are encrypted end-to-end.
+                <p className="max-w-sm font-sans text-sm leading-relaxed text-white/60">
+                  Ready to start your project? Fill out the form below and we'll get back to you shortly.
                 </p>
               </div>
             </div>
@@ -109,10 +109,10 @@ export function ContactForm() {
                 </motion.div>
                 <div className="space-y-2">
                   <h3 className="font-heading text-2xl text-white">
-                    Transmission Received
+                    Message Sent
                   </h3>
-                  <p className="font-mono text-sm text-white/40">
-                    Ref ID: {Math.random().toString(36).substring(7).toUpperCase()}
+                  <p className="font-sans text-sm text-white/60">
+                    Thanks for reaching out! We'll be in touch soon.
                   </p>
                 </div>
                 <Button
@@ -123,45 +123,45 @@ export function ContactForm() {
                   }}
                   className="border-white/10 text-white/60 hover:bg-white/5 hover:text-white"
                 >
-                  [ INITIALIZE_NEW ]
+                  Send Another Message
                 </Button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto space-y-6">
+                <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto space-y-6">
                 <CyberInput
-                  label="OPERATOR_NAME"
+                  label="Name"
                   name="name"
-                  placeholder="Enter designation..."
+                  placeholder="Enter your name"
                   required
                 />
                 <CyberInput
-                  label="CONTACT_UPLINK"
+                  label="Email"
                   name="email"
                   type="email"
-                  placeholder="name@organization.com"
+                  placeholder="name@company.com"
                   required
                 />
                 <CyberTextArea
-                  label="MISSION_BRIEF"
+                  label="Message"
                   name="message"
-                  placeholder="Describe tactical requirements..."
+                  placeholder="How can we help you?"
                   required
                 />
                 <Button
                   type="submit"
                   disabled={status !== "IDLE"}
                   className={cn(
-                    "h-12 w-full rounded-sm border text-xs font-mono uppercase tracking-widest transition-all",
+                    "h-12 w-full rounded-md border text-sm font-medium transition-all",
                     status === "IDLE"
-                      ? "border-white/20 bg-white/10 text-zinc-300 hover:bg-white/20 hover:border-white/40 hover:text-white"
+                      ? "border-white/20 bg-white/10 text-white hover:bg-white/20 hover:border-white/40"
                       : "border-accent/20 bg-accent/10 text-accent"
                   )}
                 >
                   <span className="flex items-center gap-2">
                     {status === "IDLE" ? (
-                      <>Initialize_Audit <Terminal className="h-3 w-3" /></>
+                      <>Send Message</>
                     ) : (
-                      "Processing..."
+                      "Sending..."
                     )}
                   </span>
                 </Button>

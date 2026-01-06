@@ -26,8 +26,8 @@ export function TrustedMarquee() {
         {/* Static Label */}
         {/* Static Label */}
         <div className="hidden md:block pr-8 border-r border-white/10 mr-8 shrink-0">
-             <span className="text-xs font-mono text-white/30 tracking-widest uppercase">
-                TRUSTED_BY_SYSTEMS://
+             <span className="text-sm font-medium text-white/40 tracking-wide uppercase">
+                Trusted By
              </span>
         </div>
 
