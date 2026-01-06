@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { CheckCircle, Terminal } from "lucide-react"
 import { CyberInput, CyberTextArea } from "@/components/ui/cyber-input"
 import { CyberPanel } from "@/components/ui/cyber-panel"
@@ -97,85 +97,108 @@ export function ContactForm() {
           </div>
 
           {/* Right: Pure Form */}
-          <div className="flex flex-col justify-center bg-white/[0.02] px-8 py-10 md:px-12 md:py-14">
-            {status === "SUCCESS" ? (
-              <div className="flex h-full flex-col items-center justify-center space-y-6 text-center">
-                <motion.div
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  className="flex h-20 w-20 items-center justify-center rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400"
-                >
-                  <CheckCircle className="h-10 w-10" />
-                </motion.div>
-                <div className="space-y-2">
-                  <h3 className="font-heading text-2xl text-white">
-                    Message Sent
-                  </h3>
-                  <p className="font-sans text-sm text-white/60">
-                    Thanks for reaching out! We'll be in touch soon.
-                  </p>
-                </div>
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    setStatus("IDLE");
-                    // setTerminalLines(["> SYSTEM_RESET...", "> READY."]);
-                  }}
-                  className="border-white/10 text-white/60 hover:bg-white/5 hover:text-white"
-                >
-                  Send Another Message
-                </Button>
-              </div>
-            ) : (
-                <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto space-y-6">
-                <CyberInput
-                  label="Name"
-                  name="name"
-                  placeholder="Enter your name"
-                  required
-                />
-                <CyberInput
-                  label="Phone Number"
-                  name="phone"
-                  type="tel"
-                  placeholder="+123 456 7890"
-                  required
-                />
-                <CyberInput
-                  label="Email"
-                  name="email"
-                  type="email"
-                  placeholder="name@company.com"
-                  required
-                />
-                <CyberTextArea
-                  label="Message"
-                  name="message"
-                  placeholder="How can we help you?"
-                  required
-                />
-                <Button
-                  type="submit"
-                  disabled={status !== "IDLE"}
-                  className={cn(
-                    "h-12 w-full rounded-md border text-sm font-medium transition-all",
-                    status === "IDLE"
-                      ? "border-white/20 bg-white/10 text-white hover:bg-white/20 hover:border-white/40"
-                      : "border-accent/20 bg-accent/10 text-accent"
-                  )}
-                >
-                  <span className="flex items-center gap-2">
-                    {status === "IDLE" ? (
-                      <>Send Message</>
-                    ) : (
-                      "Sending..."
-                    )}
-                  </span>
-                </Button>
-              </form>
-            )}
-          </div>
+             <div className="flex flex-col justify-center bg-white/[0.02] px-8 py-10 md:px-12 md:py-14 relative overflow-hidden">
+             <motion.div layout className="w-full relative z-10">
+               <AnimatePresence mode="wait">
+                 {status === "SUCCESS" ? (
+                  <motion.div
+                    key="success"
+                    initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    className="flex flex-col items-center justify-center space-y-8 text-center py-10"
+                  >
+                    <motion.div
+                      initial={{ scale: 0, rotate: -20 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      transition={{ type: "spring", stiffness: 200, damping: 15, delay: 0.1 }}
+                      className="relative flex h-24 w-24 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400 ring-1 ring-emerald-500/40 shadow-[0_0_40px_-10px_rgba(16,185,129,0.3)]"
+                    >
+                      <CheckCircle className="h-12 w-12" strokeWidth={1.5} />
+                      <div className="absolute inset-0 rounded-full border border-emerald-500/20 animate-pulse" />
+                    </motion.div>
+                    
+                    <div className="space-y-3 max-w-xs mx-auto">
+                      <h3 className="font-heading text-3xl font-bold text-white tracking-tight">
+                        Message Sent
+                      </h3>
+                      <p className="font-sans text-base leading-relaxed text-zinc-400">
+                        Thanks for reaching out! We've received your inquiry and will be in touch shortly.
+                      </p>
+                    </div>
+
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        setStatus("IDLE");
+                        // setTerminalLines(["> SYSTEM_RESET...", "> READY."]);
+                      }}
+                      className="mt-4 border-white/10 bg-white/5 text-zinc-300 hover:bg-white/10 hover:text-white hover:border-white/20 transition-all duration-300"
+                    >
+                      Send Another Message
+                    </Button>
+                  </motion.div>
+                ) : (
+                  <motion.form
+                    key="form"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    transition={{ duration: 0.3 }}
+                    onSubmit={handleSubmit}
+                    className="w-full max-w-md mx-auto space-y-6"
+                  >
+                    <CyberInput
+                      label="Name"
+                      name="name"
+                      placeholder="Enter your name"
+                      required
+                    />
+                    <CyberInput
+                      label="Phone Number"
+                      name="phone"
+                      type="tel"
+                      placeholder="+123 456 7890"
+                      required
+                    />
+                    <CyberInput
+                      label="Email"
+                      name="email"
+                      type="email"
+                      placeholder="name@company.com"
+                      required
+                    />
+                    <CyberTextArea
+                      label="Message"
+                      name="message"
+                      placeholder="How can we help you?"
+                      required
+                    />
+                    <Button
+                      type="submit"
+                      disabled={status !== "IDLE"}
+                      className={cn(
+                        "h-12 w-full rounded-md border text-sm font-medium transition-all duration-300",
+                        status === "IDLE"
+                          ? "border-white/20 bg-white/10 text-white hover:bg-white/20 hover:border-white/40"
+                          : "border-accent/20 bg-accent/10 text-accent"
+                      )}
+                    >
+                      <span className="flex items-center gap-2">
+                        {status === "IDLE" ? (
+                          <>Send Message</>
+                        ) : (
+                          "Sending..."
+                        )}
+                      </span>
+                    </Button>
+                  </motion.form>
+                )}
+               </AnimatePresence>
+             </motion.div>
         </div>
+       </div>
       </CyberPanel>
       </div>
     </section>
