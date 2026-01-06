@@ -18,7 +18,12 @@ export function Footer() {
                 <a href="#" className="text-zinc-400 hover:text-white transition-colors duration-300 transform hover:scale-110">
                     <Twitter className="w-6 h-6 md:w-8 md:h-8" />
                 </a>
-                <a href="#" className="text-zinc-400 hover:text-white transition-colors duration-300 transform hover:scale-110">
+                <a 
+                  href="https://www.instagram.com/autom8ed_solutions?igsh=MW9rejgwcTV6cnBjeA%3D%3D&utm_source=qr" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-zinc-400 hover:text-white transition-colors duration-300 transform hover:scale-110"
+                >
                     <Instagram className="w-6 h-6 md:w-8 md:h-8" />
                 </a>
             </div>

@@ -30,7 +30,8 @@ export default function JsonLd() {
         },
         "sameAs": [
           "https://twitter.com/autom8ed",
-          "https://linkedin.com/company/autom8ed"
+          "https://linkedin.com/company/autom8ed",
+          "https://www.instagram.com/autom8ed_solutions?igsh=MW9rejgwcTV6cnBjeA%3D%3D&utm_source=qr"
         ]
       },
       {
