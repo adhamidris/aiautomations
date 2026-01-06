@@ -16,8 +16,21 @@ interface ServiceLineProps {
 
 export const ServiceLine = ({ number, title, description, tags, isOpen, onToggle }: ServiceLineProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
 
-  const isActive = isHovered || isOpen;
+  React.useEffect(() => {
+      const checkDesktop = () => {
+          if (typeof window !== 'undefined') {
+              setIsDesktop(window.matchMedia("(min-width: 768px)").matches);
+          }
+      };
+      
+      checkDesktop();
+      window.addEventListener("resize", checkDesktop);
+      return () => window.removeEventListener("resize", checkDesktop);
+  }, []);
+
+  const isActive = isDesktop ? isHovered : isOpen;
 
   return (
     <div
@@ -25,9 +38,9 @@ export const ServiceLine = ({ number, title, description, tags, isOpen, onToggle
         "relative group transition-all duration-500 border-b border-border",
         isActive ? "bg-accent/50" : "bg-transparent"
       )}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onClick={onToggle}
+      onMouseEnter={() => isDesktop && setIsHovered(true)}
+      onMouseLeave={() => isDesktop && setIsHovered(false)}
+      onClick={() => !isDesktop && onToggle()}
     >
       {/* Massive Watermark Number */}
       <span className={cn(
