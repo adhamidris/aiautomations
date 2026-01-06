@@ -76,11 +76,7 @@ export function ServicesDossier() {
                 ))}
              </div>
 
-             <div className="mt-12 text-center md:text-right">
-                <p className="font-mono text-xs text-white/20 uppercase tracking-widest">
-                    {`// SYSTEM_MODULES_END`}
-                </p>
-             </div>
+
         </div>
       </div>
     </section>

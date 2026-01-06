@@ -54,7 +54,7 @@ export const HeroKinetic = () => {
 
                 {/* Standard Tech CTA */}
                 <div className="relative mt-8 md:mt-12 z-20">
-                    <button className="group relative flex items-center justify-center px-8 py-4 rounded-full bg-white text-black border border-white transition-all duration-300 hover:bg-zinc-200 hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                    <button className="group relative flex items-center justify-center px-8 py-4 rounded-full bg-white/10 text-white border border-white/50 md:bg-white md:text-black md:border-white transition-all duration-300 hover:bg-zinc-200 hover:text-black hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
                          <span className="font-heading text-xs md:text-sm font-black tracking-wide flex items-center gap-2">
                             <span className="relative flex h-2 w-2">
                               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -70,7 +70,7 @@ export const HeroKinetic = () => {
                     style={{ y: y2 }}
                     className="absolute bottom-8 md:bottom-12 flex w-full max-w-7xl justify-center px-4 md:px-8 text-[10px] md:text-xs font-mono text-zinc-400 uppercase tracking-widest"
                 >
-                     <div className="hidden md:flex gap-8">
+                     <div className="flex gap-4 md:gap-8">
                          <span>[01] Build</span>
                          <span>[02] Automate</span>
                          <span>[03] Review</span>

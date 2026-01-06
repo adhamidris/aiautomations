@@ -87,16 +87,16 @@ export const PartnerCard = ({ name, icon, category, description, className }: Pa
           <div className="text-white group-hover:text-white transition-colors duration-300">
             {icon}
           </div>
-          <span className="text-[10px] font-heading font-bold uppercase tracking-widest text-zinc-300 border border-white/5 px-2 py-1 rounded-full bg-white/5 group-hover:text-white group-hover:border-white/10 transition-colors">
+          <span className="text-[10px] font-mono uppercase tracking-widest text-white/40 border border-white/5 px-2 py-1 rounded-full bg-white/5 group-hover:text-white group-hover:border-white/10 transition-colors">
             {category}
           </span>
         </div>
         
-        <h3 className="text-xl font-heading font-bold text-white group-hover:text-white transition-colors mb-3">
+        <h3 className="text-2xl font-light tracking-tight text-white group-hover:text-white transition-colors mb-3">
           {name}
         </h3>
         
-        <div className="text-sm md:text-base text-zinc-200 leading-relaxed group-hover:text-white transition-colors">
+        <div className="text-base font-light text-zinc-400 leading-relaxed group-hover:text-white transition-colors">
           {description}
         </div>
 

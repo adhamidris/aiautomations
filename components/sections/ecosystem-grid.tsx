@@ -98,7 +98,7 @@ export const EcosystemGrid = () => {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="text-center mb-16 md:mb-24">
-                     <h2 className="text-white/70 underline decoration-zinc-400/30 underline-offset-4 decoration-1 font-mono text-xs uppercase tracking-[0.2em] mb-4">
+                     <h2 className="text-zinc-300 underline decoration-zinc-400/30 underline-offset-4 decoration-1 font-mono text-xs uppercase tracking-[0.2em] mb-4">
                         Automations
                      </h2>
                      <h3 className="text-3xl md:text-5xl font-bold text-white tracking-tight">
@@ -114,11 +114,11 @@ export const EcosystemGrid = () => {
                      
                      {/* Custom CTA Card */}
                      <div className="flex flex-col items-center justify-center text-center h-full min-h-[220px] p-8">
-                        <h3 className="text-xl font-heading text-white mb-6">
+                        <h3 className="text-2xl font-light tracking-tight text-white mb-6">
                             Have another operation you would like automated?
                         </h3>
                         <a href="#contact" className="group inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors duration-300">
-                            <span className="text-sm font-mono uppercase tracking-widest">TELL US MORE</span>
+                            <span className="text-xs font-mono uppercase tracking-widest">TELL US MORE</span>
                             <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
                         </a>
                      </div>
