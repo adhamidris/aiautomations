@@ -44,7 +44,11 @@ export const HeroKinetic = () => {
                     style={{ y: y1 }}
                     className="flex flex-col items-center justify-center text-center font-heading font-black leading-[0.85] tracking-tighter w-full max-w-[100vw] overflow-hidden px-4"
                 >
-                    <span className="block text-[26vw] sm:text-[22vw] md:text-[16vw] lg:text-[14vw] text-zinc-800 mix-blend-difference hover:text-white transition-colors duration-500 animate-breathing">AI</span>
+                    <span className="relative block text-[26vw] sm:text-[22vw] md:text-[16vw] lg:text-[14vw] text-white transition-colors duration-500">
+                        {/* Fixed Spotlight Glow */}
+                        <span className="absolute inset-0 -z-10 translate-y-4 scale-150 bg-[radial-gradient(closest-side,rgba(255,255,255,0.08)_0%,transparent_100%)] blur-2xl" />
+                        AI
+                    </span>
                     <StreamingText />
                 </motion.h1>
 

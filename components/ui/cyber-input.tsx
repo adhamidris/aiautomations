@@ -19,7 +19,7 @@ export const CyberInput = React.forwardRef<HTMLInputElement, CyberInputProps>(
       <div className="group relative space-y-2">
         {label && (
           <div className="flex items-center justify-between">
-            <label className="text-xs font-mono text-white/40 uppercase tracking-widest group-focus-within:text-accent transition-colors duration-300">
+            <label className="text-xs font-mono text-zinc-400 uppercase tracking-widest group-focus-within:text-accent transition-colors duration-300">
                {prefix} {label}
             </label>
             {/* Optional Status Indicator */}
@@ -33,9 +33,9 @@ export const CyberInput = React.forwardRef<HTMLInputElement, CyberInputProps>(
         <div className="relative">
             {/* Hardare Slot Chassis */}
             <div className={cn(
-                "relative flex items-center w-full rounded-sm bg-black/30 shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)] overflow-hidden transition-all duration-300",
-                "border border-accent/30 hover:border-accent/50",
-                "bg-accent/[0.02]",
+                "relative flex items-center w-full rounded-sm bg-zinc-900/50 shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)] overflow-hidden transition-all duration-300",
+                "border border-white/10 hover:border-white/20",
+                "bg-zinc-900/50",
                 isFocused && "border-accent shadow-[inset_0_2px_8px_rgba(0,0,0,0.5)] bg-accent/[0.05]",
                 error && "border-red-500/50",
                 className
@@ -49,7 +49,7 @@ export const CyberInput = React.forwardRef<HTMLInputElement, CyberInputProps>(
 
                 <input
                     type={type}
-                    className="flex h-12 w-full bg-transparent px-4 py-2 text-sm text-white focus:outline-none placeholder:text-white/40 font-mono tracking-tight"
+                    className="flex h-12 w-full bg-transparent px-4 py-2 text-sm text-zinc-100 focus:outline-none placeholder:text-zinc-500 font-mono tracking-tight"
                     ref={ref}
                     onFocus={(e) => {
                         setIsFocused(true);
@@ -91,7 +91,7 @@ export const CyberTextArea = React.forwardRef<HTMLTextAreaElement, CyberTextArea
       <div className="group relative space-y-2">
          {label && (
           <div className="flex items-center justify-between">
-            <label className="text-xs font-mono text-white/40 uppercase tracking-widest group-focus-within:text-accent transition-colors duration-300">
+            <label className="text-xs font-mono text-zinc-400 uppercase tracking-widest group-focus-within:text-accent transition-colors duration-300">
                {prefix} {label}
             </label>
              <div className={cn(
@@ -103,9 +103,9 @@ export const CyberTextArea = React.forwardRef<HTMLTextAreaElement, CyberTextArea
         
         <div className="relative">
              <div className={cn(
-                "relative flex w-full rounded-sm bg-black/30 shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)] overflow-hidden transition-all duration-300",
-                "border border-accent/30 hover:border-accent/50",
-                "bg-accent/[0.02]",
+                "relative flex w-full rounded-sm bg-zinc-900/50 shadow-[inset_0_2px_4px_rgba(0,0,0,0.5)] overflow-hidden transition-all duration-300",
+                "border border-white/10 hover:border-white/20",
+                "bg-zinc-900/50",
                 isFocused && "border-accent shadow-[inset_0_2px_8px_rgba(0,0,0,0.5)] bg-accent/[0.05]",
                 error && "border-red-500/50",
                 className
@@ -117,7 +117,7 @@ export const CyberTextArea = React.forwardRef<HTMLTextAreaElement, CyberTextArea
                 />
 
                 <textarea
-                    className="flex min-h-[120px] w-full bg-transparent px-4 py-3 text-sm text-white focus:outline-none placeholder:text-white/40 font-mono tracking-tight resize-none"
+                    className="flex min-h-[120px] w-full bg-transparent px-4 py-3 text-sm text-zinc-100 focus:outline-none placeholder:text-zinc-500 font-mono tracking-tight resize-none"
                     ref={ref}
                     onFocus={(e) => {
                         setIsFocused(true);

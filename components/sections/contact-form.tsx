@@ -55,7 +55,7 @@ export function ContactForm() {
   return (
     <section
       id="contact"
-      className="relative container mx-auto max-w-7xl px-4 py-24 md:px-6 overflow-hidden"
+      className="relative container mx-auto max-w-7xl px-4 py-12 md:py-24 md:px-6 overflow-hidden"
     >
       {/* Hero-Style Background Grid (Replicated) */}
       <div className="absolute inset-0 z-0 opacity-10" 
@@ -153,7 +153,7 @@ export function ContactForm() {
                   className={cn(
                     "h-12 w-full rounded-sm border text-xs font-mono uppercase tracking-widest transition-all",
                     status === "IDLE"
-                      ? "border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:border-white/30 hover:text-white"
+                      ? "border-white/20 bg-white/10 text-zinc-300 hover:bg-white/20 hover:border-white/40 hover:text-white"
                       : "border-accent/20 bg-accent/10 text-accent"
                   )}
                 >

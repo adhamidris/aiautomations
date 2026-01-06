@@ -53,7 +53,7 @@ export function ServicesDossier() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         <div className="text-center mb-16 md:mb-24">
-             <h2 className="text-white/70 underline decoration-zinc-400/30 underline-offset-4 decoration-1 font-mono text-xs uppercase tracking-[0.2em] mb-4">
+             <h2 className="text-zinc-300 underline decoration-zinc-400/30 underline-offset-4 decoration-1 font-mono text-xs uppercase tracking-[0.2em] mb-4">
                 Full Stack Solutions
              </h2>
              <h3 className="text-3xl md:text-5xl font-bold text-white tracking-tight">
@@ -65,7 +65,7 @@ export function ServicesDossier() {
 
         <div className="relative">
              {/* The Dossier List */}
-             <div className="border-t border-white/5">
+             <div className="border-t border-white/10">
                 {services.map((service) => (
                     <ServiceLine 
                         key={service.number}

@@ -70,7 +70,7 @@ const PARTNERS = [
   {
     id: "research",
     name: "Research & Insights",
-    icon: <BrandIcons.Stripe className="w-8 h-8 text-white" />,
+    icon: <BrandIcons.MarketResearch className="w-8 h-8 text-white" />,
     category: "Data",
     description: (
        <span className="flex flex-col gap-1">

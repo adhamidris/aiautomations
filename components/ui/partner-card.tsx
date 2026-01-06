@@ -84,7 +84,7 @@ export const PartnerCard = ({ name, icon, category, description, className }: Pa
       
       <div className="relative z-10 flex flex-col h-full">
         <div className="flex items-start justify-between mb-4">
-          <div className="p-3 rounded-sm bg-white/5 border border-white/10 text-white group-hover:text-white group-hover:border-white/30 group-hover:bg-white/10 transition-colors duration-300">
+          <div className="text-white group-hover:text-white transition-colors duration-300">
             {icon}
           </div>
           <span className="text-[10px] font-heading font-bold uppercase tracking-widest text-zinc-300 border border-white/5 px-2 py-1 rounded-full bg-white/5 group-hover:text-white group-hover:border-white/10 transition-colors">

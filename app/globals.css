@@ -15,16 +15,16 @@
 }
 
 .dark {
-  /* Dark Mode */
-  --background: #000000;
-  --foreground: #F9FAFB;
-  --card: #000000;
-  --accent: #D4D4D8;
+  /* Dark Mode - Premium High-Contrast Theme */
+  --background: #09090b; /* Zinc 950 - Richer, deeper black */
+  --foreground: #ffffff; /* Pure White - Max contrast */
+  --card: #18181b;       /* Zinc 900 - Distinct surface */
+  --accent: #27272a;     /* Zinc 800 */
   --accent-foreground: #ffffff;
-  --muted: #111111;
-  --muted-foreground: #a1a1aa;
-  --border: rgba(255, 255, 255, 0.1);
-  --grid-color: rgba(255, 255, 255, 0.03);
+  --muted: #27272a;      /* Zinc 800 - Lighter than background for separation */
+  --muted-foreground: #d4d4d8; /* Zinc 300 - Much brighter for readability */
+  --border: #3f3f46;     /* Zinc 700 - clearer borders */
+  --grid-color: rgba(255, 255, 255, 0.08); /* Slightly more visible grid */
 }
 
 @theme inline {
