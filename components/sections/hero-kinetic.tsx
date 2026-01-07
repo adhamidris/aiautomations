@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 
@@ -20,6 +19,12 @@ export const HeroKinetic = () => {
                  }} 
             />
             
+            {/* Ambient Ceiling Light */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[400px] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/10 via-white/5 to-transparent blur-3xl pointer-events-none z-0" />
+            
+            {/* Direct Spotlight - Root Level */}
+            <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[70vw] max-w-[600px] h-[350px] rounded-full bg-white/5 blur-[120px] pointer-events-none z-40" />
+
             {/* Main Content */}
             <div className="relative z-10 flex flex-col items-center justify-center min-h-[100dvh] py-20 md:h-full md:py-0">
                 <motion.h1 
@@ -29,14 +34,9 @@ export const HeroKinetic = () => {
                     <div className="relative flex items-center justify-center w-full max-w-5xl mx-auto py-4 sm:py-8 lg:py-12">
                         {/* Fixed Spotlight Glow */}
 
-                        <Image 
-                            src="/autom8ed.png" 
-                            alt="Autom8ed" 
-                            width={1371} 
-                            height={350}
-                            priority
-                            className="w-[85vw] sm:w-[65vw] md:w-[50vw] lg:w-[45vw] h-auto object-contain"
-                        />
+                        <h1 className="font-heading font-black text-[15vw] md:text-[12vw] leading-none text-white select-none pointer-events-none opacity-100 tracking-tighter">
+                            AUTOM8ED
+                        </h1>
                     </div>
                     <StreamingText />
                 </motion.h1>
