@@ -117,16 +117,13 @@ export const EcosystemGrid = () => {
                         <h3 className="text-2xl font-light tracking-tight text-white mb-6">
                             Have another operation you would like automated?
                         </h3>
-                        <button 
-                            onClick={(e) => {
-                                e.preventDefault();
-                                document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "center" });
-                            }}
+                        <a 
+                            href="#contact"
                             className="group inline-flex items-center gap-2 text-zinc-400 hover:text-white transition-colors duration-300 cursor-pointer"
                         >
                             <span className="text-xs font-mono uppercase tracking-widest">TELL US MORE</span>
                             <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-                        </button>
+                        </a>
                      </div>
                 </div>
             </div>

@@ -45,11 +45,8 @@ export function StickyNav() {
 
             {/* Creative CTA */}
             <div className="flex items-center gap-3 md:gap-4">
-              <button 
-                onClick={(e) => {
-                    e.preventDefault();
-                    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "center" });
-                }}
+              <a 
+                href="#contact"
                 className="group relative overflow-hidden rounded-full bg-white px-6 md:px-8 py-2.5 transition-all hover:bg-zinc-200 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] active:scale-95 cursor-pointer"
               >
                  <div className="absolute inset-0 bg-[linear-gradient(110deg,transparent,45%,rgba(0,0,0,0.1),55%,transparent)] bg-[length:200%_100%] transition-all duration-500 group-hover:bg-[position:100%_0] bg-no-repeat bg-[position:-100%_0]" />
@@ -60,7 +57,7 @@ export function StickyNav() {
                     </span>
                     BOOK A MEETING
                  </span>
-              </button>
+              </a>
             </div>
           </div>
         </motion.div>

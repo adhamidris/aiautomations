@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
-import { CheckCircle, Terminal } from "lucide-react"
+import { CheckCircle } from "lucide-react"
 import { CyberInput, CyberTextArea } from "@/components/ui/cyber-input"
 import { CyberPanel } from "@/components/ui/cyber-panel"
 import { CyberBadge } from "@/components/ui/cyber-badge"
@@ -55,7 +55,7 @@ export function ContactForm() {
   return (
     <section
       id="contact"
-      className="relative container mx-auto max-w-7xl px-4 py-12 md:py-24 md:px-6 overflow-hidden"
+      className="relative container mx-auto max-w-7xl px-4 py-8 md:py-24 md:px-6 overflow-hidden"
     >
       {/* Hero-Style Background Grid (Replicated) */}
       <div className="absolute inset-0 z-0 opacity-10" 
@@ -72,22 +72,22 @@ export function ContactForm() {
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-zinc-950 to-transparent z-0 pointer-events-none" />
 
       <div className="relative z-10">
-      <CyberPanel variant="list" className="min-h-[620px]">
+      <CyberPanel variant="list" className="min-h-0 md:min-h-[620px]">
         <div className="grid grid-cols-1 md:grid-cols-2">
           {/* Left: Context + Terminal */}
-          <div className="flex flex-col justify-between border-b border-white/5 bg-black/50 px-8 py-10 md:px-12 md:py-14 md:border-b-0 md:border-r">
-            <div className="space-y-8">
+          <div className="flex flex-col justify-between border-b border-white/5 bg-black/50 px-6 py-8 md:px-12 md:py-14 md:border-b-0 md:border-r">
+            <div className="space-y-6 md:space-y-8">
               <CyberBadge
                 text={status === "IDLE" ? "Contact Us" : status}
                 status={status === "IDLE" ? "online" : "audit"}
                 className="border-none"
               />
-              <div className="space-y-4">
-                <h2 className="font-heading text-4xl md:text-5xl font-bold tracking-tight text-white">
+              <div className="space-y-3 md:space-y-4">
+                <h2 className="font-heading text-3xl md:text-5xl font-bold tracking-tight text-white">
                   Get in <span className="text-white/50">Touch</span>
                 </h2>
                 <p className="max-w-sm font-sans text-sm leading-relaxed text-white/60">
-                  Ready to start your project? Fill out the form below and we'll get back to you shortly.
+                  Ready to start your project? Fill out the form below and we&apos;ll get back to you shortly.
                 </p>
               </div>
             </div>
@@ -97,7 +97,7 @@ export function ContactForm() {
           </div>
 
           {/* Right: Pure Form */}
-             <div className="flex flex-col justify-center bg-white/[0.02] px-8 py-10 md:px-12 md:py-14 relative overflow-hidden">
+             <div className="flex flex-col justify-center bg-white/[0.02] px-6 py-8 md:px-12 md:py-14 relative overflow-hidden">
              <motion.div layout className="w-full relative z-10">
                <AnimatePresence mode="wait">
                  {status === "SUCCESS" ? (
@@ -124,7 +124,7 @@ export function ContactForm() {
                         Message Sent
                       </h3>
                       <p className="font-sans text-base leading-relaxed text-zinc-400">
-                        Thanks for reaching out! We've received your inquiry and will be in touch shortly.
+                        Thanks for reaching out! We&apos;ve received your inquiry and will be in touch shortly.
                       </p>
                     </div>
 

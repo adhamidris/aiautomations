@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
+
 export const HeroKinetic = () => {
     const { scrollY } = useScroll();
     const y1 = useTransform(scrollY, [0, 500], [0, 200]);
@@ -10,7 +11,7 @@ export const HeroKinetic = () => {
     const blur = useTransform(scrollY, [0, 400], ["blur(0px)", "blur(12px)"]);
 
     return (
-        <section className="relative h-screen w-full overflow-hidden bg-zinc-950 text-white selection:bg-white/20">
+        <section className="relative w-full bg-zinc-950 text-white selection:bg-white/20 overflow-x-hidden min-h-[100dvh] md:h-screen md:overflow-hidden">
             {/* Background Grid */}
             <div className="absolute inset-0 z-0 opacity-10" 
                  style={{ 
@@ -20,7 +21,7 @@ export const HeroKinetic = () => {
             />
             
             {/* Main Content */}
-            <div className="relative z-10 flex h-full flex-col items-center justify-center">
+            <div className="relative z-10 flex flex-col items-center justify-center min-h-[100dvh] py-20 md:h-full md:py-0">
                 <motion.h1 
                     style={{ y: y1, filter: blur }}
                     className="flex flex-col items-center justify-center text-center font-heading font-black leading-[0.85] tracking-tighter w-full max-w-[100vw] px-4"
@@ -42,11 +43,8 @@ export const HeroKinetic = () => {
 
                 {/* Standard Tech CTA */}
                 <div className="relative mt-8 md:mt-12 z-20">
-                    <button 
-                        onClick={(e) => {
-                            e.preventDefault();
-                            document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "center" });
-                        }}
+                    <a 
+                        href="#contact"
                         className="group relative flex items-center justify-center px-8 py-4 rounded-full bg-white text-black border border-white transition-all duration-300 hover:bg-zinc-200 hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.3)] cursor-pointer"
                     >
                          <span className="font-heading text-xs md:text-sm font-black tracking-wide flex items-center gap-2">
@@ -56,7 +54,7 @@ export const HeroKinetic = () => {
                             </span>
                             BOOK A MEETING
                          </span>
-                    </button>
+                    </a>
                 </div>
                 
                 {/* Secondary data */}

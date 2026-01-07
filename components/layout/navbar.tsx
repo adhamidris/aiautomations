@@ -23,9 +23,9 @@ export function Navbar() {
           <Button variant="outline" size="sm" className="hidden sm:inline-flex">
             Client Login
           </Button>
-          <Button size="sm" className="bg-white/90 text-black border border-white hover:bg-white">
+          <Link href="#contact" className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white/90 text-black border border-white hover:bg-white h-9 rounded-md px-3">
             Book Audit
-          </Button>
+          </Link>
         </div>
       </div>
     </header>
