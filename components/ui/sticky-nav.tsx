@@ -43,6 +43,13 @@ export function StickyNav() {
               </span>
             </div>
 
+            {/* Nav Links */}
+            <div className="hidden md:flex items-center gap-4">
+              <a href="/privacy-policy" className="text-sm font-medium text-white/70 hover:text-white transition-colors">
+                Privacy Policy
+              </a>
+            </div>
+
             {/* Creative CTA */}
             <div className="flex items-center gap-3 md:gap-4">
               <a 

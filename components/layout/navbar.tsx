@@ -6,7 +6,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-muted/50 bg-background/80 backdrop-blur-xl">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
         <Link href="/" className="font-heading text-xl font-bold tracking-tighter text-white">
-          JOE<span className="text-accent">.AUTOMATION</span>
+          AUTOM<span className="text-accent">8ED</span>
         </Link>
         <nav className="hidden gap-6 md:flex">
           <Link href="#services" className="text-sm font-medium text-muted-foreground transition-colors hover:text-white">
@@ -17,6 +17,9 @@ export function Navbar() {
           </Link>
           <Link href="#about" className="text-sm font-medium text-muted-foreground transition-colors hover:text-white">
             About
+          </Link>
+          <Link href="/privacy-policy" className="text-sm font-medium text-muted-foreground transition-colors hover:text-white">
+            Privacy Policy
           </Link>
         </nav>
         <div className="flex items-center gap-4">
