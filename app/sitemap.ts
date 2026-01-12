@@ -3,7 +3,7 @@ import { MetadataRoute } from "next";
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://autom8ed.netlify.app";
+  const baseUrl = "https://autom8ed.space";
 
   return [
     {

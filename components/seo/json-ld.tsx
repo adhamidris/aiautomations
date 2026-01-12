@@ -4,27 +4,27 @@ export default function JsonLd() {
     "@graph": [
       {
         "@type": "WebSite",
-        "@id": "https://autom8ed.netlify.app/#website",
-        "url": "https://autom8ed.netlify.app/",
-        "name": "Automate Your Growth",
-        "description": "Specializing in HubSpot, n8n, Zapier, Make, and Salesforce automation.",
+        "@id": "https://autom8ed.space/#website",
+        "url": "https://autom8ed.space/",
+        "name": "AUTOM8ED",
+        "description": "Premium Web Development & AI Solutions.",
         "publisher": {
-          "@id": "https://autom8ed.netlify.app/#organization"
+          "@id": "https://autom8ed.space/#organization"
         },
         "potentialAction": {
           "@type": "SearchAction",
-          "target": "https://autom8ed.netlify.app/?s={search_term_string}",
+          "target": "https://autom8ed.space/?s={search_term_string}",
           "query-input": "required name=search_term_string"
         }
       },
       {
         "@type": "Organization",
-        "@id": "https://autom8ed.netlify.app/#organization",
-        "name": "Automate Your Growth",
-        "url": "https://autom8ed.netlify.app/",
+        "@id": "https://autom8ed.space/#organization",
+        "name": "AUTOM8ED",
+        "url": "https://autom8ed.space/",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://autom8ed.netlify.app/favicon.png",
+          "url": "https://autom8ed.space/favicon.png",
           "width": 112,
           "height": 112
         },
@@ -36,11 +36,11 @@ export default function JsonLd() {
       },
       {
         "@type": "ProfessionalService",
-        "@id": "https://autom8ed.netlify.app/#service",
-        "name": "Automate Your Growth",
-        "url": "https://autom8ed.netlify.app/",
-        "image": "https://autom8ed.netlify.app/opengraph-image",
-        "description": "Specializing in HubSpot, n8n, Zapier, Make, and Salesforce automation.",
+        "@id": "https://autom8ed.space/#service",
+        "name": "AUTOM8ED",
+        "url": "https://autom8ed.space/",
+        "image": "https://autom8ed.space/opengraph-image",
+        "description": "Premium Web Development & AI Solutions.",
         "priceRange": "$$$"
       }
     ]

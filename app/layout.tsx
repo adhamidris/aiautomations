@@ -19,30 +19,30 @@ import { ThemeProvider } from "@/components/theme-provider";
 import JsonLd from "@/components/seo/json-ld";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://autom8ed.netlify.app"),
+  metadataBase: new URL("https://autom8ed.space"),
   title: {
-    default: "Automate Your Growth | Marketing Automation Expert",
-    template: "%s | Automate Your Growth",
+    default: "AUTOM8ED | Web Development & AI Solutions",
+    template: "%s | AUTOM8ED",
   },
-  description: "Specializing in HubSpot, n8n, Zapier, Make, and Salesforce automation.",
-  keywords: ["Automation", "HubSpot", "n8n", "Zapier", "Make", "Salesforce", "Marketing Automation", "Workflow Automation"],
+  description: "Premium Web Development, AI Integrations, Custom Workflows, and RAG Solutions.",
+  keywords: ["Web Development", "AI Integration", "RAG", "Automation", "Next.js", "React", "TypeScript", "Tailwind CSS"],
   authors: [{ name: "Adham" }],
   creator: "Adham",
   alternates: {
-    canonical: "https://autom8ed.netlify.app",
+    canonical: "https://autom8ed.space",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://autom8ed.netlify.app",
-    title: "Automate Your Growth | Marketing Automation Expert",
-    description: "Specializing in HubSpot, n8n, Zapier, Make, and Salesforce automation.",
-    siteName: "Automate Your Growth",
+    url: "https://autom8ed.space",
+    title: "AUTOM8ED | Web Development & AI Solutions",
+    description: "Premium Web Development, AI Integrations, Custom Workflows, and RAG Solutions.",
+    siteName: "AUTOM8ED",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Automate Your Growth | Marketing Automation Expert",
-    description: "Specializing in HubSpot, n8n, Zapier, Make, and Salesforce automation.",
+    title: "AUTOM8ED | Web Development & AI Solutions",
+    description: "Premium Web Development, AI Integrations, Custom Workflows, and RAG Solutions.",
   },
   robots: {
     index: true,
@@ -56,9 +56,21 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.png",
-    shortcut: "/favicon.png",
-    apple: "/favicon.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" }
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/favicon-180x180.png",
+    other: [
+      {
+        rel: "mask-icon",
+        url: "/safari-pinned-tab.svg",
+        color: "#0B0B0B"
+      }
+    ]
   },
 };
 

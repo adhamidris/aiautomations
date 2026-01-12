@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 export const runtime = "edge";
 export const dynamic = "force-static";
 
-export const alt = "Automate Your Growth";
+export const alt = "AUTOM8ED | Web Development & AI Solutions";
 export const size = {
     width: 1200,
     height: 630,
@@ -42,9 +42,11 @@ export default async function Image() {
                     }}
                 />
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                    <span style={{ fontSize: 64, opacity: 0.8, marginBottom: 20 }}>Automate Your Growth</span>
-                    <span style={{ fontWeight: "bold", background: "linear-gradient(to bottom right, #fff, #888)", backgroundClip: "text", color: "transparent" }}>
-                        Autom8ed
+                    <span style={{ fontWeight: "bold", background: "linear-gradient(to bottom right, #fff, #888)", backgroundClip: "text", color: "transparent", marginBottom: 20 }}>
+                        AUTOM8ED
+                    </span>
+                    <span style={{ fontSize: 48, opacity: 0.8, textAlign: "center", maxWidth: "80%" }}>
+                        Premium Web Development & AI Solutions
                     </span>
                 </div>
             </div>
