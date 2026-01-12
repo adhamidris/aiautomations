@@ -8,12 +8,33 @@ export function StickyNav() {
   const { scrollY } = useScroll();
   const [visible, setVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isContactVisible, setIsContactVisible] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsContactVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 } // Trigger when 10% of contact form is visible
+    );
+
+    const contactSection = document.getElementById("contact");
+    if (contactSection) {
+      observer.observe(contactSection);
+    }
+
+    return () => {
+      if (contactSection) {
+        observer.unobserve(contactSection);
+      }
+    };
   }, []);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -25,9 +46,11 @@ export function StickyNav() {
     }
   });
 
+  const shouldShow = visible && (!isMobile || !isContactVisible);
+
   return (
     <AnimatePresence mode="wait">
-      {visible && (
+      {shouldShow && (
         <motion.div
           initial={{ y: isMobile ? 100 : -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}

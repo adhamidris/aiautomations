@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef } from "react";
 
 import { PartnerCard } from "@/components/ui/partner-card";
 import { Meteors } from "@/components/ui/meteors";
@@ -102,8 +102,10 @@ export const EcosystemGrid = () => {
                         Automations
                      </h2>
                      <h3 className="text-3xl md:text-5xl font-bold text-white tracking-tight">
-                        Say No to Repeated Tasks<br/>
-                        <TypewriterText />
+                        No Repeated Tasks.<br/>
+                        <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white">
+                            Automate Everything.
+                        </span>
                      </h3>
                 </div>
 
@@ -131,36 +133,4 @@ export const EcosystemGrid = () => {
     );
 };
 
-const TypewriterText = () => {
-    const textToType = "Automate Everything.";
-    const [text, setText] = useState("");
-    const [isDeleting, setIsDeleting] = useState(false);
-    const [typingSpeed, setTypingSpeed] = useState(150);
 
-    useEffect(() => {
-        const handleTyping = () => {
-            setText(prev => isDeleting 
-                ? textToType.substring(0, prev.length - 1) 
-                : textToType.substring(0, prev.length + 1)
-            );
-
-            setTypingSpeed(isDeleting ? 30 : 100);
-
-            if (!isDeleting && text === textToType) {
-                setTimeout(() => setIsDeleting(true), 2000); // Pause at end
-            } else if (isDeleting && text === "") {
-                setIsDeleting(false);
-                setTypingSpeed(500); // Pause before start
-            }
-        };
-
-        const timer = setTimeout(handleTyping, typingSpeed);
-        return () => clearTimeout(timer);
-    }, [text, isDeleting, typingSpeed, textToType]);
-
-    return (
-        <span className="block mt-2 min-h-[1.2em] text-transparent bg-clip-text bg-gradient-to-r from-white via-white/80 to-white">
-            {text}
-        </span>
-    );
-};

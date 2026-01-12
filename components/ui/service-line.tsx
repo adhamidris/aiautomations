@@ -45,7 +45,7 @@ export const ServiceLine = ({ number, title, description, tags, isOpen, onToggle
       {/* Massive Watermark Number */}
       <span className={cn(
         "absolute -top-6 right-0 text-[8rem] md:text-[10rem] font-bold leading-none tracking-tighter select-none pointer-events-none transition-all duration-700 ease-out z-0",
-        isActive ? "text-foreground/5 opacity-100 blur-0 scale-100" : "text-transparent opacity-0 blur-xl scale-90"
+        isActive ? "text-foreground/5 opacity-100 scale-100" : "text-transparent opacity-0 scale-90"
       )}>
         {number}
       </span>
@@ -56,14 +56,14 @@ export const ServiceLine = ({ number, title, description, tags, isOpen, onToggle
              {/* Small semantic number */}
              <span className={cn(
                 "hidden md:block font-mono text-sm tracking-widest transition-colors duration-300 shrink-0",
-                isActive ? "text-accent-foreground" : "text-muted-foreground"
+                isActive ? "text-accent-foreground" : "text-zinc-300"
              )}>
                 {number}
              </span>
              
              <h3 className={cn(
                "text-2xl md:text-4xl font-light tracking-tight transition-all duration-300 break-words",
-               isActive ? "text-white translate-x-4" : "text-zinc-400 translate-x-0"
+               isActive ? "text-white translate-x-4" : "text-white translate-x-0"
              )}>
                {title}
              </h3>
@@ -73,7 +73,7 @@ export const ServiceLine = ({ number, title, description, tags, isOpen, onToggle
             "p-3 rounded-full transition-all duration-500 shrink-0",
             isActive 
               ? "bg-white text-zinc-950 rotate-180 scale-110" 
-              : "bg-transparent text-zinc-400 rotate-0 scale-100"
+              : "bg-transparent text-white rotate-0 scale-100"
           )}>
             <ArrowDown className="w-5 h-5 transition-colors" />
           </div>

@@ -74,9 +74,10 @@ export const HeroKinetic = () => {
 };
 
 const PHRASES = [
-  "AI SOLUTIONS",
+  "WEB DEVELOPMENT",
+  "AI INTEGRATIONS",
   "WORKFLOWS",
-  "CHATBOTS"
+  "RAG"
 ];
 
 const StreamingText = () => {
@@ -115,7 +116,7 @@ const StreamingText = () => {
     // Logo: w-[85vw] sm:w-[65vw] md:w-[50vw] lg:w-[45vw]
     // Text approx: 85/10 ~ 8.5vw (mobile), 45/10 ~ 4.5vw (desktop) if matching width exactly.
     // But keeping it slightly larger for hierarchy.
-    const textSizeClass = "text-[12vw] sm:text-[10vw] md:text-[8vw] lg:text-[6vw]";
+    const textSizeClass = "text-[7vw] sm:text-[10vw] md:text-[8vw] lg:text-[6vw]";
   
     return (
       <div className="relative h-[16vw] sm:h-[13vw] md:h-[10vw] w-full flex items-center justify-center overflow-visible">

@@ -20,15 +20,15 @@ export function WebPortfolio() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
-          <div className="max-w-2xl">
+        <div className="flex flex-col items-center justify-center mb-16 gap-8 text-center w-full">
+          <div className="max-w-2xl mx-auto">
             <h2 className="text-zinc-300 underline decoration-zinc-400/30 underline-offset-4 decoration-1 font-mono text-xs uppercase tracking-[0.2em] mb-4">
               Selected Work
             </h2>
             <h3 className="text-3xl md:text-5xl font-bold text-white tracking-tight mb-6">
               Crafting Digital Experiences.
             </h3>
-            <p className="text-zinc-400 text-lg leading-relaxed max-w-xl">
+            <p className="text-zinc-400 text-lg leading-relaxed max-w-xl mx-auto">
               We build immersive, high-performance web applications that drive growth. 
               Here is a glimpse of our latest work in action.
             </p>

@@ -35,7 +35,7 @@ export function ServicesDossier() {
   const [activeService, setActiveService] = React.useState<string | null>(null);
 
   return (
-    <section className="relative w-full py-24 md:py-32 bg-transparent overflow-hidden">
+    <section className="relative w-full pt-24 pb-48 md:pt-32 md:pb-64 bg-transparent overflow-hidden">
       {/* Hero-Style Background Grid (Replicated) */}
       <div className="absolute inset-0 z-0 opacity-10" 
            style={{ 
