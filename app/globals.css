@@ -59,6 +59,7 @@ body {
   color: var(--foreground);
   font-family: var(--font-inter), sans-serif;
   overflow-x: hidden;
+  overflow-anchor: none;
 }
 
 h1,
