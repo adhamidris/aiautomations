@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import { cn } from "@/lib/utils";
-import { Meteors } from "@/components/ui/meteors";
+import { StarField } from "@/components/ui/star-field";
+
 
 const testimonials = [
   {
@@ -93,10 +94,10 @@ export const Testimonials = ({
   return (
     <section className="relative w-full py-20 lg:py-32 overflow-hidden bg-black">
       
-      <Meteors number={12} />
 
-      {/* Top Fade Blend */}
-      <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-zinc-950 to-black z-10 pointer-events-none" />
+      <StarField density={400} speed={0.1} className="opacity-10" />
+
+
 
 
       

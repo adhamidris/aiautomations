@@ -12,7 +12,7 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
 });
 
-import { MouseGlow } from "@/components/ui/mouse-glow";
+
 import { GrainOverlay } from "@/components/ui/grain-overlay";
 import { StickyNav } from "@/components/ui/sticky-nav";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -73,7 +73,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <MouseGlow />
+          
+
           <GrainOverlay />
           <StickyNav />
           {children}
