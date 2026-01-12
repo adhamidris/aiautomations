@@ -92,7 +92,7 @@ export function ContactForm() {
             </div>
 
             {/* Right: Pure Form */}
-            <div className="flex flex-col justify-center bg-white/[0.05] px-6 py-8 md:px-12 md:py-14 relative overflow-hidden">
+            <div className="flex flex-col justify-center bg-white/[0.05] px-6 py-8 md:px-12 md:py-14 relative md:overflow-hidden">
               <motion.div layout className="w-full relative z-10">
                 <AnimatePresence mode="wait">
                   {status === "SUCCESS" ? (
