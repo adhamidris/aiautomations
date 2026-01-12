@@ -34,8 +34,9 @@ export const HeroKinetic = () => {
           <div className="relative flex items-center justify-center w-full max-w-5xl mx-auto py-4 sm:py-8 lg:py-12">
             {/* Fixed Spotlight Glow */}
 
-            <h1 className="font-heading font-black text-[15vw] md:text-[12vw] leading-none text-white select-none pointer-events-none opacity-100 tracking-tighter">
-              AUTOM8ED
+            <h1 className="font-heading font-black text-[14vw] md:text-[12vw] leading-none text-white select-none pointer-events-none opacity-100 tracking-tighter flex flex-col items-center md:block w-fit mx-auto px-4">
+              <span>AUTOM8ED</span>
+              <span className="self-end md:self-auto text-[0.15em] text-zinc-400 font-mono tracking-normal opacity-80 animate-glitch mt-[-2vw] md:mt-0" data-text=".space">.space</span>
             </h1>
           </div>
           <StreamingText />

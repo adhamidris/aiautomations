@@ -34,6 +34,10 @@ const services = [
 export function ServicesDossier() {
   const [activeService, setActiveService] = React.useState<string | null>(null);
 
+  const handleToggle = React.useCallback((id: string) => {
+    setActiveService(prev => prev === id ? null : id);
+  }, []);
+
   return (
     <section className="relative w-full pt-24 pb-48 md:pt-32 md:pb-64 bg-transparent overflow-hidden">
       {/* Hero-Style Background Grid (Replicated) */}
@@ -73,7 +77,7 @@ export function ServicesDossier() {
                 key={service.number}
                 {...service}
                 isOpen={activeService === service.number}
-                onToggle={() => setActiveService(activeService === service.number ? null : service.number)}
+                onToggle={handleToggle}
               />
             ))}
           </div>
