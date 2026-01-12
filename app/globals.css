@@ -233,7 +233,7 @@ h6 {
     left: 1px;
     text-shadow: -1px 0 #ff00c1;
     clip-path: inset(50% 0 30% 0);
-    animation: glitch-anim-1 3s infinite linear alternate-reverse;
+    animation: glitch-anim-1 5s infinite linear alternate-reverse;
     opacity: 0.4;
   }
 
@@ -241,7 +241,7 @@ h6 {
     left: -1px;
     text-shadow: -1px 0 #00fff9;
     clip-path: inset(10% 0 60% 0);
-    animation: glitch-anim-2 3.5s infinite linear alternate-reverse;
+    animation: glitch-anim-2 6s infinite linear alternate-reverse;
     opacity: 0.4;
   }
 }

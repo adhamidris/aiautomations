@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { Bot, Code2, Sparkles } from "lucide-react";
 
 
 export const HeroKinetic = () => {
@@ -35,7 +36,7 @@ export const HeroKinetic = () => {
 
             <h1 className="font-heading font-black text-[14vw] md:text-[12vw] leading-none text-white select-none pointer-events-none opacity-100 tracking-tighter flex flex-col items-center md:flex-row md:items-baseline md:justify-center w-full px-4">
               <span>AUTOM8ED</span>
-              <span className="self-end md:self-auto text-[0.25em] md:text-[0.15em] text-zinc-400 font-mono tracking-normal opacity-80 animate-glitch mt-2 md:mt-0" data-text=".space">.space</span>
+              <span className="self-end md:self-auto text-[0.25em] md:text-[0.15em] text-zinc-400 font-mono tracking-normal opacity-80 animate-glitch mt-0 md:mt-0" data-text=".space">.space</span>
             </h1>
           </div>
           <StreamingText />
@@ -43,29 +44,37 @@ export const HeroKinetic = () => {
 
         {/* Standard Tech CTA */}
         <div className="relative mt-8 md:mt-12 z-20">
-          <div className="flex items-center p-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-[0_0_20px_rgba(0,0,0,0.5)] overflow-hidden">
+          <div className="flex items-center p-1 md:p-1.5 rounded-full border border-white/80 bg-white shadow-[0_0_25px_rgba(255,255,255,0.2)]">
 
             {/* Automation Pill */}
             <a
               href="#services"
-              className="relative px-6 py-3 rounded-full hover:bg-white/10 transition-all duration-300 group flex items-center justify-center gap-2"
+              className="group relative px-3 py-2 md:px-6 md:py-3 rounded-full hover:bg-zinc-50 transition-all duration-300 flex items-center justify-center gap-1.5 md:gap-2.5"
             >
-              <span className="font-heading font-black text-xs md:text-sm tracking-wider text-zinc-300 group-hover:text-white transition-colors animate-glitch-subtle" data-text="AUTOMATION">
+              <Bot className="w-3 h-3 md:w-4 md:h-4 text-zinc-400 group-hover:text-violet-600 group-hover:scale-110 transition-all duration-300" />
+              <span
+                className="font-heading font-black text-[10px] md:text-sm tracking-wider text-zinc-950 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-violet-600 group-hover:to-indigo-600 transition-all duration-300 animate-glitch-subtle group-hover:animate-none"
+                data-text="AUTOMATION"
+              >
                 AUTOMATION
               </span>
             </a>
 
-            {/* Vertical Divider */}
-            <div className="w-px h-5 bg-white/10 mx-1" />
+            {/* Angle Divider */}
+            <div className="w-px h-4 md:h-6 bg-zinc-200 rotate-12 mx-0.5 md:mx-1" />
 
             {/* Web Dev Pill */}
             <a
               href="#portfolio"
-              className="relative px-6 py-3 rounded-full hover:bg-white/10 transition-all duration-300 group flex items-center justify-center gap-2"
+              className="group relative px-3 py-2 md:px-6 md:py-3 rounded-full hover:bg-zinc-50 transition-all duration-300 flex items-center justify-center gap-1.5 md:gap-2.5"
             >
-              <span className="font-heading font-black text-xs md:text-sm tracking-wider text-zinc-300 group-hover:text-white transition-colors animate-glitch-subtle" data-text="WEB DEVELOPMENT">
+              <span
+                className="font-heading font-black text-[10px] md:text-sm tracking-wider text-zinc-950 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-emerald-500 group-hover:to-teal-500 transition-all duration-300 animate-glitch-subtle group-hover:animate-none"
+                data-text="WEB DEVELOPMENT"
+              >
                 WEB DEVELOPMENT
               </span>
+              <Code2 className="w-3 h-3 md:w-4 md:h-4 text-zinc-400 group-hover:text-emerald-500 group-hover:scale-110 transition-all duration-300" />
             </a>
 
           </div>
@@ -76,11 +85,6 @@ export const HeroKinetic = () => {
           style={{ y: y2 }}
           className="absolute bottom-8 md:bottom-12 flex w-full max-w-7xl justify-center px-4 md:px-8 text-[10px] md:text-xs font-mono text-zinc-400 uppercase tracking-widest"
         >
-          <div className="flex gap-4 md:gap-8">
-            <span>[01] Build</span>
-            <span>[02] Automate</span>
-            <span>[03] Review</span>
-          </div>
         </motion.div>
       </div>
     </section>
