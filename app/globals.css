@@ -14,6 +14,10 @@
   --grid-color: rgba(0, 0, 0, 0.05);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .dark {
   /* Dark Mode - Brightened Premium Theme */
   --background: #0e0e11;

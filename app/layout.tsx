@@ -25,6 +25,12 @@ export const metadata: Metadata = {
     template: "%s | Automate Your Growth",
   },
   description: "Specializing in HubSpot, n8n, Zapier, Make, and Salesforce automation.",
+  keywords: ["Automation", "HubSpot", "n8n", "Zapier", "Make", "Salesforce", "Marketing Automation", "Workflow Automation"],
+  authors: [{ name: "Adham" }],
+  creator: "Adham",
+  alternates: {
+    canonical: "https://autom8ed.netlify.app",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -73,7 +79,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          
+
 
           <GrainOverlay />
           <StickyNav />

@@ -39,7 +39,7 @@ export default function JsonLd() {
         "@id": "https://autom8ed.netlify.app/#service",
         "name": "Automate Your Growth",
         "url": "https://autom8ed.netlify.app/",
-        "image": "https://autom8ed.netlify.app/og-image.jpg",
+        "image": "https://autom8ed.netlify.app/opengraph-image",
         "description": "Specializing in HubSpot, n8n, Zapier, Make, and Salesforce automation.",
         "priceRange": "$$$"
       }

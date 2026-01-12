@@ -47,7 +47,7 @@ export const CyberPanel = ({
       viewport={{ once: true, margin: "-100px" }}
       transition={panelTransition}
       className={cn(
-        "relative w-full overflow-hidden rounded-sm border border-white/10 bg-black/40 shadow-2xl backdrop-blur-sm", 
+        "relative w-full overflow-hidden rounded-sm border border-white/10 bg-black/40 shadow-2xl", 
         className
       )}
     >

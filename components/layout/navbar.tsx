@@ -18,9 +18,6 @@ export function Navbar() {
           <Link href="#about" className="text-sm font-medium text-muted-foreground transition-colors hover:text-white">
             About
           </Link>
-          <Link href="/privacy-policy" className="text-sm font-medium text-muted-foreground transition-colors hover:text-white">
-            Privacy Policy
-          </Link>
         </nav>
         <div className="flex items-center gap-4">
           <Button variant="outline" size="sm" className="hidden sm:inline-flex">

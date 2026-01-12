@@ -29,16 +29,16 @@ export const HeroKinetic = () => {
       />
 
       {/* Ambient Ceiling Light */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[400px] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/10 via-white/5 to-transparent blur-3xl pointer-events-none z-0" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[400px] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/10 via-white/5 to-transparent blur-3xl pointer-events-none z-0 will-change-transform" />
 
       {/* Direct Spotlight - Root Level */}
-      <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[70vw] max-w-[600px] h-[350px] rounded-full bg-white/5 blur-[120px] pointer-events-none z-40" />
+      <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[70vw] max-w-[600px] h-[350px] rounded-full bg-white/5 blur-[120px] pointer-events-none z-40 will-change-transform" />
 
       {/* Main Content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-[100dvh] py-20 md:h-full md:py-0">
         <motion.h1
           style={{ y: isMobile ? 0 : y1 }}
-          className="flex flex-col items-center justify-center text-center font-heading font-black leading-[0.85] tracking-tighter w-full max-w-[100vw] px-4"
+          className="flex flex-col items-center justify-center text-center font-heading font-black leading-[0.85] tracking-tighter w-full max-w-[100vw] px-4 will-change-transform"
         >
           <div className="relative flex items-center justify-center w-full max-w-5xl mx-auto py-4 sm:py-8 lg:py-12">
             {/* Fixed Spotlight Glow */}
