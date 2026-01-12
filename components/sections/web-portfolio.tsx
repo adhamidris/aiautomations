@@ -58,10 +58,10 @@ const PROJECTS = [
 
 export function WebPortfolio() {
   return (
-    <section className="relative w-full pt-0 md:pt-0 pb-24 md:pb-32 bg-black overflow-hidden">
+    <section id="portfolio" className="relative w-full pt-0 md:pt-0 pb-24 md:pb-32 bg-black overflow-hidden">
 
       {/* Star Field & Meteors Background */}
-      <StarField density={800} speed={0.2} className="opacity-50" />
+      <StarField density={1500} speed={0.2} className="opacity-50" />
       <Meteors number={12} />
 
       {/* Dark Technical Background Grid */}

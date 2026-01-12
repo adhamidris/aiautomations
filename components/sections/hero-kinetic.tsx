@@ -7,7 +7,6 @@ export const HeroKinetic = () => {
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
   const y2 = useTransform(scrollY, [0, 500], [0, -150]);
-  const blur = useTransform(scrollY, [0, 400], ["blur(0px)", "blur(12px)"]);
 
   return (
     <section className="relative w-full bg-zinc-950 text-white selection:bg-white/20 overflow-x-hidden min-h-[100dvh] md:h-screen md:overflow-hidden">
@@ -28,15 +27,15 @@ export const HeroKinetic = () => {
       {/* Main Content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-[100dvh] py-20 md:h-full md:py-0">
         <motion.h1
-          style={{ y: y1, filter: blur }}
+          style={{ y: y1 }}
           className="flex flex-col items-center justify-center text-center font-heading font-black leading-[0.85] tracking-tighter w-full max-w-[100vw] px-4"
         >
           <div className="relative flex items-center justify-center w-full max-w-5xl mx-auto py-4 sm:py-8 lg:py-12">
             {/* Fixed Spotlight Glow */}
 
-            <h1 className="font-heading font-black text-[14vw] md:text-[12vw] leading-none text-white select-none pointer-events-none opacity-100 tracking-tighter flex flex-col items-center md:block w-fit mx-auto px-4">
+            <h1 className="font-heading font-black text-[14vw] md:text-[12vw] leading-none text-white select-none pointer-events-none opacity-100 tracking-tighter flex flex-col items-center md:flex-row md:items-baseline md:justify-center w-full px-4">
               <span>AUTOM8ED</span>
-              <span className="self-end md:self-auto text-[0.15em] text-zinc-400 font-mono tracking-normal opacity-80 animate-glitch mt-[-2vw] md:mt-0" data-text=".space">.space</span>
+              <span className="self-end md:self-auto text-[0.25em] md:text-[0.15em] text-zinc-400 font-mono tracking-normal opacity-80 animate-glitch mt-2 md:mt-0" data-text=".space">.space</span>
             </h1>
           </div>
           <StreamingText />
@@ -44,23 +43,37 @@ export const HeroKinetic = () => {
 
         {/* Standard Tech CTA */}
         <div className="relative mt-8 md:mt-12 z-20">
-          <a
-            href="#contact"
-            className="group relative flex items-center justify-center px-8 py-4 rounded-full bg-white text-black border border-white transition-all duration-300 hover:bg-zinc-200 hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.3)] cursor-pointer"
-          >
-            <span className="font-heading text-xs md:text-sm font-black tracking-wide flex items-center gap-2">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          <div className="flex items-center p-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-[0_0_20px_rgba(0,0,0,0.5)] overflow-hidden">
+
+            {/* Automation Pill */}
+            <a
+              href="#services"
+              className="relative px-6 py-3 rounded-full hover:bg-white/10 transition-all duration-300 group flex items-center justify-center gap-2"
+            >
+              <span className="font-heading font-black text-xs md:text-sm tracking-wider text-zinc-300 group-hover:text-white transition-colors animate-glitch-subtle" data-text="AUTOMATION">
+                AUTOMATION
               </span>
-              BOOK A MEETING
-            </span>
-          </a>
+            </a>
+
+            {/* Vertical Divider */}
+            <div className="w-px h-5 bg-white/10 mx-1" />
+
+            {/* Web Dev Pill */}
+            <a
+              href="#portfolio"
+              className="relative px-6 py-3 rounded-full hover:bg-white/10 transition-all duration-300 group flex items-center justify-center gap-2"
+            >
+              <span className="font-heading font-black text-xs md:text-sm tracking-wider text-zinc-300 group-hover:text-white transition-colors animate-glitch-subtle" data-text="WEB DEVELOPMENT">
+                WEB DEVELOPMENT
+              </span>
+            </a>
+
+          </div>
         </div>
 
         {/* Secondary data */}
         <motion.div
-          style={{ y: y2, filter: blur }}
+          style={{ y: y2 }}
           className="absolute bottom-8 md:bottom-12 flex w-full max-w-7xl justify-center px-4 md:px-8 text-[10px] md:text-xs font-mono text-zinc-400 uppercase tracking-widest"
         >
           <div className="flex gap-4 md:gap-8">

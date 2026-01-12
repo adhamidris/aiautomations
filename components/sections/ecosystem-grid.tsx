@@ -87,8 +87,8 @@ const PARTNERS = [
 export const EcosystemGrid = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   return (
-    <section className="relative w-full py-24 md:py-32 bg-transparent overflow-hidden" ref={containerRef}>
-      <StarField density={800} speed={0.2} className="opacity-50" />
+    <section id="services" className="relative w-full py-24 md:py-32 bg-transparent overflow-hidden" ref={containerRef}>
+      <StarField density={1500} speed={0.2} className="opacity-50" />
       <Meteors number={12} />
       {/* Dark Technical Background Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
