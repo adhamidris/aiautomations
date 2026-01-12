@@ -20,7 +20,9 @@ export const Meteors = ({
   const [meteorStyles, setMeteorStyles] = useState<MeteorStyle[]>([]);
 
   useEffect(() => {
-    const styles = new Array(number).fill(true).map(() => ({
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const count = isMobile ? Math.ceil(number / 2) : number;
+    const styles = new Array(count).fill(true).map(() => ({
       top: -5,
       left: Math.floor(Math.random() * 100) + "%",
       animationDelay: Math.random() * (1 - 0.2) + 0.2 + "s",

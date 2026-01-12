@@ -84,9 +84,6 @@ export function ContactForm() {
                   <h2 className="font-heading text-3xl md:text-5xl font-bold tracking-tight text-white">
                     Get in <span className="text-white/50">Touch</span>
                   </h2>
-                  <p className="max-w-sm font-sans text-sm leading-relaxed text-white/60">
-                    Ready to start your project? Fill out the form below and we&apos;ll get back to you shortly.
-                  </p>
                 </div>
               </div>
 

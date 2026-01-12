@@ -9,6 +9,15 @@ export const HeroKinetic = () => {
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
   const y2 = useTransform(scrollY, [0, 500], [0, -150]);
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
     <section className="relative w-full bg-zinc-950 text-white selection:bg-white/20 overflow-x-hidden min-h-[100dvh] md:h-screen md:overflow-hidden">
       {/* Background Grid */}
@@ -28,7 +37,7 @@ export const HeroKinetic = () => {
       {/* Main Content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-[100dvh] py-20 md:h-full md:py-0">
         <motion.h1
-          style={{ y: y1 }}
+          style={{ y: isMobile ? 0 : y1 }}
           className="flex flex-col items-center justify-center text-center font-heading font-black leading-[0.85] tracking-tighter w-full max-w-[100vw] px-4"
         >
           <div className="relative flex items-center justify-center w-full max-w-5xl mx-auto py-4 sm:py-8 lg:py-12">
@@ -82,7 +91,7 @@ export const HeroKinetic = () => {
 
         {/* Secondary data */}
         <motion.div
-          style={{ y: y2 }}
+          style={{ y: isMobile ? 0 : y2 }}
           className="absolute bottom-8 md:bottom-12 flex w-full max-w-7xl justify-center px-4 md:px-8 text-[10px] md:text-xs font-mono text-zinc-400 uppercase tracking-widest"
         >
         </motion.div>

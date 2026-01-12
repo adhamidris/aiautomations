@@ -43,7 +43,10 @@ export const StarField = ({ className, speed = 0.5, density = 400 }: StarFieldPr
     // Star initialization
     const stars: { x: number; y: number; opacity: number; speed: number; size: number }[] = [];
 
-    for (let i = 0; i < density; i++) {
+    const isMobile = window.innerWidth < 768;
+    const particleCount = isMobile ? Math.floor(density * 0.3) : density;
+
+    for (let i = 0; i < particleCount; i++) {
       stars.push({
         x: Math.random() * width,
         y: Math.random() * height,
