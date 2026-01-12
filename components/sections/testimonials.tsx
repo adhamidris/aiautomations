@@ -3,6 +3,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { StarField } from "@/components/ui/star-field";
+import { Meteors } from "@/components/ui/meteors";
 
 
 const testimonials = [
@@ -93,21 +94,25 @@ export const Testimonials = ({
 
   return (
     <section className="relative w-full py-20 lg:py-32 overflow-hidden bg-black">
-      
-
-      <StarField density={400} speed={0.1} className="opacity-10" />
 
 
+      <StarField density={800} speed={0.2} className="opacity-50" />
+      <Meteors number={12} />
+      {/* Dark Technical Background Grid */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,transparent_0%,#000000_100%)] pointer-events-none" />
 
 
-      
+
+
+
       {/* Bottom Fade Blend */}
       <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-zinc-950 to-black z-10 pointer-events-none" />
 
       <div className="container relative z-10 mx-auto px-4 mb-16 text-center">
-            <h2 className="text-zinc-300 underline decoration-zinc-400/30 underline-offset-4 decoration-1 font-mono text-xs uppercase tracking-[0.2em] mb-4">
-                Trusted by Industry Leaders
-            </h2>
+        <h2 className="text-zinc-300 underline decoration-zinc-400/30 underline-offset-4 decoration-1 font-mono text-xs uppercase tracking-[0.2em] mb-4">
+          Trusted by Industry Leaders
+        </h2>
       </div>
 
       <div
@@ -131,22 +136,22 @@ export const Testimonials = ({
               key={idx}
               className="relative w-[400px] max-w-full flex-shrink-0 py-4 md:w-[500px]"
             >
-                {/* Tech Accent Line */}
-                <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-white/30 to-transparent" />
+              {/* Tech Accent Line */}
+              <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-white/30 to-transparent" />
 
-                <blockquote className="relative z-20 pl-10">
-                    <p className="font-heading text-xl md:text-2xl leading-[1.4] text-white font-normal mb-6 tracking-tight">
-                    &quot;{item.quote}&quot;
-                    </p>
-                    <div className="relative z-20 flex flex-col items-start">
-                        <span className="font-mono text-sm text-zinc-300 font-bold uppercase tracking-wider">
-                            {item.name}
-                        </span>
-                        <span className="font-mono text-xs text-zinc-500 mt-1">
-                            {item.title}
-                        </span>
-                    </div>
-                </blockquote>
+              <blockquote className="relative z-20 pl-10">
+                <p className="font-heading text-xl md:text-2xl leading-[1.4] text-white font-normal mb-6 tracking-tight">
+                  &quot;{item.quote}&quot;
+                </p>
+                <div className="relative z-20 flex flex-col items-start">
+                  <span className="font-mono text-sm text-zinc-300 font-bold uppercase tracking-wider">
+                    {item.name}
+                  </span>
+                  <span className="font-mono text-xs text-zinc-500 mt-1">
+                    {item.title}
+                  </span>
+                </div>
+              </blockquote>
             </div>
           ))}
         </div>

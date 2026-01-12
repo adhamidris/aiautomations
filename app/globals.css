@@ -15,16 +15,16 @@
 }
 
 .dark {
-  /* Dark Mode - Premium High-Contrast Theme */
-  --background: #09090b; /* Zinc 950 - Richer, deeper black */
-  --foreground: #ffffff; /* Pure White - Max contrast */
-  --card: #18181b;       /* Zinc 900 - Distinct surface */
+  /* Dark Mode - Brightened Premium Theme */
+  --background: #0e0e11; /* Slightly lighter than pure black/zinc-950 */
+  --foreground: #ffffff;
+  --card: #18181b;       /* Zinc 900 */
   --accent: #27272a;     /* Zinc 800 */
   --accent-foreground: #ffffff;
-  --muted: #27272a;      /* Zinc 800 - Lighter than background for separation */
-  --muted-foreground: #d4d4d8; /* Zinc 300 - Much brighter for readability */
-  --border: #3f3f46;     /* Zinc 700 - clearer borders */
-  --grid-color: rgba(255, 255, 255, 0.08); /* Slightly more visible grid */
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa; /* Zinc 400 - Brighter text */
+  --border: #27272a;     /* Zinc 800 - Softer borders */
+  --grid-color: rgba(255, 255, 255, 0.08);
 }
 
 @theme inline {
@@ -43,6 +43,10 @@
 
 body {
   background: var(--background);
+  /* Ambient lighting to remove the "dim" feel */
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.02) 0%, transparent 30%);
   color: var(--foreground);
   font-family: var(--font-inter), sans-serif;
   overflow-x: hidden;

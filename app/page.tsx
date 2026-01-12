@@ -11,17 +11,17 @@ import { Testimonials } from "@/components/sections/testimonials";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-zinc-950">
+    <div className="flex flex-col min-h-screen bg-background">
       <HeroKinetic />
       <TrustedMarquee />
-      
+
       <EcosystemGrid />
 
 
 
       <ServicesDossier />
       <WebPortfolio />
-      
+
       <Testimonials />
 
       <ContactForm />
