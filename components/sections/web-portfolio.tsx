@@ -4,6 +4,7 @@ import { StarField } from "@/components/ui/star-field";
 import { Meteors } from "@/components/ui/meteors";
 import { ArrowUpRight, Smartphone, Monitor } from "lucide-react";
 import Image from "next/image";
+import { trackEvent } from "@/lib/analytics";
 
 const PROJECTS = [
   {
@@ -90,6 +91,13 @@ export function WebPortfolio() {
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => {
+                trackEvent({
+                  action: "project_click",
+                  category: "portfolio",
+                  label: project.title,
+                })
+              }}
               className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card/50 hover:bg-card transition-all duration-500 hover:border-foreground/20 hover:shadow-2xl hover:shadow-emerald-500/10"
             >
               {/* Image Container */}

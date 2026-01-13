@@ -7,25 +7,36 @@ import { ServicesDossier } from "@/components/sections/services-dossier";
 import { WebPortfolio } from "@/components/sections/web-portfolio";
 import { ContactForm } from "@/components/sections/contact-form";
 import { Footer } from "@/components/sections/footer";
+import { SectionTracker } from "@/components/analytics/section-tracker";
 
 // import { Testimonials } from "@/components/sections/testimonials";
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
-      <HeroKinetic />
+      <SectionTracker id="hero" name="Hero Section" minDuration={3000}>
+        <HeroKinetic />
+      </SectionTracker>
+
       <TrustedMarquee />
 
-      <EcosystemGrid />
+      <SectionTracker id="ecosystem" name="Ecosystem Grid">
+        <EcosystemGrid />
+      </SectionTracker>
 
+      <SectionTracker id="services" name="Services Dossier">
+        <ServicesDossier />
+      </SectionTracker>
 
-
-      <ServicesDossier />
-      <WebPortfolio />
+      <SectionTracker id="portfolio" name="Web Portfolio">
+        <WebPortfolio />
+      </SectionTracker>
 
       {/* <Testimonials /> */}
 
-      <ContactForm />
+      <SectionTracker id="contact" name="Contact Form">
+        <ContactForm />
+      </SectionTracker>
       <Footer />
     </div>
   );
