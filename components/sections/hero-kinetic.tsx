@@ -19,20 +19,15 @@ export const HeroKinetic = () => {
   }, []);
 
   return (
-    <section className="relative w-full bg-zinc-950 text-white selection:bg-white/20 overflow-x-hidden min-h-[100svh] md:h-screen md:overflow-hidden">
+    <section className="relative w-full bg-background text-foreground selection:bg-foreground/20 overflow-x-hidden min-h-[100svh] md:h-screen md:overflow-hidden">
       {/* Background Grid */}
-      <div className="absolute inset-0 z-0 opacity-20"
-        style={{
-          backgroundImage: "linear-gradient(to right, #333 1px, transparent 1px), linear-gradient(to bottom, #333 1px, transparent 1px)",
-          backgroundSize: "4rem 4rem"
-        }}
-      />
+      <div className="absolute inset-0 z-0 opacity-60 dark:opacity-20 bg-grid" />
 
       {/* Ambient Ceiling Light */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[400px] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/10 via-white/5 to-transparent blur-3xl pointer-events-none z-0 will-change-transform" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[400px] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-foreground/10 via-foreground/5 to-transparent blur-3xl pointer-events-none z-0 will-change-transform" />
 
       {/* Direct Spotlight - Root Level */}
-      <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[70vw] max-w-[600px] h-[350px] rounded-full bg-white/5 blur-[120px] pointer-events-none z-40 will-change-transform" />
+      <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[70vw] max-w-[600px] h-[350px] rounded-full bg-foreground/5 blur-[120px] pointer-events-none z-40 will-change-transform opacity-100 dark:opacity-100" />
 
       {/* Main Content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-[100svh] py-20 md:h-full md:py-0">
@@ -43,9 +38,9 @@ export const HeroKinetic = () => {
           <div className="relative flex items-center justify-center w-full max-w-5xl mx-auto py-4 sm:py-8 lg:py-12">
             {/* Fixed Spotlight Glow */}
 
-            <h1 className="font-heading font-black text-[14vw] md:text-[12vw] leading-none text-white select-none pointer-events-none opacity-100 tracking-tighter flex flex-col items-center md:flex-row md:items-baseline md:justify-center w-full px-4">
+            <h1 className="font-heading font-black text-[14vw] md:text-[12vw] leading-none text-foreground select-none pointer-events-none opacity-100 tracking-tighter flex flex-col items-center md:flex-row md:items-baseline md:justify-center w-full px-4">
               <span>AUTOM8ED</span>
-              <span className="self-end md:self-auto text-[0.25em] md:text-[0.15em] text-zinc-400 font-mono tracking-normal opacity-80 animate-glitch mt-0 md:mt-0" data-text=".space">.space</span>
+              <span className="self-end md:self-auto text-[0.25em] md:text-[0.15em] text-muted-foreground font-mono tracking-normal opacity-80 animate-glitch mt-0 md:mt-0" data-text=".space">.space</span>
             </h1>
           </div>
           <StreamingText />
@@ -53,16 +48,16 @@ export const HeroKinetic = () => {
 
         {/* Standard Tech CTA */}
         <div className="relative mt-8 md:mt-12 z-20">
-          <div className="flex items-center p-1 md:p-1.5 rounded-full border border-white/80 bg-white shadow-[0_0_25px_rgba(255,255,255,0.2)]">
+          <div className="flex items-center p-1 md:p-1.5 rounded-full border border-border bg-background shadow-[0_0_25px_rgba(0,0,0,0.1)] dark:shadow-[0_0_25px_rgba(255,255,255,0.2)]">
 
             {/* Automation Pill */}
             <a
               href="#services"
-              className="group relative px-4 py-2.5 md:px-8 md:py-4 rounded-full hover:bg-zinc-50 transition-all duration-300 flex items-center justify-center gap-1.5 md:gap-2.5"
+              className="group relative px-4 py-2.5 md:px-8 md:py-4 rounded-full hover:bg-muted transition-all duration-300 flex items-center justify-center gap-1.5 md:gap-2.5"
             >
-              <Bot className="w-3.5 h-3.5 md:w-5 md:h-5 text-violet-600 md:text-zinc-400 md:group-hover:text-violet-600 group-hover:scale-110 transition-all duration-300" />
+              <Bot className="w-3.5 h-3.5 md:w-5 md:h-5 text-violet-600 md:text-muted-foreground md:group-hover:text-violet-600 group-hover:scale-110 transition-all duration-300" />
               <span
-                className="font-heading font-black text-xs md:text-base tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600 md:text-zinc-950 md:bg-clip-border md:bg-none md:group-hover:text-transparent md:group-hover:bg-clip-text md:group-hover:bg-gradient-to-r md:group-hover:from-violet-600 md:group-hover:to-indigo-600 transition-all duration-300 animate-glitch-subtle md:animate-glitch-subtle md:group-hover:animate-none"
+                className="font-heading font-black text-xs md:text-base tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600 md:text-foreground md:bg-clip-border md:bg-none md:group-hover:text-transparent md:group-hover:bg-clip-text md:group-hover:bg-gradient-to-r md:group-hover:from-violet-600 md:group-hover:to-indigo-600 transition-all duration-300 animate-glitch-subtle md:animate-glitch-subtle md:group-hover:animate-none"
                 data-text="AUTOMATION"
               >
                 AUTOMATION
@@ -70,20 +65,20 @@ export const HeroKinetic = () => {
             </a>
 
             {/* Angle Divider */}
-            <div className="w-px h-4 md:h-6 bg-zinc-200 rotate-12 mx-0.5 md:mx-1" />
+            <div className="w-px h-4 md:h-6 bg-border rotate-12 mx-0.5 md:mx-1" />
 
             {/* Web Dev Pill */}
             <a
               href="#portfolio"
-              className="group relative px-4 py-2.5 md:px-8 md:py-4 rounded-full hover:bg-zinc-50 transition-all duration-300 flex items-center justify-center gap-1.5 md:gap-2.5"
+              className="group relative px-4 py-2.5 md:px-8 md:py-4 rounded-full hover:bg-muted transition-all duration-300 flex items-center justify-center gap-1.5 md:gap-2.5"
             >
               <span
-                className="font-heading font-black text-xs md:text-base tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-500 md:text-zinc-950 md:bg-clip-border md:bg-none md:group-hover:text-transparent md:group-hover:bg-clip-text md:group-hover:bg-gradient-to-r md:group-hover:from-emerald-500 md:group-hover:to-teal-500 transition-all duration-300 animate-glitch-subtle md:animate-glitch-subtle md:group-hover:animate-none"
+                className="font-heading font-black text-xs md:text-base tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-500 md:text-foreground md:bg-clip-border md:bg-none md:group-hover:text-transparent md:group-hover:bg-clip-text md:group-hover:bg-gradient-to-r md:group-hover:from-emerald-500 md:group-hover:to-teal-500 transition-all duration-300 animate-glitch-subtle md:animate-glitch-subtle md:group-hover:animate-none"
                 data-text="WEB DEVELOPMENT"
               >
                 WEB DEVELOPMENT
               </span>
-              <Code2 className="w-3.5 h-3.5 md:w-5 md:h-5 text-emerald-500 md:text-zinc-400 md:group-hover:text-emerald-500 group-hover:scale-110 transition-all duration-300" />
+              <Code2 className="w-3.5 h-3.5 md:w-5 md:h-5 text-emerald-500 md:text-muted-foreground md:group-hover:text-emerald-500 group-hover:scale-110 transition-all duration-300" />
             </a>
 
           </div>
@@ -92,7 +87,7 @@ export const HeroKinetic = () => {
         {/* Secondary data */}
         <motion.div
           style={{ y: y2 }}
-          className="absolute bottom-8 md:bottom-12 flex w-full max-w-7xl justify-center px-4 md:px-8 text-[10px] md:text-xs font-mono text-zinc-400 uppercase tracking-widest"
+          className="absolute bottom-8 md:bottom-12 flex w-full max-w-7xl justify-center px-4 md:px-8 text-[10px] md:text-xs font-mono text-muted-foreground uppercase tracking-widest"
         >
         </motion.div>
       </div>
@@ -148,7 +143,7 @@ const StreamingText = () => {
   return (
     <div className="relative h-[16vw] sm:h-[13vw] md:h-[10vw] w-full flex items-center justify-center overflow-visible">
       <span
-        className={`block text-white whitespace-nowrap px-4 ${textSizeClass} font-heading font-bold tracking-tight uppercase`}
+        className={`block text-foreground whitespace-nowrap px-4 ${textSizeClass} font-heading font-bold tracking-tight uppercase`}
 
       >
         {text}

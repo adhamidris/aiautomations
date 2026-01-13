@@ -20,21 +20,21 @@ export function Hero() {
       >
         <div className="flex flex-col items-center text-center space-y-8">
           
-          <div className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm font-medium text-white backdrop-blur-md">
+          <div className="inline-flex items-center rounded-full border border-border bg-muted/50 px-3 py-1 text-sm font-medium text-foreground backdrop-blur-md">
             <Zap className="mr-2 h-3.5 w-3.5 text-indigo-400" />
-            <span className="bg-gradient-to-r from-indigo-300 to-purple-300 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
               Scale your operations automatically
             </span>
           </div>
 
-          <h1 className="font-heading text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl max-w-4xl text-white">
+          <h1 className="font-heading text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl max-w-4xl text-foreground">
             Marketing Automation for <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">
               High-Growth Teams
             </span>
           </h1>
 
-          <p className="mx-auto max-w-[700px] text-zinc-300 md:text-xl">
+          <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
             Expert implementation of HubSpot, n8n, Make, and Salesforce. 
             We build the systems that run your business while you sleep.
           </p>
@@ -44,7 +44,7 @@ export function Hero() {
               Start Your Automation Journey
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <Button size="lg" variant="outline" className="text-white border-white/20 bg-white/5 hover:bg-white/10 w-full sm:w-auto">
+            <Button size="lg" variant="outline" className="text-foreground border-border bg-muted/50 hover:bg-muted w-full sm:w-auto">
               View Case Studies
             </Button>
           </div>

@@ -28,7 +28,13 @@ export const Meteors = ({
       animationDelay: Math.random() * (1 - 0.2) + 0.2 + "s",
       animationDuration: Math.floor(Math.random() * (8 - 3) + 3) + "s",
     }));
-    setMeteorStyles(styles);
+    
+    // Defer state update to avoid hydration mismatch and lint warnings
+    const timer = setTimeout(() => {
+        setMeteorStyles(styles);
+    }, 0);
+    
+    return () => clearTimeout(timer);
   }, [number]);
 
   return (

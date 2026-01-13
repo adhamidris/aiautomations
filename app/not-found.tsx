@@ -6,18 +6,13 @@ import { ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
     return (
-        <div className="relative flex flex-col items-center justify-center min-h-screen bg-zinc-950 text-white overflow-hidden selection:bg-white/20">
+        <div className="relative flex flex-col items-center justify-center min-h-screen bg-background text-foreground overflow-hidden selection:bg-foreground/20">
 
             {/* Background Grid */}
-            <div className="absolute inset-0 z-0 opacity-20"
-                style={{
-                    backgroundImage: "linear-gradient(to right, #333 1px, transparent 1px), linear-gradient(to bottom, #333 1px, transparent 1px)",
-                    backgroundSize: "4rem 4rem"
-                }}
-            />
+            <div className="absolute inset-0 z-0 opacity-20 bg-grid" />
 
             {/* Ambient Light */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[400px] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-violet-900/20 via-zinc-900/0 to-transparent blur-3xl pointer-events-none" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[400px] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-foreground/10 via-foreground/5 to-transparent blur-3xl pointer-events-none" />
 
             <div className="relative z-10 flex flex-col items-center px-4 text-center">
 
@@ -28,7 +23,7 @@ export default function NotFound() {
                     transition={{ duration: 0.5 }}
                     className="relative"
                 >
-                    <h1 className="font-heading font-black text-[15vw] md:text-[12rem] leading-none text-transparent bg-clip-text bg-gradient-to-b from-white to-white/10 tracking-tighter select-none">
+                    <h1 className="font-heading font-black text-[15vw] md:text-[12rem] leading-none text-transparent bg-clip-text bg-gradient-to-b from-foreground to-foreground/10 tracking-tighter select-none">
                         404
                     </h1>
                     <div className="absolute inset-0 font-heading font-black text-[15vw] md:text-[12rem] leading-none text-red-500/20 blur-sm animate-pulse tracking-tighter select-none pointer-events-none">
@@ -46,7 +41,7 @@ export default function NotFound() {
                     <h2 className="text-xl md:text-3xl font-bold tracking-tight">
                         System Failure
                     </h2>
-                    <p className="text-zinc-400 max-w-md mx-auto text-sm md:text-base">
+                    <p className="text-muted-foreground max-w-md mx-auto text-sm md:text-base">
                         The requested resource could not be located in the neural network.
                     </p>
                 </motion.div>
@@ -60,7 +55,7 @@ export default function NotFound() {
                 >
                     <Link
                         href="/"
-                        className="group relative inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-black font-semibold hover:bg-zinc-200 transition-colors"
+                        className="group relative inline-flex items-center gap-2 px-6 py-3 rounded-full bg-foreground text-background font-semibold hover:opacity-90 transition-all"
                     >
                         <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
                         <span>Return to Base</span>

@@ -9,13 +9,13 @@ export function Navbar() {
           AUTOM<span className="text-accent">8ED</span>
         </Link>
         <nav className="hidden gap-6 md:flex">
-          <Link href="#services" className="text-sm font-medium text-muted-foreground transition-colors hover:text-white">
+          <Link href="#services" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
             Services
           </Link>
-          <Link href="#process" className="text-sm font-medium text-muted-foreground transition-colors hover:text-white">
+          <Link href="#process" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
             Process
           </Link>
-          <Link href="#about" className="text-sm font-medium text-muted-foreground transition-colors hover:text-white">
+          <Link href="#about" className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
             About
           </Link>
         </nav>

@@ -72,14 +72,14 @@ export const ServiceLine = React.memo(({ number, title, description, tags, isOpe
             {/* Small semantic number */}
             <span className={cn(
               "hidden md:block font-mono text-sm tracking-widest transition-colors duration-300 shrink-0",
-              isActive ? "text-accent-foreground" : "text-zinc-300"
+              isActive ? "text-accent-foreground" : "text-muted-foreground"
             )}>
               {number}
             </span>
 
             <h3 className={cn(
               "text-2xl md:text-4xl font-light tracking-tight transition-transform duration-300 break-words origin-left will-change-transform",
-              isActive ? "text-white translate-x-4" : "text-white translate-x-0"
+              isActive ? "text-foreground translate-x-4" : "text-foreground translate-x-0"
             )}>
               {title}
             </h3>
@@ -88,8 +88,8 @@ export const ServiceLine = React.memo(({ number, title, description, tags, isOpe
           <div className={cn(
             "p-3 rounded-full transition-transform duration-500 shrink-0",
             isActive
-              ? "bg-white text-zinc-950 rotate-180 scale-110"
-              : "bg-transparent text-white rotate-0 scale-100"
+              ? "bg-foreground text-background rotate-180 scale-110"
+              : "bg-transparent text-foreground rotate-0 scale-100"
           )}>
             <ArrowDown className="w-5 h-5 transition-colors" />
           </div>
@@ -108,14 +108,14 @@ export const ServiceLine = React.memo(({ number, title, description, tags, isOpe
             {/* Decorative side line for content */}
             <div className="absolute left-6 md:left-[5rem] top-10 bottom-0 w-px bg-gradient-to-b from-accent/50 to-transparent hidden md:block" />
 
-            <p className="text-zinc-200 max-w-xl leading-relaxed text-lg font-light">
+            <p className="text-muted-foreground max-w-xl leading-relaxed text-lg font-light">
               {description}
             </p>
             <div className="flex flex-wrap gap-2 max-w-xs justify-start md:justify-end">
               {tags.map((tag, i) => (
                 <span
                   key={i}
-                  className="px-3 py-1 text-[10px] md:text-xs font-mono uppercase tracking-widest text-zinc-300 border border-zinc-700 rounded-full"
+                  className="px-3 py-1 text-[10px] md:text-xs font-mono uppercase tracking-widest text-muted-foreground border border-border rounded-full"
                 >
                   {tag}
                 </span>

@@ -10,8 +10,11 @@
   --accent-foreground: #18181b;
   --muted: #f4f4f5;
   --muted-foreground: #71717a;
-  --border: rgba(0, 0, 0, 0.1);
-  --grid-color: rgba(0, 0, 0, 0.05);
+  --border: #d4d4d8;
+  /* Zinc 300 for better visibility */
+  --grid-color: rgba(0, 0, 0, 0.08);
+  /* Increased visibility */
+  --card-spotlight: rgba(0, 0, 0, 0.05);
 }
 
 html {
@@ -33,7 +36,9 @@ html {
   /* Zinc 400 - Brighter text */
   --border: #27272a;
   /* Zinc 800 - Softer borders */
+  /* Zinc 800 - Softer borders */
   --grid-color: rgba(255, 255, 255, 0.08);
+  --card-spotlight: rgba(255, 255, 255, 0.15);
 }
 
 @theme inline {
@@ -44,6 +49,7 @@ html {
   --color-accent-foreground: var(--accent-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
 
   --font-sans: var(--font-inter);
   --font-heading: var(--font-space-grotesk);
@@ -52,14 +58,17 @@ html {
 
 body {
   background: var(--background);
-  /* Ambient lighting to remove the "dim" feel */
-  background-image:
-    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.02) 0%, transparent 30%);
   color: var(--foreground);
   font-family: var(--font-inter), sans-serif;
   overflow-x: hidden;
   overflow-anchor: none;
+}
+
+.dark body {
+  /* Ambient lighting only in dark mode */
+  background-image:
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.02) 0%, transparent 30%);
 }
 
 h1,
@@ -107,6 +116,12 @@ h6 {
 
   to {
     transform: translateX(-50%);
+  }
+}
+
+@layer utilities {
+  .will-change-transform {
+    will-change: transform;
   }
 }
 

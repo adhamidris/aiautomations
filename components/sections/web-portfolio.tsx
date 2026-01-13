@@ -58,25 +58,25 @@ const PROJECTS = [
 
 export function WebPortfolio() {
   return (
-    <section id="portfolio" className="relative w-full pt-0 md:pt-0 pb-24 md:pb-32 bg-black overflow-hidden">
+    <section id="portfolio" className="relative w-full pt-0 md:pt-0 pb-24 md:pb-32 bg-background overflow-hidden">
 
       {/* Star Field & Meteors Background */}
-      <StarField density={1500} speed={0.2} className="opacity-50" />
+      <StarField density={1500} speed={0.2} className="opacity-20 dark:opacity-50" />
       <Meteors number={12} />
 
-      {/* Dark Technical Background Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,transparent_0%,#000000_100%)] pointer-events-none" />
+      {/* Technical Background Grid - uses global CSS variable */}
+      <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,transparent_0%,var(--background)_100%)] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
 
         {/* Section Header */}
         <div className="flex flex-col items-center justify-center mb-16 gap-8 text-center w-full">
           <div className="max-w-2xl mx-auto">
-            <h2 className="text-zinc-300 underline decoration-zinc-400/30 underline-offset-4 decoration-1 font-mono text-xs uppercase tracking-[0.2em] mb-4">
+            <h2 className="text-muted-foreground underline decoration-border underline-offset-4 decoration-1 font-mono text-xs uppercase tracking-[0.2em] mb-4">
               Selected Work
             </h2>
-            <h3 className="text-3xl md:text-5xl font-bold text-white tracking-tight mb-6">
+            <h3 className="text-3xl md:text-5xl font-bold text-foreground tracking-tight mb-6">
               Crafting Digital Experiences.
             </h3>
           </div>
@@ -90,21 +90,21 @@ export function WebPortfolio() {
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative flex flex-col overflow-hidden rounded-xl border border-white/10 bg-zinc-900/50 hover:bg-zinc-900/80 transition-all duration-500 hover:border-white/20 hover:shadow-2xl hover:shadow-emerald-500/10"
+              className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card/50 hover:bg-card transition-all duration-500 hover:border-foreground/20 hover:shadow-2xl hover:shadow-emerald-500/10"
             >
               {/* Image Container */}
-              <div className="relative aspect-video w-full bg-zinc-800/50 flex items-center justify-center overflow-hidden">
+              <div className="relative aspect-video w-full bg-muted/50 flex items-center justify-center overflow-hidden">
                 <Image
                   src={project.image}
                   alt={project.title}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-background/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 {/* Overlay Button */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="bg-white text-zinc-950 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                  <span className="bg-foreground text-background px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                     View Project <ArrowUpRight className="w-4 h-4" />
                   </span>
                 </div>
@@ -113,21 +113,21 @@ export function WebPortfolio() {
               {/* Content */}
               <div className="flex flex-col flex-1 p-6">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-mono text-emerald-400 uppercase tracking-wider">
+                  <span className="text-xs font-mono text-emerald-500 uppercase tracking-wider">
                     {project.category}
                   </span>
                 </div>
 
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors duration-300">
+                <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-emerald-500 transition-colors duration-300">
                   {project.title}
                 </h3>
 
-                <p className="text-zinc-400 text-sm leading-relaxed mb-4 flex-1">
+                <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">
                   {project.description}
                 </p>
 
-                <div className="pt-4 border-t border-white/5">
-                  <span className="text-xs font-mono text-zinc-500 group-hover:text-zinc-300 transition-colors duration-300">
+                <div className="pt-4 border-t border-border">
+                  <span className="text-xs font-mono text-muted-foreground/60 group-hover:text-muted-foreground transition-colors duration-300">
                     {project.tech}
                   </span>
                 </div>

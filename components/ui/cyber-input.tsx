@@ -20,7 +20,7 @@ export const CyberInput = React.forwardRef<HTMLInputElement, CyberInputProps>(
       <div className="group relative space-y-2">
         {label && (
           <div className="flex items-center justify-between">
-            <label htmlFor={inputId} className="text-sm font-medium text-zinc-400 group-focus-within:text-white transition-colors duration-300">
+            <label htmlFor={inputId} className="text-sm font-medium text-muted-foreground group-focus-within:text-foreground transition-colors duration-300">
               {label}
             </label>
           </div>
@@ -28,16 +28,16 @@ export const CyberInput = React.forwardRef<HTMLInputElement, CyberInputProps>(
 
         <div className="relative">
           <div className={cn(
-            "relative flex items-center w-full rounded-md bg-zinc-900/50 shadow-sm overflow-hidden transition-all duration-300",
-            "border border-white/10 hover:border-white/20",
-            isFocused && "border-white/40 ring-1 ring-white/10 bg-zinc-900",
+            "relative flex items-center w-full rounded-md bg-muted/50 shadow-sm overflow-hidden transition-all duration-300",
+            "border border-border hover:border-foreground/20",
+            isFocused && "border-foreground/40 ring-1 ring-foreground/10 bg-muted",
             error && "border-red-500/50",
             className
           )}>
             <input
               id={inputId}
               type={type}
-              className="flex h-12 w-full bg-transparent px-4 py-2 text-[16px] md:text-base text-white focus:outline-none placeholder:text-zinc-600 font-sans tracking-normal"
+              className="flex h-12 w-full bg-transparent px-4 py-2 text-[16px] md:text-base text-foreground focus:outline-none placeholder:text-muted-foreground font-sans tracking-normal"
               ref={ref}
               onFocus={(e) => {
                 setIsFocused(true);
@@ -74,7 +74,7 @@ export const CyberTextArea = React.forwardRef<HTMLTextAreaElement, CyberTextArea
       <div className="group relative space-y-2">
         {label && (
           <div className="flex items-center justify-between">
-            <label htmlFor={inputId} className="text-sm font-medium text-zinc-400 group-focus-within:text-white transition-colors duration-300">
+            <label htmlFor={inputId} className="text-sm font-medium text-muted-foreground group-focus-within:text-foreground transition-colors duration-300">
               {label}
             </label>
           </div>
@@ -82,15 +82,15 @@ export const CyberTextArea = React.forwardRef<HTMLTextAreaElement, CyberTextArea
 
         <div className="relative">
           <div className={cn(
-            "relative flex w-full rounded-md bg-zinc-900/50 shadow-sm overflow-hidden transition-all duration-300",
-            "border border-white/10 hover:border-white/20",
-            isFocused && "border-white/40 ring-1 ring-white/10 bg-zinc-900",
+            "relative flex w-full rounded-md bg-muted/50 shadow-sm overflow-hidden transition-all duration-300",
+            "border border-border hover:border-foreground/20",
+            isFocused && "border-foreground/40 ring-1 ring-foreground/10 bg-muted",
             error && "border-red-500/50",
             className
           )}>
             <textarea
               id={inputId}
-              className="flex min-h-[120px] w-full bg-transparent px-4 py-3 text-[16px] md:text-base text-white focus:outline-none placeholder:text-zinc-600 font-sans tracking-normal resize-none"
+              className="flex min-h-[120px] w-full bg-transparent px-4 py-3 text-[16px] md:text-base text-foreground focus:outline-none placeholder:text-muted-foreground font-sans tracking-normal resize-none"
               ref={ref}
               onFocus={(e) => {
                 setIsFocused(true);

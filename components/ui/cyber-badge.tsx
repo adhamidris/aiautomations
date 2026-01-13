@@ -17,7 +17,7 @@ export const CyberBadge = ({ text, status = "online", className }: CyberBadgePro
 
   return (
     <div className={cn(
-      "inline-flex items-center gap-2 rounded-sm border border-white/10 bg-white/5 px-3 py-1 text-xs font-mono uppercase tracking-widest text-white/70",
+      "inline-flex items-center gap-2 rounded-sm border border-border bg-muted/50 px-3 py-1 text-xs font-mono uppercase tracking-widest text-muted-foreground",
       className
     )}>
       <div className={cn("h-1.5 w-1.5 animate-pulse rounded-full", statusColor)} />

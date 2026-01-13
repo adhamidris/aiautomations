@@ -35,7 +35,7 @@ export const SpotlightCard = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        "relative overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/50 text-zinc-200 shadow-sm transition-all duration-300 hover:shadow-md",
+        "relative overflow-hidden rounded-xl border border-border bg-card/50 text-foreground shadow-sm transition-all duration-300 hover:shadow-md",
         className
       )}
     >
@@ -43,7 +43,7 @@ export const SpotlightCard = ({
         className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"
         style={{
           opacity,
-          background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, rgba(99, 102, 241, 0.15), transparent 40%)`,
+          background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, var(--foreground), transparent 40%)`,
         }}
       />
       <div className="relative h-full p-6">{children}</div>

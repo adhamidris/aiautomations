@@ -64,14 +64,14 @@ export function ContactForm() {
       id="contact"
       className="relative w-full pt-8 pb-32 md:pt-24 md:pb-64 overflow-hidden"
     >
-      {/* Dark Technical Background Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+      {/* Technical Background Grid - uses CSS variable for color */}
+      <div className="absolute inset-0 bg-grid opacity-60 dark:opacity-20 pointer-events-none" />
 
       {/* Edge Fade Mask */}
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,transparent_0%,#09090b_100%)] opacity-40 pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--background)_100%)] opacity-40 pointer-events-none" />
 
       {/* Top Fade for Smooth Transition */}
-      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-zinc-950 to-transparent z-10 pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent z-10 pointer-events-none" />
 
       {/* Bottom Fade for Smooth Transition */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-0 pointer-events-none" />
@@ -80,7 +80,7 @@ export function ContactForm() {
         <CyberPanel variant="list" className="min-h-0 md:min-h-[620px]">
           <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Left: Context + Terminal */}
-            <div className="flex flex-col justify-between border-b border-white/5 bg-black/50 px-6 py-8 md:px-12 md:py-14 md:border-b-0 md:border-r">
+            <div className="flex flex-col justify-between border-b border-border bg-card/50 px-6 py-8 md:px-12 md:py-14 md:border-b-0 md:border-r">
               <div className="space-y-6 md:space-y-8">
                 <CyberBadge
                   text={status === "IDLE" ? "Contact Us" : status}
@@ -88,8 +88,8 @@ export function ContactForm() {
                   className="border-none"
                 />
                 <div className="space-y-3 md:space-y-4">
-                  <h2 className="font-heading text-3xl md:text-5xl font-bold tracking-tight text-white">
-                    Get in <span className="text-white/50">Touch</span>
+                  <h2 className="font-heading text-3xl md:text-5xl font-bold tracking-tight text-foreground">
+                    Get in <span className="text-muted-foreground">Touch</span>
                   </h2>
                 </div>
               </div>
@@ -99,7 +99,7 @@ export function ContactForm() {
             </div>
 
             {/* Right: Pure Form */}
-            <div className="flex flex-col justify-center bg-white/[0.05] px-6 py-8 md:px-12 md:py-14 relative md:overflow-hidden">
+            <div className="flex flex-col justify-center bg-foreground/[0.02] px-6 py-8 md:px-12 md:py-14 relative md:overflow-hidden">
               <motion.div layout className="w-full relative z-10">
                 <AnimatePresence mode="wait">
                   {status === "SUCCESS" ? (
@@ -122,10 +122,10 @@ export function ContactForm() {
                       </motion.div>
 
                       <div className="space-y-3 max-w-xs mx-auto">
-                        <h3 className="font-heading text-3xl font-bold text-white tracking-tight">
+                        <h3 className="font-heading text-3xl font-bold text-foreground tracking-tight">
                           Message Sent
                         </h3>
-                        <p className="font-sans text-base leading-relaxed text-zinc-400">
+                        <p className="font-sans text-base leading-relaxed text-muted-foreground">
                           Thanks for reaching out! We&apos;ve received your inquiry and will be in touch shortly.
                         </p>
                       </div>
@@ -136,7 +136,7 @@ export function ContactForm() {
                           setStatus("IDLE");
                           // setTerminalLines(["> SYSTEM_RESET...", "> READY."]);
                         }}
-                        className="mt-4 border-white/10 bg-white/5 text-zinc-300 hover:bg-white/10 hover:text-white hover:border-white/20 transition-all duration-300"
+                        className="mt-4 border-border bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground transition-all duration-300"
                       >
                         Send Another Message
                       </Button>
@@ -183,7 +183,7 @@ export function ContactForm() {
                         className={cn(
                           "h-12 w-full rounded-md border text-sm font-medium transition-all duration-300",
                           status === "IDLE"
-                            ? "border-white/20 bg-white/10 text-white hover:bg-white/20 hover:border-white/40"
+                            ? "border-border bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground"
                             : "border-accent/20 bg-accent/10 text-accent"
                         )}
                       >

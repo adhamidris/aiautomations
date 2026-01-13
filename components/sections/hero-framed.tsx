@@ -29,17 +29,17 @@ export const HeroFramed = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="font-heading text-5xl font-bold tracking-tight text-white sm:text-7xl"
+                className="font-heading text-5xl font-bold tracking-tight text-foreground sm:text-7xl"
               >
                 Automate operations. <br/>
-                <span className="text-white/40">Scale without chaos.</span>
+                <span className="text-muted-foreground/60">Scale without chaos.</span>
               </motion.h1>
 
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="mx-auto max-w-xl text-lg text-white/50"
+                className="mx-auto max-w-xl text-lg text-muted-foreground"
               >
                 We replace manual workflows with intelligent, autonomous systems. 
                 SaaS implementation for high-growth revenue teams.
@@ -62,9 +62,9 @@ export const HeroFramed = () => {
                  transition={{ delay: 0.8, type: "spring" }}
                  className="absolute left-[8%] top-[25%]"
                >
-                 <div className="rotate-[-6deg] bg-black/60 backdrop-blur rounded-sm border border-white/10 p-4">
-                     <span className="block text-xs text-white/40 font-mono uppercase">Avg. Time Saved</span>
-                     <span className="text-lg font-bold text-white">28hrs / week</span>
+                 <div className="rotate-[-6deg] bg-background/60 backdrop-blur rounded-sm border border-border p-4">
+                     <span className="block text-xs text-muted-foreground/60 font-mono uppercase">Avg. Time Saved</span>
+                     <span className="text-lg font-bold text-foreground">28hrs / week</span>
                  </div>
                </motion.div>
 
@@ -74,9 +74,9 @@ export const HeroFramed = () => {
                  transition={{ delay: 0.9, type: "spring" }}
                  className="absolute right-[10%] bottom-[30%]"
                >
-                 <div className="rotate-[3deg] bg-black/60 backdrop-blur rounded-sm border border-white/10 p-4">
-                     <span className="block text-xs text-white/40 font-mono uppercase">Systems Shipped</span>
-                     <span className="text-lg font-bold text-white">140+ Projects</span>
+                 <div className="rotate-[3deg] bg-background/60 backdrop-blur rounded-sm border border-border p-4">
+                     <span className="block text-xs text-muted-foreground/60 font-mono uppercase">Systems Shipped</span>
+                     <span className="text-lg font-bold text-foreground">140+ Projects</span>
                  </div>
                </motion.div>
             </div>
