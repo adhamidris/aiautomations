@@ -88,7 +88,7 @@ export default function RootLayout({
         <JsonLd />
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
@@ -98,8 +98,8 @@ export default function RootLayout({
           <StickyNav />
           {children}
         </ThemeProvider>
+        <AnalyticsWrapper gaId={process.env.NEXT_PUBLIC_GA_ID || ""} />
       </body>
-      <AnalyticsWrapper gaId={process.env.NEXT_PUBLIC_GA_ID || ""} />
     </html>
   );
 }

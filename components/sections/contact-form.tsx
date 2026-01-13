@@ -89,12 +89,16 @@ export function ContactForm() {
                 />
                 <div className="space-y-3 md:space-y-4">
                   <h2 className="font-heading text-3xl md:text-5xl font-bold tracking-tight text-foreground">
-                    Get in <span className="text-muted-foreground">Touch</span>
+                    Get in <span className="text-primary">Touch</span>
                   </h2>
+                </div>
+                <div className="hidden md:block pt-2">
+                  <p className="text-muted-foreground text-lg leading-relaxed max-w-sm">
+                    We typically respond within <span className="text-foreground font-medium">2 hours</span> during business hours.
+                  </p>
                 </div>
               </div>
 
-              {/* Terminal Removed */}
 
             </div>
 
@@ -152,12 +156,14 @@ export function ContactForm() {
                       className="w-full max-w-md mx-auto space-y-6"
                     >
                       <CyberInput
+                        id="contact-name"
                         label="Name"
                         name="name"
                         placeholder="Enter your name"
                         required
                       />
                       <CyberInput
+                        id="contact-phone"
                         label="Phone Number"
                         name="phone"
                         type="tel"
@@ -165,6 +171,7 @@ export function ContactForm() {
                         required
                       />
                       <CyberInput
+                        id="contact-email"
                         label="Email"
                         name="email"
                         type="email"
@@ -172,6 +179,7 @@ export function ContactForm() {
                         required
                       />
                       <CyberTextArea
+                        id="contact-message"
                         label="Message"
                         name="message"
                         placeholder="How can we help you?"
@@ -183,7 +191,7 @@ export function ContactForm() {
                         className={cn(
                           "h-12 w-full rounded-md border text-sm font-medium transition-all duration-300",
                           status === "IDLE"
-                            ? "border-border bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground"
+                            ? "bg-foreground text-background hover:bg-foreground/90 border-transparent shadow-lg"
                             : "border-accent/20 bg-accent/10 text-accent"
                         )}
                       >
