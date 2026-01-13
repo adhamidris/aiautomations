@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/private/",
     },
-    sitemap: "https://autom8ed.netlify.app/sitemap.xml",
+    sitemap: "https://autom8ed.space/sitemap.xml",
   };
 }

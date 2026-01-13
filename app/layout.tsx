@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import { AnalyticsWrapper } from "@/components/analytics-wrapper";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -98,6 +99,7 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
       </body>
+      <AnalyticsWrapper gaId={process.env.NEXT_PUBLIC_GA_ID || ""} />
     </html>
   );
 }

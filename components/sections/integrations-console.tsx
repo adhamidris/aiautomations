@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { Database, MessageSquare, Zap, BarChart, ShoppingCart, Mail } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 const TOOLS = [
   { id: "hubspot", name: "HubSpot", icon: <Database />, category: "CRM" },
@@ -14,10 +15,18 @@ const TOOLS = [
 ];
 
 export const IntegrationsConsole = () => {
-    const [activeTool, setActiveTool] = useState<string | null>(null);
-
-    return (
-        <section className="py-24 bg-zinc-950 px-4">
+      const [activeTool, setActiveTool] = useState<string | null>(null);
+    
+      const handleToolClick = (toolId: string) => {
+        setActiveTool(toolId);
+        trackEvent({
+            action: "select_tool",
+            category: "integrations",
+            label: toolId,
+        });
+      };
+    
+      return (        <section className="py-24 bg-zinc-950 px-4">
             <div className="max-w-5xl mx-auto">
                 <div className="mb-12 text-center">
                     <h2 className="text-secondary font-medium tracking-wide text-indigo-400 uppercase text-xs mb-4">
@@ -32,10 +41,9 @@ export const IntegrationsConsole = () => {
                     {TOOLS.map((tool) => (
                         <div
                             key={tool.id}
-                            onMouseEnter={() => setActiveTool(tool.id)}
-                            onMouseLeave={() => setActiveTool(null)}
-                            className="group relative flex flex-col items-center justify-center p-12 bg-zinc-950 hover:bg-zinc-925 transition-colors cursor-crosshair z-0"
-                        >
+            className="group relative flex flex-col items-center justify-center p-12 bg-zinc-950 hover:bg-zinc-925 transition-colors cursor-crosshair z-0"
+            onMouseEnter={() => handleToolClick(tool.id)}
+          >
                              {/* Wiring Highlight */}
                             <AnimatePresence>
                                 {activeTool === tool.id && (

@@ -8,6 +8,7 @@ import { CyberInput, CyberTextArea } from "@/components/ui/cyber-input"
 import { CyberPanel } from "@/components/ui/cyber-panel"
 import { CyberBadge } from "@/components/ui/cyber-badge"
 import { cn } from "@/lib/utils"
+import { trackEvent } from "@/lib/analytics"
 
 export function ContactForm() {
   const [status, setStatus] = useState<"IDLE" | "PLOTTING" | "TRANSMIT" | "SUCCESS" | "ERROR">("IDLE")
@@ -41,6 +42,12 @@ export function ContactForm() {
       })
 
       if (!res.ok) throw new Error("Failed to submit")
+
+      trackEvent({
+        action: "form_submit",
+        category: "contact",
+        label: "lead_generation",
+      })
 
       // setTerminalLines(prev => [...prev, "> UPLINK_ESTABLISHED.", "> TRANSMISSION_COMPLETE."])
       setStatus("SUCCESS")
