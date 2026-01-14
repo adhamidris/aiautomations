@@ -1,6 +1,11 @@
 import { Instagram, Linkedin, Twitter } from "lucide-react";
 
-export function Footer() {
+
+interface FooterProps {
+  rights?: string;
+}
+
+export function Footer({ rights = "All rights reserved." }: FooterProps) {
   return (
     <footer className="relative w-full bg-background pt-0 md:pt-24 pb-12">
       {/* Upward Fade to Blend with Contact Section */}
@@ -31,6 +36,8 @@ export function Footer() {
           <h1 className="font-heading font-black text-[15vw] md:text-[12vw] leading-none text-foreground select-none pointer-events-none opacity-100">
             AUTOM8ED
           </h1>
+
+          <p className="text-muted-foreground text-sm font-light tracking-widest">{rights}</p>
         </div>
       </div>
     </footer>

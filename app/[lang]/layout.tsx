@@ -1,7 +1,9 @@
+import { i18n, Locale } from "../../i18n-config";
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import { AnalyticsWrapper } from "@/components/analytics-wrapper";
+import { getDictionary } from "../../get-dictionary";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -75,13 +77,22 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export async function generateStaticParams() {
+  return i18n.locales.map((locale) => ({ lang: locale }));
+}
+
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ lang: Locale }>;
 }>) {
+  const { lang } = await params;
+  const dict = await getDictionary(lang);
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'} suppressHydrationWarning>
       <body
         className={`${inter.variable} ${spaceGrotesk.variable} antialiased bg-background text-foreground`}
       >
@@ -94,11 +105,18 @@ export default function RootLayout({
         >
 
 
+
           <GrainOverlay />
-          <StickyNav />
+          <StickyNav ctaText={dict.nav.bookMeeting} />
           {children}
         </ThemeProvider>
-        <AnalyticsWrapper gaId={process.env.NEXT_PUBLIC_GA_ID || ""} />
+        <AnalyticsWrapper
+          gaId={process.env.NEXT_PUBLIC_GA_ID || ""}
+          consentTitle={dict.cookie.title}
+          consentText={dict.cookie.text}
+          consentAccept={dict.cookie.accept}
+          consentDecline={dict.cookie.decline}
+        />
       </body>
     </html>
   );

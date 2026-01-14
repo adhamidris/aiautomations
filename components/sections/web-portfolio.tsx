@@ -6,50 +6,65 @@ import { ArrowUpRight, Smartphone, Monitor } from "lucide-react";
 import Image from "next/image";
 import { trackEvent } from "@/lib/analytics";
 
-const PROJECTS = [
-  {
-    title: "Kaya Tours",
-    category: "Tourism Website",
-    tech: "Django • Tailwind • SQL",
-    link: "https://kayatourseg.pythonanywhere.com",
-    image: "/kayatours.png",
-    description: "Full-stack tourism platform built with Django templates and TailwindCSS."
-  },
-  {
-    title: "Hunters",
-    category: "E-Commerce",
-    tech: "HTML • CSS • Vanilla JS",
-    link: "https://hunterswear.vercel.app/",
-    image: "/hunters.png",
-    description: "Gen-Z fashion brand store with a modern, static frontend."
-  },
-  {
-    title: "Once Upon a Time",
-    category: "EdTech",
-    tech: "Next.js • Static",
-    link: "https://onceuponaatime.vercel.app/",
-    image: "/onceuponatime.png",
-    description: "Interactive storytelling application for children."
-  },
-  {
-    title: "Nassers Gallery",
-    category: "Art Gallery",
-    tech: "Vite • Static",
-    link: "https://nassersgallery.vercel.app/",
-    image: "/nassergallery.png",
-    description: "Digital art gallery showcasing curated collections."
-  },
-  {
-    title: "Novello",
-    category: "Healthcare",
-    tech: "HTML • CSS • Vanilla JS",
-    link: "https://novello.vercel.app/",
-    image: "/novello.png",
-    description: "Static website for a beauty clinic."
-  }
-];
 
-export function WebPortfolio() {
+interface WebPortfolioProps {
+  subtitle?: string;
+  title?: string;
+  viewProject?: string;
+  projects?: Record<string, string>;
+}
+
+export function WebPortfolio({
+  subtitle = "Selected Work",
+  title = "Crafting Digital Experiences.",
+  viewProject = "View Project",
+  projects
+}: WebPortfolioProps) {
+
+  // Need to reconstruct the array properly and inject descriptions
+  const projectsList = [
+    {
+      title: "Kaya Tours",
+      category: "Tourism Website",
+      tech: "Django • Tailwind • SQL",
+      link: "https://kayatourseg.pythonanywhere.com",
+      image: "/kayatours.png",
+      description: projects?.kaya || "Full-stack tourism platform built with Django templates and TailwindCSS."
+    },
+    {
+      title: "Hunters",
+      category: "E-Commerce",
+      tech: "HTML • CSS • Vanilla JS",
+      link: "https://hunterswear.vercel.app/",
+      image: "/hunters.png",
+      description: projects?.hunters || "Gen-Z fashion brand store with a modern, static frontend."
+    },
+    {
+      title: "Once Upon a Time",
+      category: "EdTech",
+      tech: "Next.js • Static",
+      link: "https://onceuponaatime.vercel.app/",
+      image: "/onceuponatime.png",
+      description: projects?.once || "Interactive storytelling application for children."
+    },
+    {
+      title: "Nassers Gallery",
+      category: "Art Gallery",
+      tech: "Vite • Static",
+      link: "https://nassersgallery.vercel.app/",
+      image: "/nassergallery.png",
+      description: projects?.nasser || "Digital art gallery showcasing curated collections."
+    },
+    {
+      title: "Novello",
+      category: "Healthcare",
+      tech: "HTML • CSS • Vanilla JS",
+      link: "https://novello.vercel.app/",
+      image: "/novello.png",
+      description: projects?.novello || "Static website for a beauty clinic."
+    }
+  ];
+
   return (
     <section id="portfolio" className="relative w-full pt-0 md:pt-0 pb-24 md:pb-32 bg-background overflow-hidden">
 
@@ -67,17 +82,17 @@ export function WebPortfolio() {
         <div className="flex flex-col items-center justify-center mb-16 gap-8 text-center w-full">
           <div className="max-w-2xl mx-auto">
             <h2 className="text-muted-foreground underline decoration-border underline-offset-4 decoration-1 font-mono text-xs uppercase tracking-[0.2em] mb-4">
-              Selected Work
+              {subtitle}
             </h2>
             <h3 className="text-3xl md:text-5xl font-bold text-foreground tracking-tight mb-6">
-              Crafting Digital Experiences.
+              {title}
             </h3>
           </div>
         </div>
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {PROJECTS.map((project, index) => (
+          {projectsList.map((project, index) => (
             <a
               key={index}
               href={project.link}
@@ -105,7 +120,7 @@ export function WebPortfolio() {
                 {/* Overlay Button */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <span className="bg-foreground text-background px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                    View Project <ArrowUpRight className="w-4 h-4" />
+                    {viewProject} <ArrowUpRight className="w-4 h-4" />
                   </span>
                 </div>
               </div>

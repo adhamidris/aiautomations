@@ -4,7 +4,18 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Bot, Code2, Sparkles } from "lucide-react";
 
 
-export const HeroKinetic = () => {
+
+interface HeroKineticProps {
+  phrases?: string[];
+  ctaAutomation?: string;
+  ctaWebDev?: string;
+}
+
+export const HeroKinetic = ({
+  phrases,
+  ctaAutomation = "AUTOMATION",
+  ctaWebDev = "WEB DEVELOPMENT"
+}: HeroKineticProps) => {
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
   const y2 = useTransform(scrollY, [0, 500], [0, -150]);
@@ -38,12 +49,12 @@ export const HeroKinetic = () => {
           <div className="relative flex items-center justify-center w-full max-w-5xl mx-auto py-4 sm:py-8 lg:py-12">
             {/* Fixed Spotlight Glow */}
 
-            <h1 className="font-heading font-black text-[14vw] md:text-[12vw] leading-none text-foreground select-none pointer-events-none opacity-100 tracking-tighter flex flex-col items-center md:flex-row md:items-baseline md:justify-center w-full px-4">
+            <h1 dir="ltr" className="font-heading font-black text-[14vw] md:text-[12vw] leading-none text-foreground select-none pointer-events-none opacity-100 tracking-tighter flex flex-col items-center md:flex-row md:items-baseline md:justify-center w-full px-4">
               <span>AUTOM8ED</span>
               <span className="self-end md:self-auto text-[0.25em] md:text-[0.15em] text-muted-foreground font-mono tracking-normal opacity-80 animate-glitch mt-0 md:mt-0" data-text=".space">.space</span>
             </h1>
           </div>
-          <StreamingText />
+          <StreamingText phrases={phrases} />
         </motion.h1>
 
         {/* Standard Tech CTA */}
@@ -58,9 +69,9 @@ export const HeroKinetic = () => {
               <Bot className="w-3.5 h-3.5 md:w-5 md:h-5 text-violet-600 md:text-muted-foreground md:group-hover:text-violet-600 group-hover:scale-110 transition-all duration-300" />
               <span
                 className="font-heading font-black text-xs md:text-base tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600 md:text-foreground md:bg-clip-border md:bg-none md:group-hover:text-transparent md:group-hover:bg-clip-text md:group-hover:bg-gradient-to-r md:group-hover:from-violet-600 md:group-hover:to-indigo-600 transition-all duration-300 animate-glitch-subtle md:animate-glitch-subtle md:group-hover:animate-none"
-                data-text="AUTOMATION"
+                data-text={ctaAutomation}
               >
-                AUTOMATION
+                {ctaAutomation}
               </span>
             </a>
 
@@ -74,9 +85,9 @@ export const HeroKinetic = () => {
             >
               <span
                 className="font-heading font-black text-xs md:text-base tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-500 md:text-foreground md:bg-clip-border md:bg-none md:group-hover:text-transparent md:group-hover:bg-clip-text md:group-hover:bg-gradient-to-r md:group-hover:from-emerald-500 md:group-hover:to-teal-500 transition-all duration-300 animate-glitch-subtle md:animate-glitch-subtle md:group-hover:animate-none"
-                data-text="WEB DEVELOPMENT"
+                data-text={ctaWebDev}
               >
-                WEB DEVELOPMENT
+                {ctaWebDev}
               </span>
               <Code2 className="w-3.5 h-3.5 md:w-5 md:h-5 text-emerald-500 md:text-muted-foreground md:group-hover:text-emerald-500 group-hover:scale-110 transition-all duration-300" />
             </a>
@@ -95,14 +106,14 @@ export const HeroKinetic = () => {
   );
 };
 
-const PHRASES = [
+const DEFAULT_PHRASES = [
   "WEB DEVELOPMENT",
   "AI INTEGRATIONS",
   "WORKFLOWS",
   "RAG"
 ];
 
-const StreamingText = () => {
+const StreamingText = ({ phrases = DEFAULT_PHRASES }: { phrases?: string[] }) => {
   const [text, setText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
@@ -110,8 +121,8 @@ const StreamingText = () => {
 
   useEffect(() => {
     const handleTyping = () => {
-      const i = loopNum % PHRASES.length;
-      const fullText = PHRASES[i];
+      const i = loopNum % phrases.length;
+      const fullText = phrases[i];
 
       setText(isDeleting
         ? fullText.substring(0, text.length - 1)
@@ -132,7 +143,7 @@ const StreamingText = () => {
     const timer = setTimeout(handleTyping, typingSpeed);
 
     return () => clearTimeout(timer);
-  }, [text, isDeleting, loopNum, typingSpeed]); // Dependencies for effect loop
+  }, [text, isDeleting, loopNum, typingSpeed, phrases]); // Dependencies for effect loop
 
   // Consistent sizing to match logo width:
   // Logo: w-[85vw] sm:w-[65vw] md:w-[50vw] lg:w-[45vw]
