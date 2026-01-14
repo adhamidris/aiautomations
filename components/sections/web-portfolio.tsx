@@ -24,14 +24,6 @@ const PROJECTS = [
     description: "Gen-Z fashion brand store with a modern, static frontend."
   },
   {
-    title: "Fitness App Demo",
-    category: "Web Application",
-    tech: "Vite • TailwindCSS",
-    link: "https://fithubdemo.vercel.app/#landing",
-    image: "/fithub.png",
-    description: "High-performance fitness application demo."
-  },
-  {
     title: "Once Upon a Time",
     category: "EdTech",
     tech: "Next.js • Static",
