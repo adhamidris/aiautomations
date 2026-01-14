@@ -5,19 +5,20 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useParams } from "next/navigation";
 
-interface BlogPost {
+// Interface matches the shape returned by getAllPosts from lib/content.ts
+interface BlogPostSummary {
+    slug: string;
+    publishedAt: string;
     title: string;
     category: string;
     excerpt: string;
-    date: string;
-    slug: string;
 }
 
 interface BlogsSectionProps {
     subtitle: string;
     title: string;
     readMore: string;
-    posts: BlogPost[];
+    posts: BlogPostSummary[];
 }
 
 export function BlogsSection({
@@ -28,6 +29,14 @@ export function BlogsSection({
 }: BlogsSectionProps) {
     const params = useParams();
     const lang = params.lang as string;
+
+    // Helper to format the date based on locale
+    const formatDate = (isoDate: string) => {
+        return new Date(isoDate).toLocaleDateString(
+            lang === "ar" ? "ar-EG" : "en-US",
+            { year: "numeric", month: "short", day: "numeric" }
+        );
+    };
 
     return (
         <section className="relative w-full py-24 md:py-32 bg-background overflow-hidden border-t border-border/40">
@@ -51,7 +60,7 @@ export function BlogsSection({
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                     {posts.map((post, index) => (
                         <motion.a
-                            key={index}
+                            key={post.slug}
                             href={`/${lang}/blog/${post.slug}`}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -67,7 +76,7 @@ export function BlogsSection({
                                         {post.category}
                                     </span>
                                     <span className="text-xs text-muted-foreground font-mono">
-                                        {post.date}
+                                        {formatDate(post.publishedAt)}
                                     </span>
                                 </div>
 

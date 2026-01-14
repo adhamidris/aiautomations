@@ -1,0 +1,28 @@
+{
+    "slug": "nextjs-future",
+    "publishedAt": "2024-01-05T10:00:00Z",
+    "seo": {
+        "title": "Why Next.js is the Future of Web Development | Autom8ed",
+        "description": "A deep dive into server components, performance, and why we choose Next.js for scalable apps.",
+        "keywords": [
+            "nextjs",
+            "web development",
+            "react",
+            "server components",
+            "performance"
+        ],
+        "ogImage": "/og/nextjs-future.jpg"
+    },
+    "en": {
+        "title": "Why Next.js is the Future of Web Development",
+        "category": "Technology",
+        "excerpt": "A deep dive into server components, performance, and why we choose Next.js for scalable apps.",
+        "content": "<p>React changed the way we build user interfaces, but <strong>Next.js</strong> has revolutionized how we build full-stack web applications. It serves as the backbone for modern digital experiences.</p><h3>Server Components</h3><p>With React Server Components, Next.js allows us to render massive amounts of data on the server, sending only the necessary HTML to the client. This results in blazing fast load times and improved SEO.</p><h3>The Edge Runtime</h3><p>Next.js Middleware and Edge functions allow us to execute code closer to the user, reducing latency and ensuring a snappy experience regardless of global location.</p><p>For our clients, this means better conversion rates, higher search rankings, and a more robust digital infrastructure.</p>"
+    },
+    "ar": {
+        "title": "لماذا Next.js هو مستقبل تطوير الويب",
+        "category": "تكنولوجيا",
+        "excerpt": "نظرة عميقة حول مكونات الخادم، الأداء، ولماذا نختار Next.js للتطبيقات القابلة للتوسع.",
+        "content": "<p>غيّرت React طريقة بناء واجهات المستخدم، لكن <strong>Next.js</strong> أحدث ثورة في كيفية بناء تطبيقات الويب الكاملة. إنه بمثابة العمود الفقري للتجارب الرقمية الحديثة.</p><h3>مكونات الخادم (Server Components)</h3><p>مع مكونات خادم React، يسمح لنا Next.js بعرض كميات هائلة من البيانات على الخادم، وإرسال HTML الضروري فقط إلى العميل. ينتج عن ذلك سرعة تحميل فائقة وتحسين لمحركات البحث (SEO).</p><h3>وقت التشغيل الطرفي (Edge Runtime)</h3><p>تسمح وظائف Next.js الوسيطة والطرفية بتنفيذ التعليمات البرمجية بالقرب من المستخدم، مما يقلل من زمن الوصول ويضمن تجربة سريعة بغض النظر عن الموقع الجغرافي.</p><p>لعملائنا، يعني هذا معدلات تحويل أفضل، وترتيب أعلى في البحث، وبنية تحتية رقمية أكثر قوة.</p>"
+    }
+}
