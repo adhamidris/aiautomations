@@ -101,6 +101,34 @@
             "novello": "Static website for a beauty clinic."
         }
     },
+    "blogs": {
+        "subtitle": "Insights",
+        "title": "Latest thinking & updates.",
+        "readMore": "Read Article",
+        "posts": [
+            {
+                "slug": "autonomous-agents-business",
+                "title": "Scale Your Business with Autonomous Agents",
+                "category": "AI Automation",
+                "excerpt": "Discover how AI agents can handle complex workflows 24/7 without human intervention.",
+                "date": "Jan 12, 2024"
+            },
+            {
+                "slug": "nextjs-future",
+                "title": "Why Next.js is the Future of Web Development",
+                "category": "Technology",
+                "excerpt": "A deep dive into server components, performance, and why we choose Next.js for scalable apps.",
+                "date": "Jan 05, 2024"
+            },
+            {
+                "slug": "saas-gcc-markets",
+                "title": "Optimizing SaaS for GCC Markets",
+                "category": "Business",
+                "excerpt": "Key strategies for localizing your software product for expansion in the Middle East region.",
+                "date": "Dec 28, 2023"
+            }
+        ]
+    },
     "contact": {
         "badgeIdle": "Contact Us",
         "badgeAudit": "TRANSMITTING",

@@ -4,6 +4,7 @@ import { EcosystemGrid } from "@/components/sections/ecosystem-grid";
 import { TrustedMarquee } from "@/components/sections/trusted-marquee";
 import { ServicesDossier } from "@/components/sections/services-dossier";
 import { WebPortfolio } from "@/components/sections/web-portfolio";
+import { BlogsSection } from "@/components/sections/blogs-section";
 import { ContactForm } from "@/components/sections/contact-form";
 import { Footer } from "@/components/sections/footer";
 import { SectionTracker } from "@/components/analytics/section-tracker";
@@ -54,6 +55,15 @@ export default async function Home({ params }: { params: Promise<{ lang: Locale 
           title={dict.portfolio.title}
           viewProject={dict.portfolio.viewProject}
           projects={dict.portfolio.projects}
+        />
+      </SectionTracker>
+
+      <SectionTracker id="blogs" name="Blogs Section">
+        <BlogsSection
+          subtitle={dict.blogs.subtitle}
+          title={dict.blogs.title}
+          readMore={dict.blogs.readMore}
+          posts={dict.blogs.posts}
         />
       </SectionTracker>
 
