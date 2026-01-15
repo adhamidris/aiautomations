@@ -1,96 +1,116 @@
 {
   "opportunities": [
     {
-      "keyword": "vaibhav sooryavanshi",
-      "traffic": "100+",
-      "source": "google_trends",
-      "url": "https://trends.google.com/trending/rss?geo=SA",
-      "bucket": "Business Insights",
-      "finalScore": 18,
-      "priority": "low"
+      "keyword": "WA Gov. Bob Ferguson calls for regulations on AI chatbot companions - KUOW",
+      "bucket": "AI Integration",
+      "finalScore": 65,
+      "priority": "low",
+      "source": {
+        "_": "KUOW",
+        "url": "https://www.kuow.org"
+      },
+      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPVnhtZS1ael9lb2VRaG55dnJnZzlxa0xOZDE0bHNTOC05N0lBWDAyWFdrNm0xbjBDRy03ckFMVHFRNXVKZGgybncyODVKLXNmcGIya3F3MTNPQVM2ckl1anRwQ2c2bldnb0gzMUxPV3g0Vm5CTDBYaTRkSDM3dXR2a2Z1WmV1ZWdBdTBXUVN2ekU?oc=5"
     },
     {
-      "keyword": "finn allen",
-      "traffic": "200+",
-      "source": "google_trends",
-      "url": "https://trends.google.com/trending/rss?geo=SA",
-      "bucket": "Business Insights",
-      "finalScore": 10,
-      "priority": "low"
+      "keyword": "Critical vulnerability found in n8n workflow automation platform - Cybersecurity Dive",
+      "bucket": "Automation",
+      "finalScore": 65,
+      "priority": "low",
+      "source": {
+        "_": "Cybersecurity Dive",
+        "url": "https://www.cybersecuritydive.com"
+      },
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNZVZTTDZhYWlCR1kwclRXYjVTNF9VOUlMZUNhQjFmQzNTNmZwRXFHMXFKNGFYdm5ES1BaNE9iSklwaEtFZTBvUFVZb1dMU0FIVXZiUGJQRFoyT0J0X0dwTHRCbktyMDFDSjAxSTVzdmRHanhqb1FudVdwcE1uQnZXUXJYMDQ0RmYzZGtyOVFsQmFkRFltaUMwWQ?oc=5"
     },
     {
-      "keyword": "iranian",
-      "traffic": "1000+",
-      "source": "google_trends",
-      "url": "https://trends.google.com/trending/rss?geo=SA",
-      "bucket": "Business Insights",
-      "finalScore": 10,
-      "priority": "low"
+      "keyword": "Pentagon embraces Musk's Grok AI chatbot as it draws global outcry - PBS",
+      "bucket": "AI Integration",
+      "finalScore": 65,
+      "priority": "low",
+      "source": {
+        "_": "PBS",
+        "url": "https://www.pbs.org"
+      },
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNTE10Nm55U2JZZ1dWOFp3UWg2cHdxMVF2SFRST2ExUWQ5UU9odm1pZE5XRGdXd0doYlUyb2F3UG1yUDR4X0dSdG5DQmNiZnBzTEo0LV9fdzNwMWcwRk5tZms2bXBMTk0tZFJiR3otSGVDRVpWeGlJbDZxYTM3SFB5SW1RRDNEZWU3N2VhNEJyOTZvS0RNemZ3RUQ2NVlsN3hoalE?oc=5"
     },
     {
-      "keyword": "الضمان الاجتماعي",
-      "traffic": "1000+",
-      "source": "google_trends",
-      "url": "https://trends.google.com/trending/rss?geo=SA",
-      "bucket": "Business Insights",
-      "finalScore": 10,
-      "priority": "low"
+      "keyword": "Hawaii lawmakers discuss AI chatbot restrictions amid teen safety concerns - Hawaii News Now",
+      "bucket": "AI Integration",
+      "finalScore": 65,
+      "priority": "low",
+      "source": {
+        "_": "Hawaii News Now",
+        "url": "https://www.hawaiinewsnow.com"
+      },
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPVmdNekUwM2Q5SDRfMXNxZjNSU3I1a2xYSU1FcXhIcTVvcWM1Q3M1MFV5U0g2N1ZKRVl6U0RLanpVRHZXNnlRVUJKelFzaVJwb1ZyazI1aTkyR0JGNm1EV3pZdmR1RkZsV1ZXdW1fdEJDRkZ3eEs4bGpDMm92ajZwZnhUcW5iZkhwOUZjWHdCTWk1QlE3ZkFGb0F2cTZkU09jQko1b2RxNWZOTDJEaU1wdE56UDF4akHSAcsBQVVfeXFMTVRUU0lvSHNBb2xhLWxWNzJwR3ZVQlV2aDlTMnJaMjRHNDhBU2JZOU0wbm9DUFJMWnFnaDdVTVR4eEx3ZW82SHJYQldtM253Yk50WERVU0F3V21tczQ2OWZOOWN6QUhrMWFib09kby1zUlB1QlJpWGs0VzQ3b1UtLXg2NlJyLS03UEhBSDZtTk1JaW81RllKaG9nM3RoOHVoSFc4ZTJod2gwTUhZMkF1dS1aSTVxZXFCR1BEWVRub0thNzk5VkFUcW01eU0?oc=5"
     },
     {
-      "keyword": "copilot",
-      "traffic": "100+",
-      "source": "google_trends",
-      "url": "https://trends.google.com/trending/rss?geo=SA",
-      "bucket": "Business Insights",
-      "finalScore": 10,
-      "priority": "low"
+      "keyword": "Google, AI chatbot maker to settle lawsuit that blamed them for Orlando teen’s suicide - Orlando Sentinel",
+      "bucket": "AI Integration",
+      "finalScore": 65,
+      "priority": "low",
+      "source": {
+        "_": "Orlando Sentinel",
+        "url": "https://www.orlandosentinel.com"
+      },
+      "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxNeEgwLXp1V1J0b3hGUDZiMnNGd1NOUWdpWkE1dXFhXzluTlY4OEt3UVdKUXdnNGhqVDdyNkZ2a3N4TnQteG9nTi13TXNlSldYZUsyUTJBMGxMWFI3VF8xTE1PSnQ4ZHdsNS1zaEZOd2g0T1NfM3ptWWctY2V1cGJzdUk1dVNWOURQTW9ZRWlzYjB1QzlnWEw4SWJpcXE2TGJYUUVJM254MHFkanlXd0tSR1dCbFJzSjBYUjZBU3libjIyZVdXWFkzUWJ6ZUQyc3l3NkE?oc=5"
     },
     {
-      "keyword": "xiaomi 17 pro max",
-      "traffic": "100+",
-      "source": "google_trends",
-      "url": "https://trends.google.com/trending/rss?geo=SA",
-      "bucket": "Business Insights",
-      "finalScore": 10,
-      "priority": "low"
+      "keyword": "Pentagon is embracing Musk's Grok AI chatbot as it draws global outcry - WIS News 10",
+      "bucket": "AI Integration",
+      "finalScore": 65,
+      "priority": "low",
+      "source": {
+        "_": "WIS News 10",
+        "url": "https://www.wistv.com"
+      },
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQSC1JcTl6aVFHbERpNHc5YU5vUkNqT3Q2dVVndWtnYnJLTldQeTFPSTJISmdibkFkS1piYUg1RHgwV2tJXzRqZ2h0V1FZOFdkZnRObDZMMHkySkcyR19JeFVJYUhFMkFfWUx1MW9UYlhPd25VWWd2czZaRnRBN2ExNjl2cmVEc3ZBbDJQS2FKeFQ4SUhzNURpYnI4S1NwWVNyRVYycXVKMGwwZw?oc=5"
     },
     {
-      "keyword": "bpl",
-      "traffic": "1000+",
-      "source": "google_trends",
-      "url": "https://trends.google.com/trending/rss?geo=SA",
-      "bucket": "Business Insights",
-      "finalScore": 10,
-      "priority": "low"
+      "keyword": "Keohokalole: Legislature will take up AI chatbot misuse - Spectrum News",
+      "bucket": "AI Integration",
+      "finalScore": 65,
+      "priority": "low",
+      "source": {
+        "_": "Spectrum News",
+        "url": "https://spectrumlocalnews.com"
+      },
+      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNbDlYaTBMdVpLZmt3YzNZbmxHVGZrZGU2LURwdzJ4OFg5UnJWQ2I1V3VublpheEE4TnV2Nmg3UHlZVmw4bE9QY1RTM3VCZEdkblF2aUYyX3lRaWVmeVdFNEIyRzBCV2VwTWdlQjhNbVFJRHZHdkhIcjFZWWZkNC1zU0oyRm1FZmsyT3RCUEJ6WUI4YzE3UFp3dWY1a2k0eVh3ZVpMT3RlRjZVZy1LUHRxVg?oc=5"
     },
     {
-      "keyword": "الشركة السعودية للكهرباء",
-      "traffic": "100+",
-      "source": "google_trends",
-      "url": "https://trends.google.com/trending/rss?geo=SA",
-      "bucket": "Business Insights",
-      "finalScore": 10,
-      "priority": "low"
+      "keyword": "Kentucky becomes first state to sue AI chatbot company over child safety concerns, AG Coleman reports - LEX18",
+      "bucket": "AI Integration",
+      "finalScore": 65,
+      "priority": "low",
+      "source": {
+        "_": "LEX18",
+        "url": "https://www.lex18.com"
+      },
+      "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxPdU5qMDVoc2wtdzBrZEZQS3hQam5KN1lXbmRiQ25ONlVVYUNfTXRTYVhqNDkzOFJvUmhHV1BnOHZ4d3JyYmcyeVE3STlnQUk3X3Y2dEtUUS1jNXhkVUJYVEVqRXVpX3Ewb3MyVTFSQnltSS0ySHp3NndRY092Rl9sX0FES0lUM2ZidmRqaXZPdHF0a0dVOFEya0NMNkVKbW1XWWhlVGdSMkRUdTdOUDdzUHRIb1FJVFhwTTQ2SVBPZTJIWGJH?oc=5"
     },
     {
-      "keyword": "bharat coking coal ipo allotment status",
-      "traffic": "100+",
-      "source": "google_trends",
-      "url": "https://trends.google.com/trending/rss?geo=SA",
-      "bucket": "Business Insights",
-      "finalScore": 10,
-      "priority": "low"
+      "keyword": "OpenAI launches ChatGPT Health, directly linking patient portals to the AI chatbot - Medical Economics",
+      "bucket": "AI Integration",
+      "finalScore": 65,
+      "priority": "low",
+      "source": {
+        "_": "Medical Economics",
+        "url": "https://www.medicaleconomics.com"
+      },
+      "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQRW1IcHJ6TTJSZjdMOXo4SzJIUU8tNFpVelFQM2Vld21jbzZtSWR1YTVOdXo0YUtwMVRmMjU3Y0xxY2gwOExBYVhSS1VCeHBjWHRWVVpPZS1NeVBEaU5zb0NPcmxRQXVVai1Zd3NFOWJtUUNaTUdsUmpSam55MVg5Qk1lQWF3d05jUXgtNkFrQ0ZZY3NQVURXaWp1bUowbU83THNlczRoYU4wWHRZXzNCR2dGTGhuX1hicFFR?oc=5"
     },
     {
-      "keyword": "a knight of the seven kingdoms",
-      "traffic": "100+",
-      "source": "google_trends",
-      "url": "https://trends.google.com/trending/rss?geo=SA",
-      "bucket": "Business Insights",
-      "finalScore": 10,
-      "priority": "low"
+      "keyword": "Indonesia blocks access to Musk’s AI chatbot Grok over deepfake images - Al Jazeera",
+      "bucket": "AI Integration",
+      "finalScore": 65,
+      "priority": "low",
+      "source": {
+        "_": "Al Jazeera",
+        "url": "https://www.aljazeera.com"
+      },
+      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQRzFBcTRGaGZ5ZFNfUU9DaG0xZXhlZXhiMk5GT3pTUTltY2lMNGJqVlc4Si1mYjZqYW5pQ2ZPaHNTTlhrMGFLbVRvam5xUDhyeUdDYzYteUlEZVEzbEx4S2FwRHEtMFpTZGZXLXltdGNQWkhFeks5N3ZBdzdjS3loTGpPUlZiWXBUdlBFZGMyZlhwOHUwSEcxTUJMaG03ZG02Y1ZUc29semo3d3Q0d0V30gG0AUFVX3lxTE9NVlhQNXhtUEM3cWhGM09HTlZINC0wS2hlT0hWQnBtTUNYdDFBXzUwRzBscXNhb014WmRicTVESTJHYjJfbjlXZEJ6ZFNTN0phNVpFMjYtWDlKOTBuY1diQWdiVW9meGdpYjFLbmZwSXRna0pjcE56dWFBYllwbk5zLWdTMlB5Z205MENBeVJPY0FEVVE3dG9sT00zaUxqU1g4ZlpQZjVoOGNiLXk0cXlLNjFocA?oc=5"
     }
   ],
   "total": 10,
-  "timestamp": "2026-01-15T10:42:15.544Z"
+  "timestamp": "2026-01-15T11:37:53.981Z"
 }
