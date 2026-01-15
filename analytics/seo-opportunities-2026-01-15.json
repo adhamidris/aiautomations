@@ -1,4 +1,96 @@
 {
-  "opportunities": [],
-  "timestamp": "2026-01-15T01:14:35.246Z"
+  "opportunities": [
+    {
+      "keyword": "vaibhav sooryavanshi",
+      "traffic": "100+",
+      "source": "google_trends",
+      "url": "https://trends.google.com/trending/rss?geo=SA",
+      "bucket": "Business Insights",
+      "finalScore": 18,
+      "priority": "low"
+    },
+    {
+      "keyword": "finn allen",
+      "traffic": "200+",
+      "source": "google_trends",
+      "url": "https://trends.google.com/trending/rss?geo=SA",
+      "bucket": "Business Insights",
+      "finalScore": 10,
+      "priority": "low"
+    },
+    {
+      "keyword": "iranian",
+      "traffic": "1000+",
+      "source": "google_trends",
+      "url": "https://trends.google.com/trending/rss?geo=SA",
+      "bucket": "Business Insights",
+      "finalScore": 10,
+      "priority": "low"
+    },
+    {
+      "keyword": "الضمان الاجتماعي",
+      "traffic": "1000+",
+      "source": "google_trends",
+      "url": "https://trends.google.com/trending/rss?geo=SA",
+      "bucket": "Business Insights",
+      "finalScore": 10,
+      "priority": "low"
+    },
+    {
+      "keyword": "copilot",
+      "traffic": "100+",
+      "source": "google_trends",
+      "url": "https://trends.google.com/trending/rss?geo=SA",
+      "bucket": "Business Insights",
+      "finalScore": 10,
+      "priority": "low"
+    },
+    {
+      "keyword": "xiaomi 17 pro max",
+      "traffic": "100+",
+      "source": "google_trends",
+      "url": "https://trends.google.com/trending/rss?geo=SA",
+      "bucket": "Business Insights",
+      "finalScore": 10,
+      "priority": "low"
+    },
+    {
+      "keyword": "bpl",
+      "traffic": "1000+",
+      "source": "google_trends",
+      "url": "https://trends.google.com/trending/rss?geo=SA",
+      "bucket": "Business Insights",
+      "finalScore": 10,
+      "priority": "low"
+    },
+    {
+      "keyword": "الشركة السعودية للكهرباء",
+      "traffic": "100+",
+      "source": "google_trends",
+      "url": "https://trends.google.com/trending/rss?geo=SA",
+      "bucket": "Business Insights",
+      "finalScore": 10,
+      "priority": "low"
+    },
+    {
+      "keyword": "bharat coking coal ipo allotment status",
+      "traffic": "100+",
+      "source": "google_trends",
+      "url": "https://trends.google.com/trending/rss?geo=SA",
+      "bucket": "Business Insights",
+      "finalScore": 10,
+      "priority": "low"
+    },
+    {
+      "keyword": "a knight of the seven kingdoms",
+      "traffic": "100+",
+      "source": "google_trends",
+      "url": "https://trends.google.com/trending/rss?geo=SA",
+      "bucket": "Business Insights",
+      "finalScore": 10,
+      "priority": "low"
+    }
+  ],
+  "total": 10,
+  "timestamp": "2026-01-15T10:42:15.544Z"
 }
