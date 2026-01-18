@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useParams } from "next/navigation";
 
@@ -58,14 +58,10 @@ export function BlogsSection({
 
                 {/* Blog Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                    {posts.map((post, index) => (
-                        <motion.a
+                    {posts.map((post) => (
+                        <Link
                             key={post.slug}
                             href={`/${lang}/blog/${post.slug}`}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1, duration: 0.5 }}
                             className="group relative flex flex-col h-full bg-background/50 backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden hover:border-foreground/20 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,0,0,0.05)] dark:hover:shadow-[0_0_30px_rgba(255,255,255,0.02)]"
                         >
                             <div className="p-6 md:p-8 flex flex-col h-full">
@@ -100,7 +96,7 @@ export function BlogsSection({
                                     </div>
                                 </div>
                             </div>
-                        </motion.a>
+                        </Link>
                     ))}
                 </div>
 
