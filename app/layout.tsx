@@ -25,8 +25,18 @@ export const metadata: Metadata = {
     default: "AUTOM8ED | Web Development & AI Solutions",
     template: "%s | AUTOM8ED",
   },
-  description: "Premium Web Development, AI Integrations, Custom Workflows, and RAG Solutions.",
-  keywords: ["Web Development", "AI Integration", "RAG", "Automation", "Next.js", "React", "TypeScript", "Tailwind CSS"],
+  description: "Specializing in Web Development, SaaS Building, AI Integrations, Fine-tuning, and RAG Solutions.",
+  keywords: [
+    "Web Development", 
+    "SaaS Building",
+    "AI Integration", 
+    "LLM Fine-tuning",
+    "RAG", 
+    "Next.js", 
+    "React", 
+    "TypeScript", 
+    "Tailwind CSS"
+  ],
   authors: [{ name: "Adham" }],
   creator: "Adham",
   alternates: {
@@ -37,13 +47,13 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://autom8ed.space",
     title: "AUTOM8ED | Web Development & AI Solutions",
-    description: "Premium Web Development, AI Integrations, Custom Workflows, and RAG Solutions.",
+    description: "Specializing in Web Development, SaaS Building, AI Integrations, Fine-tuning, and RAG Solutions.",
     siteName: "AUTOM8ED",
   },
   twitter: {
     card: "summary_large_image",
     title: "AUTOM8ED | Web Development & AI Solutions",
-    description: "Premium Web Development, AI Integrations, Custom Workflows, and RAG Solutions.",
+    description: "Specializing in Web Development, SaaS Building, AI Integrations, Fine-tuning, and RAG Solutions.",
   },
   robots: {
     index: true,
