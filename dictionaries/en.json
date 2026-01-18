@@ -1,0 +1,163 @@
+{
+    "hero": {
+        "title": "Automating Intelligence",
+        "description": "We build AI agents that work for you.",
+        "ctaAutomation": "AUTOMATION",
+        "ctaWebDev": "WEB DEVELOPMENT",
+        "phrases": [
+            "WEB DEVELOPMENT",
+            "AI INTEGRATIONS",
+            "WORKFLOWS",
+            "RAG"
+        ]
+    },
+    "nav": {
+        "home": "Home",
+        "services": "Services",
+        "portfolio": "Portfolio",
+        "contact": "Contact",
+        "bookMeeting": "BOOK A MEETING"
+    },
+    "ecosystem": {
+        "subtitle": "Automations",
+        "titleLine1": "No Repeated Tasks.",
+        "titleLine2": "Automate Everything.",
+        "ctaTitle": "Have another operation you would like automated?",
+        "ctaButton": "TELL US MORE",
+        "partners": {
+            "meta": {
+                "name": "Social Media Management",
+                "description": [
+                    "Content creation & scheduling.",
+                    "Ads management & analytics.",
+                    "AI Customers Communications."
+                ]
+            },
+            "google": {
+                "name": "Google Sheets",
+                "description": [
+                    "Integrate AI into your sheets.",
+                    "Automated sheet data-based actions.",
+                    "Data Analysis and reporting."
+                ]
+            },
+            "whatsapp": {
+                "name": "WhatsApp",
+                "description": [
+                    "Automated customer support.",
+                    "Instant order notifications.",
+                    "24/7 AI chatbots."
+                ]
+            },
+            "wordpress": {
+                "name": "WordPress",
+                "description": [
+                    "Automated content & blog publishing.",
+                    "SEO metadata & schema optimization."
+                ]
+            },
+            "research": {
+                "name": "Research & Insights",
+                "description": [
+                    "Frequency-based insights generation.",
+                    "AI-driven market research.",
+                    "Competitive analysis & trends."
+                ]
+            }
+        }
+    },
+    "services": {
+        "subtitle": "Full Stack Solutions",
+        "titleLine1": "Web Development.",
+        "titleLine2": "SaaS Building.",
+        "items": [
+            {
+                "title": "Web Development",
+                "description": "Custom web development services. We build responsive, user-friendly, and scalable websites using the latest technologies & SEO friendly frameworks."
+            },
+            {
+                "title": "SaaS Building",
+                "description": "Custom SaaS development & MVP services. We build scalable, secure, and user-friendly software solutions using top-notch technologies."
+            },
+            {
+                "title": "AI Integrations & Fine-tuning",
+                "description": "Custom AI integrations. We Integrate custom AI models and fine-tune them to help you automate and optimize your processes."
+            },
+            {
+                "title": "Hosting Management",
+                "description": "Custom hosting management services. We manage and optimize your hosting environment to ensure maximum performance and security."
+            }
+        ]
+    },
+    "portfolio": {
+        "subtitle": "Selected Work",
+        "title": "Crafting Digital Experiences.",
+        "viewProject": "View Project",
+        "projects": {
+            "kaya": "Full-stack tourism platform built with Django templates and TailwindCSS.",
+            "hunters": "Gen-Z fashion brand store with a modern, static frontend.",
+            "once": "Interactive storytelling application for children.",
+            "nasser": "Digital art gallery showcasing curated collections.",
+            "novello": "Static website for a beauty clinic."
+        }
+    },
+    "blogs": {
+        "subtitle": "Insights",
+        "title": "Latest thinking & updates.",
+        "readMore": "Read Article",
+        "posts": [
+            {
+                "slug": "autonomous-agents-business",
+                "title": "Scale Your Business with Autonomous Agents",
+                "category": "AI Automation",
+                "excerpt": "Discover how AI agents can handle complex workflows 24/7 without human intervention.",
+                "date": "Jan 12, 2024"
+            },
+            {
+                "slug": "nextjs-future",
+                "title": "Why Next.js is the Future of Web Development",
+                "category": "Technology",
+                "excerpt": "A deep dive into server components, performance, and why we choose Next.js for scalable apps.",
+                "date": "Jan 05, 2024"
+            },
+            {
+                "slug": "saas-gcc-markets",
+                "title": "Optimizing SaaS for GCC Markets",
+                "category": "Business",
+                "excerpt": "Key strategies for localizing your software product for expansion in the Middle East region.",
+                "date": "Dec 28, 2023"
+            }
+        ]
+    },
+    "contact": {
+        "badgeIdle": "Contact Us",
+        "badgeAudit": "TRANSMITTING",
+        "titleHighlight": "Touch",
+        "titleNormal": "Get in",
+        "reponseTime": "We typically respond within",
+        "responseTimeHighlight": "2 hours",
+        "duringBusinessHours": "during business hours.",
+        "successTitle": "Message Sent",
+        "successMessage": "Thanks for reaching out! We've received your inquiry and will be in touch shortly.",
+        "sendAnother": "Send Another Message",
+        "form": {
+            "nameLabel": "Name",
+            "namePlaceholder": "Enter your name",
+            "phoneLabel": "Phone Number",
+            "emailLabel": "Email",
+            "messageLabel": "Message",
+            "messagePlaceholder": "How can we help you?",
+            "submitButton": "Send Message",
+            "sendingButton": "Sending..."
+        }
+    },
+    "cookie": {
+        "title": "Cookie Usage",
+        "text": "We use cookies to enhance your experience.",
+        "accept": "Accept",
+        "decline": "Decline"
+    },
+    "footer": {
+        "rights": "All rights reserved."
+    }
+}

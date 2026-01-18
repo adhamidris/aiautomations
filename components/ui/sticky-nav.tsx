@@ -5,7 +5,11 @@ import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 
-export function StickyNav() {
+interface StickyNavProps {
+  ctaText?: string;
+}
+
+export function StickyNav({ ctaText = "BOOK A MEETING" }: StickyNavProps) {
   const { scrollY } = useScroll();
   const [visible, setVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -61,7 +65,7 @@ export function StickyNav() {
         >
           <div className="pointer-events-auto flex items-center justify-between gap-4 md:gap-0 rounded-full md:rounded-none border border-border md:border-x-0 md:border-t-0 md:border-b bg-background/80 backdrop-blur-xl px-6 py-3 md:px-12 lg:px-24 md:py-4 shadow-lg ring-1 ring-border/50 md:ring-0 md:shadow-none w-auto md:w-full max-w-[90%] md:max-w-none mx-auto md:mx-0">
             {/* Logo */}
-            <div className="flex items-center gap-2">
+            <div className="hidden md:flex items-center gap-2">
               <span className="font-heading font-black text-lg tracking-tighter text-foreground">
                 AI
               </span>
@@ -84,7 +88,7 @@ export function StickyNav() {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                   </span>
-                  BOOK A MEETING
+                  {ctaText}
                 </span>
               </a>
             </div>

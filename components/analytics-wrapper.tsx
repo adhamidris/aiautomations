@@ -6,7 +6,22 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { X } from "lucide-react"
 
-export function AnalyticsWrapper({ gaId }: { gaId: string }) {
+
+interface AnalyticsWrapperProps {
+  gaId: string;
+  consentTitle?: string;
+  consentText?: string;
+  consentAccept?: string;
+  consentDecline?: string;
+}
+
+export function AnalyticsWrapper({
+  gaId,
+  consentTitle = "Cookie Protocol",
+  consentText = "We use cookies to enhance your experience and analyze site traffic. By connecting, you agree to our data transmission protocols.",
+  consentAccept = "Initialize",
+  consentDecline = "Decline"
+}: AnalyticsWrapperProps) {
   const [consent, setConsent] = useState<boolean | null>(null)
   const [showBanner, setShowBanner] = useState(false)
 
@@ -51,11 +66,10 @@ export function AnalyticsWrapper({ gaId }: { gaId: string }) {
             <div className="mx-auto max-w-4xl rounded-xl border border-border bg-card/90 p-4 shadow-2xl backdrop-blur-md md:flex md:items-center md:justify-between md:gap-6">
               <div className="mb-4 md:mb-0">
                 <h3 className="text-sm font-bold text-foreground uppercase tracking-wider mb-1">
-                  Cookie Protocol
+                  {consentTitle}
                 </h3>
                 <p className="text-sm text-muted-foreground max-w-xl">
-                  We use cookies to enhance your experience and analyze site traffic.
-                  By connecting, you agree to our data transmission protocols.
+                  {consentText}
                 </p>
               </div>
               <div className="flex gap-3">
@@ -64,13 +78,13 @@ export function AnalyticsWrapper({ gaId }: { gaId: string }) {
                   onClick={handleDecline}
                   className="bg-transparent border-border text-muted-foreground hover:bg-muted hover:text-foreground"
                 >
-                  Decline
+                  {consentDecline}
                 </Button>
                 <Button
                   onClick={handleAccept}
                   className="bg-foreground text-background hover:bg-foreground/90 transition-colors border-0"
                 >
-                  Initialize
+                  {consentAccept}
                 </Button>
               </div>
             </div>
@@ -80,3 +94,4 @@ export function AnalyticsWrapper({ gaId }: { gaId: string }) {
     </>
   )
 }
+

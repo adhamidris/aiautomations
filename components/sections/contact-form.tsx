@@ -10,7 +10,52 @@ import { CyberBadge } from "@/components/ui/cyber-badge"
 import { cn } from "@/lib/utils"
 import { trackEvent } from "@/lib/analytics"
 
-export function ContactForm() {
+
+interface ContactFormProps {
+  badgeIdle?: string;
+  badgeAudit?: string;
+  titleHighlight?: string;
+  titleNormal?: string;
+  reponseTime?: string;
+  responseTimeHighlight?: string;
+  duringBusinessHours?: string;
+  successTitle?: string;
+  successMessage?: string;
+  sendAnother?: string;
+  form?: {
+    nameLabel: string;
+    namePlaceholder: string;
+    phoneLabel: string;
+    emailLabel: string;
+    messageLabel: string;
+    messagePlaceholder: string;
+    submitButton: string;
+    sendingButton: string;
+  };
+}
+
+export function ContactForm({
+  badgeIdle = "Contact Us",
+  badgeAudit = "TRANSMITTING",
+  titleHighlight = "Touch",
+  titleNormal = "Get in",
+  reponseTime = "We typically respond within",
+  responseTimeHighlight = "2 hours",
+  duringBusinessHours = "during business hours.",
+  successTitle = "Message Sent",
+  successMessage = "Thanks for reaching out! We've received your inquiry and will be in touch shortly.",
+  sendAnother = "Send Another Message",
+  form = {
+    nameLabel: "Name",
+    namePlaceholder: "Enter your name",
+    phoneLabel: "Phone Number",
+    emailLabel: "Email",
+    messageLabel: "Message",
+    messagePlaceholder: "How can we help you?",
+    submitButton: "Send Message",
+    sendingButton: "Sending..."
+  }
+}: ContactFormProps) {
   const [status, setStatus] = useState<"IDLE" | "PLOTTING" | "TRANSMIT" | "SUCCESS" | "ERROR">("IDLE")
 
   // Simulated "boot up" lines for the left panel terminal
@@ -83,18 +128,18 @@ export function ContactForm() {
             <div className="flex flex-col justify-between border-b border-border bg-card/50 px-6 py-8 md:px-12 md:py-14 md:border-b-0 md:border-r">
               <div className="space-y-6 md:space-y-8">
                 <CyberBadge
-                  text={status === "IDLE" ? "Contact Us" : status}
+                  text={status === "IDLE" ? badgeIdle : badgeAudit}
                   status={status === "IDLE" ? "online" : "audit"}
                   className="border-none"
                 />
                 <div className="space-y-3 md:space-y-4">
                   <h2 className="font-heading text-3xl md:text-5xl font-bold tracking-tight text-foreground">
-                    Get in <span className="text-primary">Touch</span>
+                    {titleNormal} <span className="text-primary">{titleHighlight}</span>
                   </h2>
                 </div>
                 <div className="hidden md:block pt-2">
                   <p className="text-muted-foreground text-lg leading-relaxed max-w-sm">
-                    We typically respond within <span className="text-foreground font-medium">2 hours</span> during business hours.
+                    {reponseTime} <span className="text-foreground font-medium">{responseTimeHighlight}</span> {duringBusinessHours}
                   </p>
                 </div>
               </div>
@@ -127,10 +172,10 @@ export function ContactForm() {
 
                       <div className="space-y-3 max-w-xs mx-auto">
                         <h3 className="font-heading text-3xl font-bold text-foreground tracking-tight">
-                          Message Sent
+                          {successTitle}
                         </h3>
                         <p className="font-sans text-base leading-relaxed text-muted-foreground">
-                          Thanks for reaching out! We&apos;ve received your inquiry and will be in touch shortly.
+                          {successMessage}
                         </p>
                       </div>
 
@@ -142,7 +187,7 @@ export function ContactForm() {
                         }}
                         className="mt-4 border-border bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground transition-all duration-300"
                       >
-                        Send Another Message
+                        {sendAnother}
                       </Button>
                     </motion.div>
                   ) : (
@@ -157,14 +202,14 @@ export function ContactForm() {
                     >
                       <CyberInput
                         id="contact-name"
-                        label="Name"
+                        label={form.nameLabel}
                         name="name"
-                        placeholder="Enter your name"
+                        placeholder={form.namePlaceholder}
                         required
                       />
                       <CyberInput
                         id="contact-phone"
-                        label="Phone Number"
+                        label={form.phoneLabel}
                         name="phone"
                         type="tel"
                         placeholder="+123 456 7890"
@@ -172,7 +217,7 @@ export function ContactForm() {
                       />
                       <CyberInput
                         id="contact-email"
-                        label="Email"
+                        label={form.emailLabel}
                         name="email"
                         type="email"
                         placeholder="name@company.com"
@@ -180,9 +225,9 @@ export function ContactForm() {
                       />
                       <CyberTextArea
                         id="contact-message"
-                        label="Message"
+                        label={form.messageLabel}
                         name="message"
-                        placeholder="How can we help you?"
+                        placeholder={form.messagePlaceholder}
                         required
                       />
                       <Button
@@ -197,9 +242,9 @@ export function ContactForm() {
                       >
                         <span className="flex items-center gap-2">
                           {status === "IDLE" ? (
-                            <>Send Message</>
+                            <>{form.submitButton}</>
                           ) : (
-                            "Sending..."
+                            form.sendingButton
                           )}
                         </span>
                       </Button>
