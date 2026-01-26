@@ -35,7 +35,7 @@ export function WebPortfolio({
       title: "PowerCEM",
       category: "Landing Page",
       tech: "Next.js • Static",
-      link: "https://powercem-j8i0mo2ji-adhamidris-projects.vercel.app/",
+      link: "https://powercem-nine.vercel.app/",
       image: "/powercem.png",
       description: projects?.powercem || "next.js static landing page for PowerCEM"
     },
