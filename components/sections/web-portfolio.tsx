@@ -56,6 +56,14 @@ export function WebPortfolio({
       description: projects?.nasser || "Digital art gallery showcasing curated collections."
     },
     {
+      title: "PowerCEM",
+      category: "Landing Page",
+      tech: "Next.js • Static",
+      link: "https://powercem-j8i0mo2ji-adhamidris-projects.vercel.app/",
+      image: "/powercem.png",
+      description: projects?.powercem || "next.js static landing page for PowerCEM"
+    },
+    {
       title: "Novello",
       category: "Healthcare",
       tech: "HTML • CSS • Vanilla JS",
