@@ -95,6 +95,7 @@
         "viewProject": "View Project",
         "projects": {
             "kaya": "Full-stack tourism platform built with Django templates and TailwindCSS.",
+            "elleshines": "Modern skincare e-commerce store featuring professional beauty tools with seamless UX and conversion-optimized design.",
             "hunters": "Gen-Z fashion brand store with a modern, static frontend.",
             "once": "Interactive storytelling application for children.",
             "nasser": "Digital art gallery showcasing curated collections.",

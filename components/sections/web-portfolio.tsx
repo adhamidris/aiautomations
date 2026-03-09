@@ -40,6 +40,14 @@ export function WebPortfolio({
       description: projects?.powercem || "next.js static landing page for PowerCEM"
     },
     {
+      title: "Elle Shines",
+      category: "E-Commerce",
+      tech: "Next.js • Tailwind • Static",
+      link: "https://elle-shines.vercel.app/",
+      image: "/elleshines.png",
+      description: projects?.elleshines || "Modern skincare e-commerce store featuring professional beauty tools with seamless UX and conversion-optimized design."
+    },
+    {
       title: "Hunters",
       category: "E-Commerce",
       tech: "HTML • CSS • Vanilla JS",
