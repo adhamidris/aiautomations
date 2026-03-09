@@ -94,12 +94,13 @@
         "title": "Crafting Digital Experiences.",
         "viewProject": "View Project",
         "projects": {
-            "kaya": "Full-stack tourism platform built with Django templates and TailwindCSS.",
+            "kaya": "Boutique travel platform showcasing curated desert and cultural tours across Egypt with immersive destination experiences.",
+            "powercem": "Professional infrastructure landing page highlighting sustainable cement-based soil stabilization solutions for global construction projects.",
             "elleshines": "Modern skincare e-commerce store featuring professional beauty tools with seamless UX and conversion-optimized design.",
-            "hunters": "Gen-Z fashion brand store with a modern, static frontend.",
-            "once": "Interactive storytelling application for children.",
-            "nasser": "Digital art gallery showcasing curated collections.",
-            "novello": "Static website for a beauty clinic."
+            "hunters": "Urban streetwear e-commerce platform offering premium graphic tees and shorts with a street-culture aesthetic and mobile-optimized shopping.",
+            "once": "Automated animation creation platform empowering young creators to produce professional-quality animations through an intuitive studio interface.",
+            "nasser": "Elegant digital art gallery presenting curated fine art collections with a clean, immersive browsing experience.",
+            "novello": "Premium aesthetic clinic website offering dermatology, laser, and cosmetic services with seamless appointment booking."
         }
     },
     "blogs": {

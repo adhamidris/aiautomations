@@ -29,7 +29,7 @@ export function WebPortfolio({
       tech: "Django • Tailwind • SQL",
       link: "https://kayatourseg.pythonanywhere.com",
       image: "/kayatours.png",
-      description: projects?.kaya || "Full-stack tourism platform built with Django templates and TailwindCSS."
+      description: projects?.kaya || "Boutique travel platform showcasing curated desert and cultural tours across Egypt with immersive destination experiences."
     },
     {
       title: "PowerCEM",
@@ -37,7 +37,7 @@ export function WebPortfolio({
       tech: "Next.js • Static",
       link: "https://powercem-nine.vercel.app/",
       image: "/powercem.png",
-      description: projects?.powercem || "next.js static landing page for PowerCEM"
+      description: projects?.powercem || "Professional infrastructure landing page highlighting sustainable cement-based soil stabilization solutions for global construction projects."
     },
     {
       title: "Elle Shines",
@@ -53,7 +53,7 @@ export function WebPortfolio({
       tech: "HTML • CSS • Vanilla JS",
       link: "https://hunterswear.vercel.app/",
       image: "/hunters.png",
-      description: projects?.hunters || "Gen-Z fashion brand store with a modern, static frontend."
+      description: projects?.hunters || "Urban streetwear e-commerce platform offering premium graphic tees and shorts with a street-culture aesthetic and mobile-optimized shopping."
     },
     {
       title: "Once Upon a Time",
@@ -61,7 +61,7 @@ export function WebPortfolio({
       tech: "Next.js • Static",
       link: "https://onceuponaatime.vercel.app/",
       image: "/onceuponatime.png",
-      description: projects?.once || "Interactive storytelling application for children."
+      description: projects?.once || "Automated animation creation platform empowering young creators to produce professional-quality animations through an intuitive studio interface."
     },
     {
       title: "Nassers Gallery",
@@ -69,7 +69,7 @@ export function WebPortfolio({
       tech: "Vite • Static",
       link: "https://nassersgallery.vercel.app/",
       image: "/nassergallery.png",
-      description: projects?.nasser || "Digital art gallery showcasing curated collections."
+      description: projects?.nasser || "Elegant digital art gallery presenting curated fine art collections with a clean, immersive browsing experience."
     },
     {
       title: "Novello",
@@ -77,7 +77,7 @@ export function WebPortfolio({
       tech: "HTML • CSS • Vanilla JS",
       link: "https://novello.vercel.app/",
       image: "/novello.png",
-      description: projects?.novello || "Static website for a beauty clinic."
+      description: projects?.novello || "Premium aesthetic clinic website offering dermatology, laser, and cosmetic services with seamless appointment booking."
     }
   ];
 
