@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { LanguageToggle } from "@/components/ui/language-toggle";
 
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 
@@ -77,6 +78,7 @@ export function StickyNav({ ctaText = "BOOK A MEETING" }: StickyNavProps) {
 
             {/* Creative CTA */}
             <div className="flex items-center gap-3 md:gap-4">
+              <LanguageToggle />
               <ThemeToggle />
               <a
                 href="#contact"

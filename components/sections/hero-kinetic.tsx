@@ -13,8 +13,8 @@ interface HeroKineticProps {
 
 export const HeroKinetic = ({
   phrases,
-  ctaAutomation = "AUTOMATION",
-  ctaWebDev = "WEB DEVELOPMENT"
+  ctaAutomation = "SERVICES",
+  ctaWebDev = "PORTFOLIO"
 }: HeroKineticProps) => {
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
@@ -109,7 +109,6 @@ export const HeroKinetic = ({
 const DEFAULT_PHRASES = [
   "WEB DEVELOPMENT",
   "AI INTEGRATIONS",
-  "WORKFLOWS",
   "RAG"
 ];
 

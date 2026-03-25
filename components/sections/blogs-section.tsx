@@ -78,7 +78,7 @@ export function BlogsSection({
 
                                 {/* Content */}
                                 <div className="flex-grow">
-                                    <h4 className="text-xl md:text-2xl font-bold text-foreground mb-3 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-foreground group-hover:to-foreground/70 transition-all duration-300">
+                                    <h4 className="text-xl md:text-2xl font-bold text-foreground mb-3 transition-colors duration-300 group-hover:text-foreground/75">
                                         {post.title}
                                     </h4>
                                     <p className="text-sm md:text-base text-muted-foreground leading-relaxed line-clamp-3">

@@ -2,12 +2,11 @@
     "hero": {
         "title": "Automating Intelligence",
         "description": "We build AI agents that work for you.",
-        "ctaAutomation": "AUTOMATION",
-        "ctaWebDev": "WEB DEVELOPMENT",
+        "ctaAutomation": "SERVICES",
+        "ctaWebDev": "PORTFOLIO",
         "phrases": [
             "WEB DEVELOPMENT",
             "AI INTEGRATIONS",
-            "WORKFLOWS",
             "RAG"
         ]
     },
@@ -69,19 +68,23 @@
     "services": {
         "subtitle": "Full Stack Solutions",
         "titleLine1": "Web Development.",
-        "titleLine2": "SaaS Building.",
+        "titleLine2": "SaaS & MVPs.",
         "items": [
             {
                 "title": "Web Development",
                 "description": "Custom web development services. We build responsive, user-friendly, and scalable websites using the latest technologies & SEO friendly frameworks."
             },
             {
-                "title": "SaaS Building",
+                "title": "SaaS & MVPs",
                 "description": "Custom SaaS development & MVP services. We build scalable, secure, and user-friendly software solutions using top-notch technologies."
             },
             {
-                "title": "AI Integrations & Fine-tuning",
-                "description": "Custom AI integrations. We Integrate custom AI models and fine-tune them to help you automate and optimize your processes."
+                "title": "AI Integrations",
+                "description": "Custom AI integrations tailored to your workflows, helping you automate operations and improve efficiency."
+            },
+            {
+                "title": "RAG",
+                "description": "End-to-end RAG systems for your business knowledge, including data ingestion, retrieval pipelines, and reliable AI answers grounded in your documents."
             },
             {
                 "title": "Hosting Management",

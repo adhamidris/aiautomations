@@ -1,7 +1,7 @@
 import React from "react";
 import { HeroKinetic } from "@/components/sections/hero-kinetic";
-import { EcosystemGrid } from "@/components/sections/ecosystem-grid";
-import { TrustedMarquee } from "@/components/sections/trusted-marquee";
+// import { EcosystemGrid } from "@/components/sections/ecosystem-grid";
+// import { TrustedMarquee } from "@/components/sections/trusted-marquee";
 import { ServicesDossier } from "@/components/sections/services-dossier";
 import { WebPortfolio } from "@/components/sections/web-portfolio";
 import { BlogsSection } from "@/components/sections/blogs-section";
@@ -29,8 +29,9 @@ export default async function Home({ params }: { params: Promise<{ lang: Locale 
         />
       </SectionTracker>
 
-      <TrustedMarquee />
+      {/* <TrustedMarquee /> */}
 
+      {/*
       <SectionTracker id="ecosystem" name="Ecosystem Grid">
         <EcosystemGrid
           titleLine1={dict.ecosystem.titleLine1}
@@ -41,12 +42,14 @@ export default async function Home({ params }: { params: Promise<{ lang: Locale 
           partners={dict.ecosystem.partners}
         />
       </SectionTracker>
+      */}
 
       <SectionTracker id="services" name="Services Dossier">
         <ServicesDossier
           subtitle={dict.services.subtitle}
           titleLine1={dict.services.titleLine1}
           titleLine2={dict.services.titleLine2}
+          ctaText={dict.nav.bookMeeting}
           items={dict.services.items}
         />
       </SectionTracker>

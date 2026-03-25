@@ -55,14 +55,14 @@ export function WebPortfolio({
       image: "/hunters.png",
       description: projects?.hunters || "Urban streetwear e-commerce platform offering premium graphic tees and shorts with a street-culture aesthetic and mobile-optimized shopping."
     },
-    {
-      title: "Once Upon a Time",
-      category: "EdTech",
-      tech: "Next.js • Static",
-      link: "https://onceuponaatime.vercel.app/",
-      image: "/onceuponatime.png",
-      description: projects?.once || "Automated animation creation platform empowering young creators to produce professional-quality animations through an intuitive studio interface."
-    },
+    // {
+    //   title: "Once Upon a Time",
+    //   category: "EdTech",
+    //   tech: "Next.js • Static",
+    //   link: "https://onceuponaatime.vercel.app/",
+    //   image: "/onceuponatime.png",
+    //   description: projects?.once || "Automated animation creation platform empowering young creators to produce professional-quality animations through an intuitive studio interface."
+    // },
     {
       title: "Nassers Gallery",
       category: "Art Gallery",

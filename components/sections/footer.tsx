@@ -1,4 +1,4 @@
-import { Instagram, Linkedin, Twitter } from "lucide-react";
+import { Facebook, Instagram } from "lucide-react";
 
 
 interface FooterProps {
@@ -16,14 +16,16 @@ export function Footer({ rights = "All rights reserved." }: FooterProps) {
         <div className="relative pt-12 flex flex-col items-center justify-center gap-8">
 
           <div className="flex items-center gap-6 md:gap-8 mb-4">
-            <a href="#" className="text-foreground/70 hover:text-foreground transition-colors duration-300 transform hover:scale-110">
-              <Linkedin className="w-6 h-6 md:w-8 md:h-8" />
-            </a>
-            <a href="#" className="text-foreground/70 hover:text-foreground transition-colors duration-300 transform hover:scale-110">
-              <Twitter className="w-6 h-6 md:w-8 md:h-8" />
+            <a
+              href="https://www.facebook.com/autom8ed.space/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground/70 hover:text-foreground transition-colors duration-300 transform hover:scale-110"
+            >
+              <Facebook className="w-6 h-6 md:w-8 md:h-8" />
             </a>
             <a
-              href="https://www.instagram.com/autom8ed_solutions?igsh=MW9rejgwcTV6cnBjeA%3D%3D&utm_source=qr"
+              href="https://www.instagram.com/autom8ed.space/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-foreground/70 hover:text-foreground transition-colors duration-300 transform hover:scale-110"

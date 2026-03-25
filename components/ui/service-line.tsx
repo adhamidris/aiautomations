@@ -9,12 +9,12 @@ interface ServiceLineProps {
   number: string;
   title: string;
   description: string;
-  tags: string[];
+  ctaText?: string;
   isOpen: boolean;
   onToggle: (id: string) => void;
 }
 
-export const ServiceLine = React.memo(({ number, title, description, tags, isOpen, onToggle }: ServiceLineProps) => {
+export const ServiceLine = React.memo(({ number, title, description, ctaText = "BOOK A MEETING", isOpen, onToggle }: ServiceLineProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
   const hoverTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
@@ -111,15 +111,21 @@ export const ServiceLine = React.memo(({ number, title, description, tags, isOpe
             <p className="text-muted-foreground max-w-xl leading-relaxed text-lg font-light">
               {description}
             </p>
-            <div className="flex flex-wrap gap-2 max-w-xs justify-start md:justify-end">
-              {tags.map((tag, i) => (
-                <span
-                  key={i}
-                  className="px-3 py-1 text-[10px] md:text-xs font-mono uppercase tracking-widest text-muted-foreground border border-border rounded-full"
-                >
-                  {tag}
+            <div className="w-full md:w-auto md:max-w-xs flex justify-start md:justify-end">
+              <a
+                href="#contact"
+                onClick={(event) => event.stopPropagation()}
+                className="group relative inline-flex overflow-hidden rounded-full bg-foreground px-6 py-2.5 transition-all hover:opacity-90 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] active:scale-95 cursor-pointer"
+              >
+                <div className="absolute inset-0 bg-[linear-gradient(110deg,transparent,45%,rgba(255,255,255,0.1),55%,transparent)] bg-[length:200%_100%] transition-all duration-500 group-hover:bg-[position:100%_0] bg-no-repeat bg-[position:-100%_0]" />
+                <span className="relative flex items-center gap-3 font-heading text-xs md:text-sm font-black tracking-wide text-background">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                  {ctaText}
                 </span>
-              ))}
+              </a>
             </div>
           </div>
         </motion.div>
