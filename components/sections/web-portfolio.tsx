@@ -46,6 +46,8 @@ export function WebPortfolio({
   viewProject = "View Project",
   projects
 }: WebPortfolioProps) {
+  const mobileCardWidth = "min(73vw, 284px)";
+  const mobileCarouselInset = `calc((100vw - ${mobileCardWidth}) / 2)`;
   const mobileCarouselRef = useRef<HTMLDivElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -54,6 +56,24 @@ export function WebPortfolio({
 
   // Need to reconstruct the array properly and inject descriptions
   const projectsList = [
+    {
+      title: "Hunters",
+      category: "E-Commerce",
+      tech: "HTML • CSS • Vanilla JS",
+      link: "https://hunterswear.vercel.app/",
+      image: "/hunters.png",
+      mobileImage: "/iphone-layout/hunters.png",
+      description: projects?.hunters || "Urban streetwear e-commerce platform offering premium graphic tees and shorts with a street-culture aesthetic and mobile-optimized shopping."
+    },
+    {
+      title: "Sahari",
+      category: "Tourism Website",
+      tech: "Django • Tailwind • SQL",
+      link: "https://kayatourseg.pythonanywhere.com",
+      image: "/desktop-layout/sahari-desktop.png",
+      mobileImage: "/iphone-layout/sahari.png",
+      description: "A dedicated Kaya Tours experience for Sahari desert expeditions, designed around immersive storytelling, premium visuals, and conversion-focused journey discovery."
+    },
     {
       title: "Kaya Tours",
       category: "Tourism Website",
@@ -64,6 +84,16 @@ export function WebPortfolio({
       description: projects?.kaya || "Boutique travel platform showcasing curated desert and cultural tours across Egypt with immersive destination experiences."
     },
     {
+      title: "Pocket AI",
+      category: "Pre-Production SaaS",
+      tech: "Django • Agentic RAG • AI Assistant",
+      link: "#portfolio",
+      image: "/desktop-layout/pocket-desktop.png",
+      mobileImage: "/iphone-layout/pocket.png",
+      mobileStatus: "Pre-production",
+      description: "An in-progress SaaS platform built around an agentic RAG assistant, focused on intelligent customer support flows, knowledge-grounded answers, and scalable product UX."
+    },
+    {
       title: "PowerCEM",
       category: "Landing Page",
       tech: "Next.js • Static",
@@ -71,24 +101,6 @@ export function WebPortfolio({
       image: "/powercem.png",
       mobileImage: "/iphone-layout/cemex.png",
       description: projects?.powercem || "Professional infrastructure landing page highlighting sustainable cement-based soil stabilization solutions for global construction projects."
-    },
-    {
-      title: "Elle Shines",
-      category: "E-Commerce",
-      tech: "Next.js • Tailwind • Static",
-      link: "https://elle-shines.vercel.app/",
-      image: "/elleshines.png",
-      mobileImage: "/iphone-layout/elleshines.png",
-      description: projects?.elleshines || "Modern skincare e-commerce store featuring professional beauty tools with seamless UX and conversion-optimized design."
-    },
-    {
-      title: "Hunters",
-      category: "E-Commerce",
-      tech: "HTML • CSS • Vanilla JS",
-      link: "https://hunterswear.vercel.app/",
-      image: "/hunters.png",
-      mobileImage: "/iphone-layout/hunters.png",
-      description: projects?.hunters || "Urban streetwear e-commerce platform offering premium graphic tees and shorts with a street-culture aesthetic and mobile-optimized shopping."
     },
     // {
     //   title: "Once Upon a Time",
@@ -115,6 +127,15 @@ export function WebPortfolio({
       image: "/novello.png",
       mobileImage: "/iphone-layout/novello.png",
       description: projects?.novello || "Premium aesthetic clinic website offering dermatology, laser, and cosmetic services with seamless appointment booking."
+    },
+    {
+      title: "Elle Shines",
+      category: "E-Commerce",
+      tech: "Next.js • Tailwind • Static",
+      link: "https://elle-shines.vercel.app/",
+      image: "/elleshines.png",
+      mobileImage: "/iphone-layout/elleshines.png",
+      description: projects?.elleshines || "Modern skincare e-commerce store featuring professional beauty tools with seamless UX and conversion-optimized design."
     }
   ];
 
@@ -257,11 +278,10 @@ export function WebPortfolio({
         })
       }}
       data-mobile-slide="true"
-      className="block w-[min(73vw,284px)] shrink-0 snap-center"
+      className="block shrink-0 snap-center"
+      style={{ width: mobileCardWidth }}
     >
       <div className="relative mx-auto aspect-[9/19] rounded-[2.9rem] bg-[#111111] p-[6px] shadow-[0_24px_70px_rgba(0,0,0,0.22)] ring-1 ring-black/20">
-        <div className="absolute left-1/2 top-3 z-20 h-7 w-28 -translate-x-1/2 rounded-full bg-[#161616] shadow-[inset_0_-1px_0_rgba(255,255,255,0.08)]" />
-        <div className="absolute right-[35%] top-[18px] z-30 h-2.5 w-2.5 rounded-full bg-[#222] ring-2 ring-[#101010]" />
         <div className="relative h-full overflow-hidden rounded-[2.5rem] bg-[#0d0d0d]">
           <Image
             src={project.mobileImage}
@@ -270,30 +290,21 @@ export function WebPortfolio({
             sizes="(max-width: 768px) 73vw, 284px"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.08)_0%,rgba(10,10,10,0.12)_28%,rgba(10,10,10,0.74)_72%,rgba(10,10,10,0.92)_100%)]" />
-          <div className="absolute inset-x-0 top-0 h-40 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.18),transparent_60%)]" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-[linear-gradient(180deg,transparent_0%,rgba(10,10,10,0.18)_35%,rgba(10,10,10,0.75)_100%)]" />
 
-          <div className="relative z-10 flex h-full flex-col justify-between p-7 pt-10 text-white">
+          <div className="relative z-10 flex h-full flex-col justify-end p-5 text-white">
             <div className="space-y-3">
-              <span className="inline-flex rounded-full border border-white/20 bg-white/8 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.28em] text-white/75 backdrop-blur-sm">
-                {project.category}
-              </span>
-              <div className="max-w-[12rem]">
-                <h3 className="font-heading text-[2.1rem] font-bold leading-[0.95] tracking-tight text-white">
-                  {project.title}
-                </h3>
-              </div>
-            </div>
-
-            <div className="space-y-5">
-              <p className="max-w-[15rem] text-sm leading-6 text-white/78">
-                {project.description}
-              </p>
-
               <div className="flex items-center justify-between gap-4 border-t border-white/12 pt-4">
                 <div className="min-w-0">
-                  <div className="truncate text-[11px] font-mono uppercase tracking-[0.22em] text-white/45">
-                    Stack
+                  <div className="flex items-center gap-2">
+                    <div className="truncate text-[11px] font-mono uppercase tracking-[0.22em] text-white/45">
+                      {project.title}
+                    </div>
+                    {project.mobileStatus ? (
+                      <span className="rounded-full border border-amber-300/25 bg-amber-300/10 px-2 py-0.5 text-[9px] font-heading uppercase tracking-[0.18em] text-amber-200">
+                        {project.mobileStatus}
+                      </span>
+                    ) : null}
                   </div>
                   <div className="mt-1 text-[11px] font-mono text-white/72">
                     {project.tech}
@@ -341,10 +352,12 @@ export function WebPortfolio({
             <div
               ref={mobileCarouselRef}
               className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-8 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              style={{
+                paddingInline: mobileCarouselInset,
+                scrollPaddingInline: mobileCarouselInset,
+              }}
             >
-              <div className="shrink-0 basis-[calc((100vw-min(73vw,284px))/2)]" />
               {projectsList.map((project, index) => renderMobileProjectCard(project, index))}
-              <div className="shrink-0 basis-[calc((100vw-min(73vw,284px))/2)]" />
             </div>
           </div>
           <div className="mt-1 flex items-center justify-center gap-2">
