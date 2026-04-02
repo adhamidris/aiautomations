@@ -56,7 +56,7 @@ export function ServicesDossier({
   return (
     <section className="relative w-full pt-12 pb-48 md:pt-20 md:pb-64 bg-background overflow-hidden">
       {/* Hero-Style Background Grid (Replicated) */}
-      <div className="absolute inset-0 z-0 opacity-60 dark:opacity-20 bg-grid" />
+      <div className="absolute inset-0 z-0 opacity-60 bg-grid" />
 
       {/* Edge Fade Mask */}
       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--background)_100%)] opacity-40 pointer-events-none" />

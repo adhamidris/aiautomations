@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
+import Image from "next/image";
 import { LanguageToggle } from "@/components/ui/language-toggle";
 
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
@@ -67,9 +67,14 @@ export function StickyNav({ ctaText = "BOOK A MEETING" }: StickyNavProps) {
           <div className="pointer-events-auto flex items-center justify-between gap-4 md:gap-0 rounded-full md:rounded-none border border-border md:border-x-0 md:border-t-0 md:border-b bg-background/80 backdrop-blur-xl px-6 py-3 md:px-12 lg:px-24 md:py-4 shadow-lg ring-1 ring-border/50 md:ring-0 md:shadow-none w-auto md:w-full max-w-[90%] md:max-w-none mx-auto md:mx-0">
             {/* Logo */}
             <div className="hidden md:flex items-center gap-2">
-              <span className="font-heading font-black text-lg tracking-tighter text-foreground">
-                AI
-              </span>
+              <Image
+                src="/logoblack.png"
+                alt="AUTOM8ED"
+                width={32}
+                height={32}
+                className="h-8 w-8 object-contain"
+                priority
+              />
             </div>
 
             {/* Nav Links - Removed Privacy Policy */}
@@ -79,7 +84,6 @@ export function StickyNav({ ctaText = "BOOK A MEETING" }: StickyNavProps) {
             {/* Creative CTA */}
             <div className="flex items-center gap-3 md:gap-4">
               <LanguageToggle />
-              <ThemeToggle />
               <a
                 href="#contact"
                 className="group relative overflow-hidden rounded-full bg-foreground px-6 md:px-8 py-2.5 transition-all hover:opacity-90 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] active:scale-95 cursor-pointer"

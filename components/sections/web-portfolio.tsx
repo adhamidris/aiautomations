@@ -85,7 +85,7 @@ export function WebPortfolio({
     <section id="portfolio" className="relative w-full pt-0 md:pt-0 pb-24 md:pb-32 bg-background overflow-hidden">
 
       {/* Star Field & Meteors Background */}
-      <StarField density={1500} speed={0.2} className="opacity-20 dark:opacity-50" />
+      <StarField density={1500} speed={0.2} className="opacity-20" />
       <Meteors number={12} />
 
       {/* Technical Background Grid - uses global CSS variable */}

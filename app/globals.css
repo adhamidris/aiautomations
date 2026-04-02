@@ -1,8 +1,6 @@
 @import "tailwindcss";
-@variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* Light Mode */
   --background: #ffffff;
   --foreground: #09090b;
   --card: #ffffff;
@@ -21,26 +19,6 @@ html {
   scroll-behavior: smooth;
 }
 
-.dark {
-  /* Dark Mode - Brightened Premium Theme */
-  --background: #0e0e11;
-  /* Slightly lighter than pure black/zinc-950 */
-  --foreground: #ffffff;
-  --card: #18181b;
-  /* Zinc 900 */
-  --accent: #27272a;
-  /* Zinc 800 */
-  --accent-foreground: #ffffff;
-  --muted: #27272a;
-  --muted-foreground: #a1a1aa;
-  /* Zinc 400 - Brighter text */
-  --border: #27272a;
-  /* Zinc 800 - Softer borders */
-  /* Zinc 800 - Softer borders */
-  --grid-color: rgba(255, 255, 255, 0.08);
-  --card-spotlight: rgba(255, 255, 255, 0.15);
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -54,21 +32,12 @@ html {
   --font-sans: var(--font-inter);
   --font-heading: var(--font-space-grotesk);
 }
-
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-inter), sans-serif;
   overflow-x: hidden;
   overflow-anchor: none;
-}
-
-.dark body {
-  /* Ambient lighting only in dark mode */
-  background-image:
-    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.02) 0%, transparent 30%);
 }
 
 h1,

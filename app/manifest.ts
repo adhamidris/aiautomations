@@ -9,8 +9,8 @@ export default function manifest(): MetadataRoute.Manifest {
         description: "Premium Web Development & AI Solutions.",
         start_url: "/",
         display: "standalone",
-        background_color: "#0B0B0B",
-        theme_color: "#0B0B0B",
+        background_color: "#FFFFFF",
+        theme_color: "#FFFFFF",
         icons: [
             {
                 src: "/favicon.ico",

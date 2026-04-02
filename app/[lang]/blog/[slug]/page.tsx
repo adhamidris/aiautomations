@@ -117,7 +117,7 @@ export default async function BlogPostPage({
             />
 
             {/* Visual Background Elements */}
-            <div className="absolute inset-0 bg-grid opacity-40 dark:opacity-10 pointer-events-none z-0" />
+            <div className="absolute inset-0 bg-grid opacity-40 pointer-events-none z-0" />
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[400px] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-foreground/5 via-transparent to-transparent blur-3xl pointer-events-none z-0" />
 
             {/* Navigation Bar Placeholder (Back Button) */}
@@ -157,7 +157,7 @@ export default async function BlogPostPage({
             {/* Article Content */}
             <div className="relative z-10 w-full max-w-3xl mx-auto px-6 pb-24">
                 <div
-                    className="prose prose-zinc dark:prose-invert max-w-none 
+                    className="prose prose-zinc max-w-none 
                        prose-headings:font-heading prose-headings:tracking-tight
                        prose-h3:text-2xl prose-h3:mt-12 prose-h3:mb-6
                        prose-p:text-lg prose-p:leading-relaxed prose-p:text-muted-foreground

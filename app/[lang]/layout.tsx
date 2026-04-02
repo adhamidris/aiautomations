@@ -4,6 +4,9 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import "../globals.css";
 import { AnalyticsWrapper } from "@/components/analytics-wrapper";
 import { getDictionary } from "../../get-dictionary";
+import { GrainOverlay } from "@/components/ui/grain-overlay";
+import { StickyNav } from "@/components/ui/sticky-nav";
+import JsonLd from "@/components/seo/json-ld";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -14,12 +17,6 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
 });
-
-
-import { GrainOverlay } from "@/components/ui/grain-overlay";
-import { StickyNav } from "@/components/ui/sticky-nav";
-import { ThemeProvider } from "@/components/theme-provider";
-import JsonLd from "@/components/seo/json-ld";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://autom8ed.space"),
@@ -102,24 +99,14 @@ export default async function RootLayout({
   const dict = await getDictionary(lang);
 
   return (
-    <html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'} suppressHydrationWarning>
+    <html lang={lang} dir={lang === 'ar' ? 'rtl' : 'ltr'}>
       <body
         className={`${inter.variable} ${spaceGrotesk.variable} antialiased bg-background text-foreground`}
       >
         <JsonLd />
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-
-
-
-          <GrainOverlay />
-          <StickyNav ctaText={dict.nav.bookMeeting} />
-          {children}
-        </ThemeProvider>
+        <GrainOverlay />
+        <StickyNav ctaText={dict.nav.bookMeeting} />
+        {children}
         <AnalyticsWrapper
           gaId={process.env.NEXT_PUBLIC_GA_ID || ""}
           consentTitle={dict.cookie.title}

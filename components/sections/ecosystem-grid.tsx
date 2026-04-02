@@ -103,10 +103,10 @@ export const EcosystemGrid = ({
 
   return (
     <section id="services" className="relative w-full py-24 md:py-32 bg-background overflow-hidden" ref={containerRef}>
-      <StarField density={1500} speed={0.2} className="opacity-20 dark:opacity-50" />
+      <StarField density={1500} speed={0.2} className="opacity-20" />
       <Meteors number={12} />
       {/* Technical Background Grid - uses global CSS variable */}
-      <div className="absolute inset-0 bg-grid opacity-60 dark:opacity-20 pointer-events-none z-0" />
+      <div className="absolute inset-0 bg-grid opacity-60 pointer-events-none z-0" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,transparent_0%,var(--background)_100%)] pointer-events-none z-0" />
 
       {/* Bottom Fade for Smooth Transition */}
@@ -162,5 +162,4 @@ export const EcosystemGrid = ({
     </section>
   );
 };
-
 

@@ -110,7 +110,7 @@ export function ContactForm({
       className="relative w-full pt-8 pb-32 md:pt-24 md:pb-64 overflow-hidden"
     >
       {/* Technical Background Grid - uses CSS variable for color */}
-      <div className="absolute inset-0 bg-grid opacity-60 dark:opacity-20 pointer-events-none" />
+      <div className="absolute inset-0 bg-grid opacity-60 pointer-events-none" />
 
       {/* Edge Fade Mask */}
       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--background)_100%)] opacity-40 pointer-events-none" />

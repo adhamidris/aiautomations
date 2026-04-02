@@ -32,13 +32,13 @@ export const HeroKinetic = ({
   return (
     <section className="relative w-full bg-background text-foreground selection:bg-foreground/20 overflow-x-hidden min-h-[100svh] md:h-screen md:overflow-hidden">
       {/* Background Grid */}
-      <div className="absolute inset-0 z-0 opacity-60 dark:opacity-20 bg-grid" />
+      <div className="absolute inset-0 z-0 opacity-60 bg-grid" />
 
       {/* Ambient Ceiling Light */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[400px] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-foreground/10 via-foreground/5 to-transparent blur-3xl pointer-events-none z-0 will-change-transform" />
 
       {/* Direct Spotlight - Root Level */}
-      <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[70vw] max-w-[600px] h-[350px] rounded-full bg-foreground/5 blur-[120px] pointer-events-none z-40 will-change-transform opacity-100 dark:opacity-100" />
+      <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-[70vw] max-w-[600px] h-[350px] rounded-full bg-foreground/5 blur-[120px] pointer-events-none z-40 will-change-transform opacity-100" />
 
       {/* Main Content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-[100svh] py-20 md:h-full md:py-0">
@@ -59,7 +59,7 @@ export const HeroKinetic = ({
 
         {/* Standard Tech CTA */}
         <div className="relative mt-8 md:mt-12 z-20">
-          <div className="flex items-center p-1 md:p-1.5 rounded-full border border-border bg-background shadow-[0_0_25px_rgba(0,0,0,0.1)] dark:shadow-[0_0_25px_rgba(255,255,255,0.2)]">
+          <div className="flex items-center p-1 md:p-1.5 rounded-full border border-border bg-background shadow-[0_0_25px_rgba(0,0,0,0.1)]">
 
             {/* Automation Pill */}
             <a

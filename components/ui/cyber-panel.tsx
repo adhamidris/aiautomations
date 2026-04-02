@@ -51,12 +51,8 @@ export const CyberPanel = ({
         className
       )}
     >
-        {/* Vignette Overlay - Only visible in dark mode via opacity/blend modes or conditional styles if needed.
-            For now, we'll make it subtle or use a dark-only class if we want to retain the 'heavy' look in dark mode. 
-            However, inline styles don't support dark mode easily without CSS variables. 
-            We'll use a Tailwind class for the shadow if possible, or keep it subtle. */}
         <div 
-            className="pointer-events-none absolute inset-0 z-0 select-none opacity-20 dark:opacity-50"
+            className="pointer-events-none absolute inset-0 z-0 select-none opacity-20"
             style={{ boxShadow: "inset 0 0 100px 20px var(--background)" }}
         />
 

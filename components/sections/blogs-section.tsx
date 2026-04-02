@@ -41,7 +41,7 @@ export function BlogsSection({
     return (
         <section className="relative w-full py-24 md:py-32 bg-background overflow-hidden border-t border-border/40">
             {/* Background Grid - consistent with other sections */}
-            <div className="absolute inset-0 bg-grid opacity-60 dark:opacity-20 pointer-events-none z-0" />
+            <div className="absolute inset-0 bg-grid opacity-60 pointer-events-none z-0" />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,transparent_0%,var(--background)_100%)] pointer-events-none z-0" />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -62,7 +62,7 @@ export function BlogsSection({
                         <Link
                             key={post.slug}
                             href={`/${lang}/blog/${post.slug}`}
-                            className="group relative flex flex-col h-full bg-background/50 backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden hover:border-foreground/20 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,0,0,0.05)] dark:hover:shadow-[0_0_30px_rgba(255,255,255,0.02)]"
+                            className="group relative flex flex-col h-full bg-background/50 backdrop-blur-sm border border-border/50 rounded-2xl overflow-hidden hover:border-foreground/20 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,0,0,0.05)]"
                         >
                             <div className="p-6 md:p-8 flex flex-col h-full">
 

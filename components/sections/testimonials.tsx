@@ -96,7 +96,7 @@ export const Testimonials = ({
     <section className="relative w-full py-20 lg:py-32 overflow-hidden bg-background">
 
 
-      <StarField density={800} speed={0.2} className="opacity-20 dark:opacity-50" />
+      <StarField density={800} speed={0.2} className="opacity-20" />
       <Meteors number={12} />
       {/* Technical Background Grid - uses global CSS variable */}
       <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none" />
