@@ -119,8 +119,8 @@ export function DodzieSection({
                 <div className="space-y-3">
                   {points.map((point, index) => (
                     <div key={point}>
-                      <div className="rounded-[1.4rem] bg-black/[0.03] px-4 py-3 text-sm leading-7 text-foreground/78 md:px-5 lg:text-lg lg:leading-8">
-                        <div className="flex items-start gap-3">
+                      <div className="rounded-[1.4rem] bg-[#eef1f4] px-4 py-3 text-sm leading-7 text-foreground/78 shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_1px_2px_rgba(15,23,42,0.04)] md:border md:border-black/8 md:px-5 lg:text-lg lg:leading-8">
+                        <div className="flex items-start gap-3 text-left">
                           <span className="mt-[0.72rem] h-2.5 w-2.5 shrink-0 rounded-full bg-[#d97728] lg:mt-[0.82rem] lg:h-3 lg:w-3" />
                           <span>
                             {point}
@@ -130,22 +130,14 @@ export function DodzieSection({
                                 <ArrowLeftRight className="h-3.5 w-3.5 text-foreground/35 lg:h-4 lg:w-4" />
                                 <InlineBrandIcon src="/brands/computer.svg" alt="Computer" size={18} className="lg:h-5 lg:w-5" />
                               </span>
-                            ) : index === 1 ? (
-                              <span className="ml-3 inline-flex items-center gap-2 align-middle">
-                                <InlineBrandIcon src="/brands/files.svg" alt="Files" size={18} className="lg:h-5 lg:w-5" />
-                              </span>
                             ) : index === 2 ? (
-                              <span className="ml-3 inline-flex items-center gap-2 align-middle">
+                              <span className="ml-3 inline-flex flex-wrap items-center gap-2 align-middle">
                                 <InlineBrandIcon src="/brands/outlook.svg" alt="Outlook" className="lg:h-[18px] lg:w-[18px]" />
                                 <InlineBrandIcon src="/brands/gmail.svg" alt="Gmail" className="lg:h-[18px] lg:w-[18px]" />
                                 <InlineBrandIcon src="/brands/google-analytics.svg" alt="Google Analytics" className="lg:h-[18px] lg:w-[18px]" />
                                 <InlineBrandIcon src="/brands/chrome.svg" alt="Chrome" className="lg:h-[18px] lg:w-[18px]" />
                                 <InlineBrandIcon src="/brands/excel.svg" alt="Excel" className="lg:h-[18px] lg:w-[18px]" />
                                 <InlineBrandIcon src="/brands/word.svg" alt="Word" className="lg:h-[18px] lg:w-[18px]" />
-                              </span>
-                            ) : index === 3 ? (
-                              <span className="ml-3 inline-flex items-center gap-2 align-middle">
-                                <InlineBrandIcon src="/brands/recurring.svg" alt="Recurring workflows" size={18} className="lg:h-5 lg:w-5" />
                               </span>
                             ) : null}
                           </span>
@@ -155,7 +147,7 @@ export function DodzieSection({
                   ))}
 
                   <div>
-                    <div className="rounded-[1.4rem] bg-black/[0.03] px-4 py-3 md:px-5">
+                    <div className="rounded-[1.4rem] bg-[#eef1f4] px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_1px_2px_rgba(15,23,42,0.04)] md:border md:border-black/8 md:px-5">
                       <div className="flex flex-wrap items-center gap-3 text-sm text-foreground/78 md:text-[15px] lg:text-lg">
                         <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#d97728] lg:h-3 lg:w-3" />
                         <span>{llmsLabel}</span>
@@ -181,7 +173,7 @@ export function DodzieSection({
                 </div>
               </div>
 
-              <div className="mt-10 flex flex-wrap gap-3 pl-5 md:pl-6 lg:pl-12 xl:pl-16">
+              <div className="mt-10 flex flex-wrap gap-3 pl-5 md:pl-6 lg:pl-0">
                 <a
                   href="#contact"
                   onClick={handlePrimaryClick}
