@@ -92,6 +92,18 @@
             }
         ]
     },
+    "dodzie": {
+        "title": "Meet Dodzie",
+        "summary": "A custom AI assistant built into your setup. Connected to your tools. Ready to act.",
+        "points": [
+            "Run it through Telegram, anywhere.",
+            "Connected to your local workspace and files.",
+            "Takes action on your behalf.",
+            "Turns prompts into recurring workflows."
+        ],
+        "llmsLabel": "Compatible with",
+        "primaryCta": "Build My Assistant"
+    },
     "portfolio": {
         "subtitle": "Selected Work",
         "title": "Crafting Digital Experiences.",

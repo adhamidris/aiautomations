@@ -3,6 +3,7 @@ import { HeroKinetic } from "@/components/sections/hero-kinetic";
 // import { EcosystemGrid } from "@/components/sections/ecosystem-grid";
 // import { TrustedMarquee } from "@/components/sections/trusted-marquee";
 import { ServicesDossier } from "@/components/sections/services-dossier";
+import { DodzieSection } from "@/components/sections/dodzie-section";
 import { WebPortfolio } from "@/components/sections/web-portfolio";
 import { BlogsSection } from "@/components/sections/blogs-section";
 import { ContactForm } from "@/components/sections/contact-form";
@@ -51,6 +52,16 @@ export default async function Home({ params }: { params: Promise<{ lang: Locale 
           titleLine2={dict.services.titleLine2}
           ctaText={dict.nav.bookMeeting}
           items={dict.services.items}
+        />
+      </SectionTracker>
+
+      <SectionTracker id="assistant" name="Dodzie Assistant" minDuration={2500}>
+        <DodzieSection
+          title={dict.dodzie.title}
+          summary={dict.dodzie.summary}
+          points={dict.dodzie.points}
+          llmsLabel={dict.dodzie.llmsLabel}
+          primaryCta={dict.dodzie.primaryCta}
         />
       </SectionTracker>
 

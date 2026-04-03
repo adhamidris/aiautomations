@@ -55,7 +55,7 @@ export function ServicesDossier({
   ];
 
   return (
-    <section className="relative w-full overflow-hidden bg-[#fcfcfb] pt-12 pb-48 md:pt-20 md:pb-64">
+    <section className="relative w-full overflow-hidden bg-[#fcfcfb] pt-12 pb-24 md:pt-20 md:pb-32">
       {/* Top transition carry-over from hero */}
       <div className="absolute inset-x-0 top-0 z-0 h-48 bg-[linear-gradient(180deg,rgba(255,255,255,0.94)_0%,rgba(255,255,255,0.76)_24%,rgba(252,252,251,0.2)_68%,transparent_100%)] pointer-events-none md:h-60" />
       <div className="absolute left-1/2 top-0 z-0 h-36 w-[72vw] max-w-[760px] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(0,0,0,0.08)_0%,rgba(0,0,0,0.035)_34%,transparent_72%)] blur-3xl pointer-events-none md:h-44" />

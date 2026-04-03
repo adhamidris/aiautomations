@@ -456,8 +456,6 @@ export function WebPortfolio({
     </a>
   );
 
-  const activeDesktopProject = projectsList[desktopIndex] ?? projectsList[0];
-
   return (
     <section id="portfolio" className="relative w-full overflow-hidden bg-[#fcfcfb] pt-0 md:pt-0 pb-28 md:pb-32">
 
@@ -536,8 +534,8 @@ export function WebPortfolio({
             </button>
           </div>
 
-          <div className="mx-auto max-w-6xl px-12 2xl:px-16">
-            <div className="mx-auto max-w-[68rem]">
+          <div className="mx-auto max-w-[82rem] px-10 2xl:px-14">
+            <div className="mx-auto max-w-[72rem]">
               <div className="group/macbook relative rounded-[2rem] bg-[linear-gradient(180deg,#202124_0%,#17181b_100%)] p-3 shadow-[0_38px_90px_rgba(0,0,0,0.2)] ring-1 ring-black/10">
                 <div className="absolute left-1/2 top-2.5 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-zinc-700 shadow-[0_0_0_2px_rgba(255,255,255,0.03)]" />
                 <div className="relative aspect-[16/10] overflow-hidden rounded-[1.35rem] border border-white/10 bg-[#0f1012] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
@@ -562,13 +560,17 @@ export function WebPortfolio({
                   <div className="relative mx-auto aspect-[9/19] rounded-[2.65rem] bg-[#121214] p-[6px] shadow-[0_30px_80px_rgba(0,0,0,0.24)] ring-1 ring-black/18">
                     <div className="absolute left-1/2 top-3 z-20 h-6 w-24 -translate-x-1/2 rounded-full bg-[#17181b] shadow-[inset_0_-1px_0_rgba(255,255,255,0.06)]" />
                     <div className="relative h-full overflow-hidden rounded-[2.3rem] bg-[#0d0d0f]">
-                      <Image
-                        src={activeDesktopProject.mobileImage}
-                        alt={`${activeDesktopProject.title} mobile preview`}
-                        fill
-                        sizes="240px"
-                        className="object-cover"
-                      />
+                      {projectsList.map((project, index) => (
+                        <Image
+                          key={`${project.title}-desktop-mobile-preview`}
+                          src={project.mobileImage}
+                          alt={`${project.title} mobile preview`}
+                          fill
+                          sizes="240px"
+                          loading={index <= 2 ? "eager" : "lazy"}
+                          className={`object-cover transition-opacity duration-300 ${index === desktopIndex ? "opacity-100" : "opacity-0"}`}
+                        />
+                      ))}
                       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.05)_0%,transparent_20%,rgba(0,0,0,0.08)_100%)]" />
                     </div>
                   </div>
