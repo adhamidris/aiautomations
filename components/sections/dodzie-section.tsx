@@ -119,19 +119,19 @@ export function DodzieSection({
                 <div className="space-y-3">
                   {points.map((point, index) => (
                     <div key={point}>
-                      <div className="rounded-[1.4rem] bg-[#eef1f4] px-4 py-3 text-sm leading-7 text-foreground/78 shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_1px_2px_rgba(15,23,42,0.04)] md:border md:border-black/8 md:px-5 lg:text-lg lg:leading-8">
-                        <div className="flex items-start gap-3 text-left">
-                          <span className="mt-[0.72rem] h-2.5 w-2.5 shrink-0 rounded-full bg-[#d97728] lg:mt-[0.82rem] lg:h-3 lg:w-3" />
-                          <span>
+                      <div className="relative overflow-hidden rounded-[1.4rem] bg-[#eef1f4] px-4 py-3 text-sm leading-7 text-foreground/78 shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_1px_2px_rgba(15,23,42,0.04)] md:border md:border-black/8 md:px-5 lg:text-lg lg:leading-8">
+                        <div className="flex flex-col items-center gap-2 text-center md:flex-row md:items-start md:gap-3 md:text-left">
+                          <span className="mt-[0.72rem] hidden h-2.5 w-2.5 shrink-0 rounded-full bg-[#d97728] md:inline-block lg:mt-[0.82rem] lg:h-3 lg:w-3" />
+                          <span className="block">
                             {point}
                             {index === 0 ? (
-                              <span className="ml-3 inline-flex items-center gap-2 align-middle">
+                              <span className="mt-2 flex items-center justify-center gap-2 md:ml-3 md:mt-0 md:inline-flex md:align-middle">
                                 <InlineBrandIcon src="/brands/telegram.svg" alt="Telegram" className="lg:h-[18px] lg:w-[18px]" />
                                 <ArrowLeftRight className="h-3.5 w-3.5 text-foreground/35 lg:h-4 lg:w-4" />
                                 <InlineBrandIcon src="/brands/computer.svg" alt="Computer" size={18} className="lg:h-5 lg:w-5" />
                               </span>
                             ) : index === 2 ? (
-                              <span className="ml-3 inline-flex flex-wrap items-center gap-2 align-middle">
+                              <span className="mt-2 flex flex-wrap items-center justify-center gap-2 md:ml-3 md:mt-0 md:inline-flex md:align-middle">
                                 <InlineBrandIcon src="/brands/outlook.svg" alt="Outlook" className="lg:h-[18px] lg:w-[18px]" />
                                 <InlineBrandIcon src="/brands/gmail.svg" alt="Gmail" className="lg:h-[18px] lg:w-[18px]" />
                                 <InlineBrandIcon src="/brands/google-analytics.svg" alt="Google Analytics" className="lg:h-[18px] lg:w-[18px]" />
@@ -147,11 +147,11 @@ export function DodzieSection({
                   ))}
 
                   <div>
-                    <div className="rounded-[1.4rem] bg-[#eef1f4] px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_1px_2px_rgba(15,23,42,0.04)] md:border md:border-black/8 md:px-5">
-                      <div className="flex flex-wrap items-center gap-3 text-sm text-foreground/78 md:text-[15px] lg:text-lg">
-                        <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#d97728] lg:h-3 lg:w-3" />
+                    <div className="relative overflow-hidden rounded-[1.4rem] bg-[#eef1f4] px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_1px_2px_rgba(15,23,42,0.04)] md:border md:border-black/8 md:px-5">
+                      <div className="flex flex-col items-center gap-2 text-center text-sm text-foreground/78 md:flex-row md:flex-wrap md:items-center md:gap-3 md:text-left md:text-[15px] lg:text-lg">
+                        <span className="hidden h-2.5 w-2.5 shrink-0 rounded-full bg-[#d97728] md:inline-block lg:h-3 lg:w-3" />
                         <span>{llmsLabel}</span>
-                        <div className="flex flex-wrap items-center gap-3">
+                        <div className="flex flex-wrap items-center justify-center gap-3 md:justify-start">
                           <LlmBadge
                             label="OpenAI"
                             src="/brands/openai.svg"
