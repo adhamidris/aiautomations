@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { useParams } from "next/navigation";
+import { SectionEdgeAccents } from "@/components/ui/section-edge-accents";
 
 // Interface matches the shape returned by getAllPosts from lib/content.ts
 interface BlogPostSummary {
@@ -43,6 +44,7 @@ export function BlogsSection({
             {/* Background Grid - consistent with other sections */}
             <div className="absolute inset-0 bg-grid opacity-60 pointer-events-none z-0" />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,transparent_0%,var(--background)_100%)] pointer-events-none z-0" />
+            <SectionEdgeAccents railLabel="INSIGHTS" className="opacity-80" />
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 

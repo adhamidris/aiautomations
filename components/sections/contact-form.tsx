@@ -9,6 +9,7 @@ import { CyberPanel } from "@/components/ui/cyber-panel"
 import { CyberBadge } from "@/components/ui/cyber-badge"
 import { cn } from "@/lib/utils"
 import { trackEvent } from "@/lib/analytics"
+import { SectionEdgeAccents } from "@/components/ui/section-edge-accents"
 
 
 interface ContactFormProps {
@@ -120,6 +121,7 @@ export function ContactForm({
 
       {/* Bottom Fade for Smooth Transition */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-0 pointer-events-none" />
+      <SectionEdgeAccents flip railLabel="CONTACT" className="opacity-85" />
 
       <div className="relative z-10 container mx-auto max-w-7xl px-4 md:px-6">
         <CyberPanel variant="list" className="min-h-0 md:min-h-[620px]">

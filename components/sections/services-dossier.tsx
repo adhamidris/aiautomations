@@ -2,6 +2,7 @@
 
 import React from "react";
 import { ServiceLine } from "@/components/ui/service-line";
+import { SectionEdgeAccents } from "@/components/ui/section-edge-accents";
 
 
 interface ServicesDossierProps {
@@ -64,6 +65,7 @@ export function ServicesDossier({
       {/* Section surface shaping */}
       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(255,255,255,0.18)_62%,rgba(255,255,255,0.5)_100%)] pointer-events-none" />
       <div className="absolute bottom-0 left-0 right-0 z-0 h-32 bg-gradient-to-t from-[#fcfcfb] to-transparent pointer-events-none" />
+      <SectionEdgeAccents railLabel="SERVICES" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 

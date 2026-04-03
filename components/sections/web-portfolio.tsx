@@ -6,6 +6,7 @@ import { Meteors } from "@/components/ui/meteors";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import { trackEvent } from "@/lib/analytics";
+import { SectionEdgeAccents } from "@/components/ui/section-edge-accents";
 
 
 interface WebPortfolioProps {
@@ -152,9 +153,21 @@ export function WebPortfolio({
     const container = carouselRef.current;
     if (!container) return;
 
-    const scrollAmount = Math.round(container.clientWidth);
-    container.scrollBy({
-      left: direction === "right" ? scrollAmount : -scrollAmount,
+    const slides = Array.from(
+      container.querySelectorAll<HTMLElement>("[data-desktop-slide='true']")
+    );
+    if (!slides.length) return;
+
+    const nextIndex = Math.max(
+      0,
+      Math.min(
+        projectsList.length - 1,
+        desktopIndex + (direction === "right" ? 1 : -1)
+      )
+    );
+
+    container.scrollTo({
+      left: slides[nextIndex].offsetLeft,
       behavior: "smooth",
     });
   };
@@ -440,6 +453,7 @@ export function WebPortfolio({
       {/* Technical Background Grid - uses global CSS variable */}
       <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,transparent_0%,var(--background)_100%)] pointer-events-none" />
+      <SectionEdgeAccents flip railLabel="SHOWCASE" className="opacity-90" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
 
@@ -521,6 +535,7 @@ export function WebPortfolio({
                   </div>
                   <div
                     ref={carouselRef}
+                    dir="ltr"
                     className="flex h-full snap-x snap-mandatory overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                   >
                     {projectsList.map((project, index) => renderDesktopShowcaseSlide(project, index))}
