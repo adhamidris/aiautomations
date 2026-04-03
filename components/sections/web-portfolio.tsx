@@ -377,8 +377,6 @@ export function WebPortfolio({
           style={{ objectPosition: project.desktopImagePosition ?? "center center" }}
           className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.05)_0%,rgba(255,255,255,0.01)_18%,rgba(0,0,0,0.04)_100%)]" />
-        <div className="absolute inset-x-0 top-0 h-9 bg-[linear-gradient(180deg,rgba(255,255,255,0.12)_0%,rgba(255,255,255,0.03)_52%,transparent_100%)]" />
         <div className="absolute inset-y-0 left-0 z-10 flex w-[30%] min-w-[250px] max-w-[320px] translate-x-[-102%] flex-col justify-between border-r border-white/8 bg-[linear-gradient(180deg,rgba(23,24,28,0.94)_0%,rgba(18,19,23,0.88)_100%)] p-7 text-white opacity-0 backdrop-blur-[6px] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0 group-hover:opacity-100">
           <div className="space-y-5">
             <div className="flex items-center gap-3">
@@ -418,15 +416,19 @@ export function WebPortfolio({
               ))}
             </div>
 
-            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-white/12 bg-white px-4 py-2.5 text-[11px] font-bold uppercase tracking-[0.18em] text-black shadow-[0_18px_36px_rgba(0,0,0,0.16)]">
-              {viewProject}
-              <ArrowUpRight className="h-4 w-4" />
-            </div>
+            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/12 bg-white px-4 py-2.5 text-[11px] font-bold uppercase tracking-[0.18em] text-black shadow-[0_18px_36px_rgba(0,0,0,0.16)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-0.5 group-hover:bg-[#f7f7f8] group-hover:shadow-[0_22px_42px_rgba(0,0,0,0.2)]">
+              <span className="transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0.5">
+                {viewProject}
+              </span>
+              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </span>
           </div>
         </div>
       </div>
     </a>
   );
+
+  const activeDesktopProject = projectsList[desktopIndex] ?? projectsList[0];
 
   return (
     <section id="portfolio" className="relative w-full pt-0 md:pt-0 pb-28 md:pb-32 bg-background overflow-hidden">
@@ -481,26 +483,28 @@ export function WebPortfolio({
         </div>
 
         <div className="hidden xl:block relative">
-          <button
-            type="button"
-            onClick={() => scrollCarousel("left")}
-            className={`absolute left-0 top-1/2 z-20 inline-flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[0.9rem] border border-[#272a31] bg-[linear-gradient(180deg,#363940_0%,#17191e_100%)] shadow-[0_12px_22px_rgba(0,0,0,0.24),inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-1px_1px_rgba(0,0,0,0.34)] transition-all duration-200 ${canScrollLeft ? "opacity-100 hover:-translate-y-[52%] hover:bg-[linear-gradient(180deg,#3b3f47_0%,#1b1d22_100%)] hover:shadow-[0_16px_26px_rgba(0,0,0,0.26),inset_0_1px_0_rgba(255,255,255,0.1),inset_0_-1px_1px_rgba(0,0,0,0.32)]" : "pointer-events-none scale-95 opacity-0"}`}
-            aria-label="Scroll portfolio left"
-            disabled={!canScrollLeft}
-          >
-            <span className="pointer-events-none absolute inset-[2px] rounded-[0.78rem] border border-white/6" />
-            <CarouselArrow direction="left" />
-          </button>
-          <button
-            type="button"
-            onClick={() => scrollCarousel("right")}
-            className={`absolute right-0 top-1/2 z-20 inline-flex h-11 w-11 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[0.9rem] border border-[#272a31] bg-[linear-gradient(180deg,#363940_0%,#17191e_100%)] shadow-[0_12px_22px_rgba(0,0,0,0.24),inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-1px_1px_rgba(0,0,0,0.34)] transition-all duration-200 ${canScrollRight ? "opacity-100 hover:-translate-y-[52%] hover:bg-[linear-gradient(180deg,#3b3f47_0%,#1b1d22_100%)] hover:shadow-[0_16px_26px_rgba(0,0,0,0.26),inset_0_1px_0_rgba(255,255,255,0.1),inset_0_-1px_1px_rgba(0,0,0,0.32)]" : "pointer-events-none scale-95 opacity-0"}`}
-            aria-label="Scroll portfolio right"
-            disabled={!canScrollRight}
-          >
-            <span className="pointer-events-none absolute inset-[2px] rounded-[0.78rem] border border-white/6" />
-            <CarouselArrow direction="right" />
-          </button>
+          <div className="absolute right-0 top-1/2 z-20 flex translate-x-1/2 -translate-y-1/2 flex-col gap-2">
+            <button
+              type="button"
+              onClick={() => scrollCarousel("left")}
+              className={`inline-flex h-11 w-11 items-center justify-center rounded-[0.9rem] border border-[#272a31] bg-[linear-gradient(180deg,#363940_0%,#17191e_100%)] shadow-[0_12px_22px_rgba(0,0,0,0.24),inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-1px_1px_rgba(0,0,0,0.34)] transition-all duration-200 ${canScrollLeft ? "opacity-100 hover:-translate-y-0.5 hover:bg-[linear-gradient(180deg,#3b3f47_0%,#1b1d22_100%)] hover:shadow-[0_16px_26px_rgba(0,0,0,0.26),inset_0_1px_0_rgba(255,255,255,0.1),inset_0_-1px_1px_rgba(0,0,0,0.32)]" : "pointer-events-none scale-95 opacity-35"}`}
+              aria-label="Scroll portfolio left"
+              disabled={!canScrollLeft}
+            >
+              <span className="pointer-events-none absolute inset-[2px] rounded-[0.78rem] border border-white/6" />
+              <CarouselArrow direction="left" />
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollCarousel("right")}
+              className={`inline-flex h-11 w-11 items-center justify-center rounded-[0.9rem] border border-[#272a31] bg-[linear-gradient(180deg,#363940_0%,#17191e_100%)] shadow-[0_12px_22px_rgba(0,0,0,0.24),inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-1px_1px_rgba(0,0,0,0.34)] transition-all duration-200 ${canScrollRight ? "opacity-100 hover:-translate-y-0.5 hover:bg-[linear-gradient(180deg,#3b3f47_0%,#1b1d22_100%)] hover:shadow-[0_16px_26px_rgba(0,0,0,0.26),inset_0_1px_0_rgba(255,255,255,0.1),inset_0_-1px_1px_rgba(0,0,0,0.32)]" : "pointer-events-none scale-95 opacity-35"}`}
+              aria-label="Scroll portfolio right"
+              disabled={!canScrollRight}
+            >
+              <span className="pointer-events-none absolute inset-[2px] rounded-[0.78rem] border border-white/6" />
+              <CarouselArrow direction="right" />
+            </button>
+          </div>
 
           <div className="mx-auto max-w-6xl px-12 2xl:px-16">
             <div className="mx-auto max-w-[68rem]">
@@ -520,6 +524,22 @@ export function WebPortfolio({
                     className="flex h-full snap-x snap-mandatory overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                   >
                     {projectsList.map((project, index) => renderDesktopShowcaseSlide(project, index))}
+                  </div>
+                </div>
+
+                <div className="pointer-events-none absolute bottom-[-2.75rem] right-[-1.5rem] z-30 w-[24%] max-w-[250px] min-w-[180px] rotate-[-4deg] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/macbook:-translate-y-1">
+                  <div className="relative mx-auto aspect-[9/19] rounded-[2.65rem] bg-[#121214] p-[6px] shadow-[0_30px_80px_rgba(0,0,0,0.24)] ring-1 ring-black/18">
+                    <div className="absolute left-1/2 top-3 z-20 h-6 w-24 -translate-x-1/2 rounded-full bg-[#17181b] shadow-[inset_0_-1px_0_rgba(255,255,255,0.06)]" />
+                    <div className="relative h-full overflow-hidden rounded-[2.3rem] bg-[#0d0d0f]">
+                      <Image
+                        src={activeDesktopProject.mobileImage}
+                        alt={`${activeDesktopProject.title} mobile preview`}
+                        fill
+                        sizes="240px"
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.05)_0%,transparent_20%,rgba(0,0,0,0.08)_100%)]" />
+                    </div>
                   </div>
                 </div>
               </div>
