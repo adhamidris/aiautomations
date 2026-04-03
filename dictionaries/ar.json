@@ -102,7 +102,30 @@
             "يحوّل البرومبتات إلى سير عمل متكرر."
         ],
         "llmsLabel": "متوافق مع",
-        "primaryCta": "ابنِ مساعدي"
+        "primaryCta": "ابنِ مساعدي",
+        "demoTitle": "شاهد دودزي أثناء العمل",
+        "demoVideos": [
+            {
+                "label": "مقدمة",
+                "src": "/vids-dodzie/01-introduction.mp4"
+            },
+            {
+                "label": "الاجتماعات",
+                "src": "/vids-dodzie/02-meetings-fourth-pass.mp4"
+            },
+            {
+                "label": "الشكاوى",
+                "src": "/vids-dodzie/03-complaints.mp4"
+            },
+            {
+                "label": "التحليلات",
+                "src": "/vids-dodzie/04-google-analytics.mp4"
+            },
+            {
+                "label": "SEO",
+                "src": "/vids-dodzie/05-seo-automation.mp4"
+            }
+        ]
     },
     "portfolio": {
         "subtitle": "مختارات من أعمالنا",

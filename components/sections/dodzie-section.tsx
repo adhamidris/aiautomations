@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { ArrowLeftRight, ArrowUpRight } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
@@ -10,6 +11,11 @@ interface DodzieSectionProps {
   points: string[];
   llmsLabel: string;
   primaryCta: string;
+  demoTitle: string;
+  demoVideos: {
+    label: string;
+    src: string;
+  }[];
 }
 
 function LlmBadge({
@@ -67,7 +73,14 @@ export function DodzieSection({
   points,
   llmsLabel,
   primaryCta,
+  demoTitle,
+  demoVideos,
 }: DodzieSectionProps) {
+  const [activeVideoIndex, setActiveVideoIndex] = useState(0);
+  const [isDemoOpen, setIsDemoOpen] = useState(false);
+
+  const activeVideo = demoVideos[activeVideoIndex];
+
   const handlePrimaryClick = () => {
     trackEvent({
       action: "dodzie_cta_click",
@@ -75,6 +88,52 @@ export function DodzieSection({
       label: primaryCta,
     });
   };
+
+  const handleVideoChange = (nextIndex: number) => {
+    const boundedIndex = (nextIndex + demoVideos.length) % demoVideos.length;
+    setActiveVideoIndex(boundedIndex);
+
+    trackEvent({
+      action: "dodzie_demo_change",
+      category: "assistant",
+      label: demoVideos[boundedIndex]?.label ?? `video_${boundedIndex + 1}`,
+    });
+  };
+
+  const openDemo = () => {
+    setIsDemoOpen(true);
+    trackEvent({
+      action: "dodzie_demo_open",
+      category: "assistant",
+      label: demoTitle,
+    });
+  };
+
+  const closeDemo = () => {
+    setIsDemoOpen(false);
+    trackEvent({
+      action: "dodzie_demo_close",
+      category: "assistant",
+      label: demoTitle,
+    });
+  };
+
+  useEffect(() => {
+    if (!isDemoOpen) return;
+    if (typeof window === "undefined") return;
+    if (window.innerWidth >= 1024) return;
+
+    const originalBodyOverflow = document.body.style.overflow;
+    const originalHtmlOverflow = document.documentElement.style.overflow;
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = originalBodyOverflow;
+      document.documentElement.style.overflow = originalHtmlOverflow;
+    };
+  }, [isDemoOpen]);
 
   return (
     <section id="assistant" className="relative w-full overflow-hidden bg-background">
@@ -92,7 +151,7 @@ export function DodzieSection({
           </div>
 
           <div className="space-y-8">
-            <div className="rounded-[2rem] bg-white p-7 shadow-[0_20px_60px_rgba(0,0,0,0.06)] md:p-10">
+            <div className="relative overflow-hidden rounded-[2rem] bg-white p-7 shadow-[0_20px_60px_rgba(0,0,0,0.06)] md:p-10">
               <h3 className="mx-auto max-w-[11ch] text-center text-4xl font-bold leading-[0.95] tracking-tight text-foreground md:text-5xl lg:mx-0 lg:text-left xl:text-6xl">
                 {title}
               </h3>
@@ -182,6 +241,78 @@ export function DodzieSection({
                   {primaryCta}
                   <ArrowUpRight className="h-4 w-4" />
                 </a>
+                <button
+                  type="button"
+                  onClick={openDemo}
+                  className="inline-flex items-center gap-2 rounded-full bg-[#f4f6f8] px-6 py-3.5 text-sm font-bold uppercase tracking-[0.18em] text-foreground transition-transform duration-300 hover:-translate-y-0.5"
+                >
+                  {demoTitle}
+                </button>
+              </div>
+
+              <div
+                className={`fixed inset-0 z-50 lg:absolute ${isDemoOpen ? "pointer-events-auto" : "pointer-events-none"}`}
+                aria-hidden={!isDemoOpen}
+                onClick={closeDemo}
+              >
+                <div
+                  className={`absolute inset-0 transition-all duration-300 ${isDemoOpen ? "bg-white/76 opacity-100 backdrop-blur-xl" : "opacity-0"}`}
+                />
+
+                <div className="absolute inset-0 flex items-center justify-center px-5 py-8 lg:px-8 lg:py-10">
+                  <div
+                    className={`flex w-full max-w-[38rem] flex-col items-center justify-center gap-5 px-2 py-3 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:flex-row lg:gap-10 lg:px-8 lg:py-8 ${isDemoOpen ? "scale-100 opacity-100" : "scale-[0.96] opacity-0"}`}
+                  >
+                    <div
+                      className="order-2 flex w-full max-w-[17rem] shrink-0 flex-wrap justify-center gap-2 lg:order-1 lg:w-[9.75rem] lg:flex-col lg:flex-nowrap lg:justify-start"
+                      onClick={(event) => event.stopPropagation()}
+                    >
+                      {demoVideos.map((video, index) => {
+                        const isActive = index === activeVideoIndex;
+
+                        return (
+                          <button
+                            key={video.src}
+                            type="button"
+                            onClick={() => handleVideoChange(index)}
+                            className={`rounded-[1.15rem] px-3 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] transition-all duration-200 lg:min-w-0 lg:text-left ${isActive ? "bg-foreground text-background shadow-[0_10px_20px_rgba(15,23,42,0.16)]" : "bg-white text-foreground/62 ring-1 ring-black/8 hover:text-foreground"}`}
+                          >
+                            <span className="block lg:hidden">
+                              {video.label}
+                            </span>
+                            <span className="hidden text-[10px] opacity-60 lg:block">
+                              {String(index + 1).padStart(2, "0")}
+                            </span>
+                            <span className="mt-1 hidden lg:block">
+                              {video.label}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    <div
+                      className="order-1 relative aspect-[9/19] w-full max-w-[260px] rounded-[2.95rem] bg-[#111111] p-[6px] shadow-[0_24px_50px_rgba(0,0,0,0.22)] ring-1 ring-black/20 lg:order-2 lg:max-w-[290px]"
+                      onClick={(event) => event.stopPropagation()}
+                    >
+                      <div className="relative h-full overflow-hidden rounded-[2.55rem] bg-black">
+                        <div className="absolute left-1/2 top-3 z-20 h-7 w-28 -translate-x-1/2 rounded-full bg-black/90 ring-1 ring-white/10" />
+                        <video
+                          key={activeVideo.src}
+                          className="h-full w-full object-cover"
+                          controls
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          preload="auto"
+                        >
+                          <source src={activeVideo.src} type="video/mp4" />
+                        </video>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

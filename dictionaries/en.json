@@ -102,7 +102,30 @@
             "Turns prompts into recurring workflows."
         ],
         "llmsLabel": "Compatible with",
-        "primaryCta": "Build My Assistant"
+        "primaryCta": "Build My Assistant",
+        "demoTitle": "See Dodzie in action",
+        "demoVideos": [
+            {
+                "label": "Intro",
+                "src": "/vids-dodzie/01-introduction.mp4"
+            },
+            {
+                "label": "Meetings",
+                "src": "/vids-dodzie/02-meetings-fourth-pass.mp4"
+            },
+            {
+                "label": "Complaints",
+                "src": "/vids-dodzie/03-complaints.mp4"
+            },
+            {
+                "label": "Analytics",
+                "src": "/vids-dodzie/04-google-analytics.mp4"
+            },
+            {
+                "label": "SEO",
+                "src": "/vids-dodzie/05-seo-automation.mp4"
+            }
+        ]
     },
     "portfolio": {
         "subtitle": "Selected Work",

@@ -8,13 +8,13 @@ function getLocale(request: NextRequest): string | undefined {
     const negotiatorHeaders: Record<string, string> = {};
     request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
 
-    // @ts-ignore locales are readonly
+    // @ts-expect-error locales are readonly in the library typing, but we only read them here
     const locales: string[] = i18n.locales;
     const languages = new Negotiator({ headers: negotiatorHeaders }).languages();
 
     try {
         return matchLocale(languages, locales, i18n.defaultLocale);
-    } catch (e) {
+    } catch {
         return i18n.defaultLocale;
     }
 }
@@ -44,5 +44,5 @@ export function middleware(request: NextRequest) {
 
 export const config = {
     // Matcher ignoring `/_next/` and `/api/`
-    matcher: ['/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'],
+    matcher: ['/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|mp4|webm|mov|mp3|wav|ico|txt|xml|webmanifest|woff|woff2|ttf|otf)$).*)'],
 };

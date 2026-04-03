@@ -62,6 +62,8 @@ export default async function Home({ params }: { params: Promise<{ lang: Locale 
           points={dict.dodzie.points}
           llmsLabel={dict.dodzie.llmsLabel}
           primaryCta={dict.dodzie.primaryCta}
+          demoTitle={dict.dodzie.demoTitle}
+          demoVideos={dict.dodzie.demoVideos}
         />
       </SectionTracker>
 
