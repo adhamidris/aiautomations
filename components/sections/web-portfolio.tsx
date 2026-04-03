@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { StarField } from "@/components/ui/star-field";
 import { Meteors } from "@/components/ui/meteors";
 import { ArrowUpRight } from "lucide-react";
@@ -78,11 +78,6 @@ export function WebPortfolio({
   const mobileCardWidth = "min(73vw, 284px)";
   const mobileCarouselInset = `calc((100vw - ${mobileCardWidth}) / 2)`;
   const mobileCarouselRef = useRef<HTMLDivElement>(null);
-  const mobileSettleTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const mobileSnapReleaseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const mobileGestureStartIndexRef = useRef(0);
-  const mobileIsDraggingRef = useRef(false);
-  const mobileIsAutoSnappingRef = useRef(false);
   const carouselRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -182,101 +177,6 @@ export function WebPortfolio({
     }
   ];
 
-  const clearMobileSettleTimeout = useCallback(() => {
-    if (mobileSettleTimeoutRef.current) {
-      window.clearTimeout(mobileSettleTimeoutRef.current);
-      mobileSettleTimeoutRef.current = null;
-    }
-  }, []);
-
-  const snapMobileToIndex = useCallback((
-    index: number,
-    behavior: ScrollBehavior = "smooth"
-  ) => {
-    const container = mobileCarouselRef.current;
-    if (!container) return;
-
-    const slides = Array.from(
-      container.querySelectorAll<HTMLElement>("[data-mobile-slide='true']")
-    );
-    const targetSlide = slides[index];
-    if (!targetSlide) return;
-
-    const targetLeft =
-      targetSlide.offsetLeft - (container.clientWidth - targetSlide.offsetWidth) / 2;
-
-    mobileIsAutoSnappingRef.current = true;
-    container.scrollTo({
-      left: targetLeft,
-      behavior,
-    });
-
-    if (mobileSnapReleaseTimeoutRef.current) {
-      window.clearTimeout(mobileSnapReleaseTimeoutRef.current);
-    }
-
-    mobileSnapReleaseTimeoutRef.current = window.setTimeout(() => {
-      mobileIsAutoSnappingRef.current = false;
-    }, behavior === "smooth" ? 380 : 0);
-  }, []);
-
-  const settleMobileCarousel = useCallback((behavior: ScrollBehavior = "smooth") => {
-    const container = mobileCarouselRef.current;
-    if (!container) return;
-
-    const { index: nearestIndex, slides } = getNearestSlideIndex(
-      container,
-      "[data-mobile-slide='true']"
-    );
-    if (!slides.length) return;
-
-    const direction = Math.sign(nearestIndex - mobileGestureStartIndexRef.current);
-    const targetIndex =
-      direction === 0
-        ? nearestIndex
-        : Math.max(
-            0,
-            Math.min(
-              slides.length - 1,
-              mobileGestureStartIndexRef.current + direction
-            )
-          );
-
-    setMobileIndex(targetIndex);
-    snapMobileToIndex(targetIndex, behavior);
-  }, [snapMobileToIndex]);
-
-  const scheduleMobileSettle = useCallback(() => {
-    clearMobileSettleTimeout();
-
-    if (mobileIsDraggingRef.current || mobileIsAutoSnappingRef.current) {
-      return;
-    }
-
-    mobileSettleTimeoutRef.current = window.setTimeout(() => {
-      if (!mobileIsDraggingRef.current && !mobileIsAutoSnappingRef.current) {
-        settleMobileCarousel();
-      }
-    }, 110);
-  }, [clearMobileSettleTimeout, settleMobileCarousel]);
-
-  const handleMobileGestureStart = useCallback(() => {
-    const container = mobileCarouselRef.current;
-    if (!container) return;
-
-    mobileIsDraggingRef.current = true;
-    clearMobileSettleTimeout();
-    mobileGestureStartIndexRef.current = getNearestSlideIndex(
-      container,
-      "[data-mobile-slide='true']"
-    ).index;
-  }, [clearMobileSettleTimeout]);
-
-  const handleMobileGestureEnd = useCallback(() => {
-    mobileIsDraggingRef.current = false;
-    scheduleMobileSettle();
-  }, [scheduleMobileSettle]);
-
   const scrollCarousel = (direction: "left" | "right") => {
     const container = carouselRef.current;
     if (!container) return;
@@ -355,28 +255,17 @@ export function WebPortfolio({
       if (!slides.length) return;
 
       setMobileIndex(nearestIndex);
-      scheduleMobileSettle();
-    };
-
-    const handleScrollEnd = () => {
-      scheduleMobileSettle();
     };
 
     updateMobileIndex();
     container.addEventListener("scroll", updateMobileIndex, { passive: true });
-    container.addEventListener("scrollend", handleScrollEnd);
     window.addEventListener("resize", updateMobileIndex);
 
     return () => {
-      clearMobileSettleTimeout();
-      if (mobileSnapReleaseTimeoutRef.current) {
-        window.clearTimeout(mobileSnapReleaseTimeoutRef.current);
-      }
       container.removeEventListener("scroll", updateMobileIndex);
-      container.removeEventListener("scrollend", handleScrollEnd);
       window.removeEventListener("resize", updateMobileIndex);
     };
-  }, [projectsList.length, clearMobileSettleTimeout, scheduleMobileSettle]);
+  }, [projectsList.length]);
 
   const renderProjectCard = (project: typeof projectsList[number], index: number, carousel = false) => (
     <a
@@ -570,16 +459,17 @@ export function WebPortfolio({
   const activeDesktopProject = projectsList[desktopIndex] ?? projectsList[0];
 
   return (
-    <section id="portfolio" className="relative w-full pt-0 md:pt-0 pb-28 md:pb-32 bg-background overflow-hidden">
+    <section id="portfolio" className="relative w-full overflow-hidden bg-[#fcfcfb] pt-0 md:pt-0 pb-28 md:pb-32">
 
       {/* Star Field & Meteors Background */}
-      <StarField density={1500} speed={0.2} className="opacity-20" />
-      <Meteors number={12} />
+      <StarField density={1500} speed={0.2} className="opacity-12" />
+      <Meteors number={8} />
 
       {/* Technical Background Grid - uses global CSS variable */}
-      <div className="absolute inset-0 bg-grid opacity-20 pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,transparent_0%,var(--background)_100%)] pointer-events-none" />
-      <SectionEdgeAccents flip railLabel="SHOWCASE" className="opacity-90" />
+      <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#fcfcfb] to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-grid opacity-12 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_50%,transparent_0%,rgba(252,252,251,0.92)_100%)] pointer-events-none" />
+      <SectionEdgeAccents flip railLabel="SHOWCASE" className="opacity-75" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
 
@@ -600,15 +490,9 @@ export function WebPortfolio({
             <div
               ref={mobileCarouselRef}
               className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-8 scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-              onTouchStart={handleMobileGestureStart}
-              onTouchEnd={handleMobileGestureEnd}
-              onTouchCancel={handleMobileGestureEnd}
               style={{
                 paddingInline: mobileCarouselInset,
                 scrollPaddingInline: mobileCarouselInset,
-                overscrollBehaviorX: "contain",
-                touchAction: "pan-x pinch-zoom",
-                WebkitOverflowScrolling: "touch",
               }}
             >
               {projectsList.map((project, index) => renderMobileProjectCard(project, index))}
