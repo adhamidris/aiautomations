@@ -54,17 +54,16 @@ export function ServicesDossier({
   ];
 
   return (
-    <section className="relative w-full pt-12 pb-48 md:pt-20 md:pb-64 bg-background overflow-hidden">
-      {/* Hero-Style Background Grid (Replicated) */}
-      <div className="absolute inset-0 z-0 opacity-60 bg-grid" />
+    <section className="relative w-full overflow-hidden bg-[#fcfcfb] pt-12 pb-48 md:pt-20 md:pb-64">
+      {/* Top transition carry-over from hero */}
+      <div className="absolute inset-x-0 top-0 z-0 h-48 bg-[linear-gradient(180deg,rgba(255,255,255,0.94)_0%,rgba(255,255,255,0.76)_24%,rgba(252,252,251,0.2)_68%,transparent_100%)] pointer-events-none md:h-60" />
+      <div className="absolute left-1/2 top-0 z-0 h-36 w-[72vw] max-w-[760px] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,rgba(0,0,0,0.08)_0%,rgba(0,0,0,0.035)_34%,transparent_72%)] blur-3xl pointer-events-none md:h-44" />
+      <div className="absolute inset-x-0 top-0 z-0 h-56 bg-grid bg-[position:0_24px] opacity-55 [mask-image:linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.18)_10%,rgba(0,0,0,0.72)_34%,transparent_100%)] pointer-events-none md:h-72" />
+      <div className="absolute inset-x-0 top-0 z-0 h-56 bg-[linear-gradient(to_right,rgba(0,0,0,0.022)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.022)_1px,transparent_1px)] bg-[size:50px_50px] bg-[position:0_24px] [mask-image:linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.14)_10%,rgba(0,0,0,0.62)_38%,transparent_100%)] pointer-events-none md:h-72" />
 
-      {/* Edge Fade Mask */}
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--background)_100%)] opacity-40 pointer-events-none" />
-
-      {/* Top Fade for Smooth Transition */}
-      <div className="absolute top-0 left-0 right-0 h-40 md:h-48 bg-gradient-to-b from-background to-transparent z-0 pointer-events-none" />
-      {/* Bottom Fade for Smooth Transition to Portfolio */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-0 pointer-events-none" />
+      {/* Section surface shaping */}
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(255,255,255,0.18)_62%,rgba(255,255,255,0.5)_100%)] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 z-0 h-32 bg-gradient-to-t from-[#fcfcfb] to-transparent pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 

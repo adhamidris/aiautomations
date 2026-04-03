@@ -20,7 +20,7 @@ function CarouselArrow({ direction }: { direction: "left" | "right" }) {
     <svg
       viewBox="0 0 64 64"
       aria-hidden="true"
-      className={`h-6 w-6 text-white ${direction === "left" ? "rotate-180" : ""}`}
+      className={`h-3.5 w-3.5 text-[#f3f4f6] ${direction === "left" ? "rotate-180" : ""}`}
       fill="none"
     >
       <path
@@ -53,6 +53,7 @@ export function WebPortfolio({
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [mobileIndex, setMobileIndex] = useState(0);
+  const [desktopIndex, setDesktopIndex] = useState(0);
 
   // Need to reconstruct the array properly and inject descriptions
   const projectsList = [
@@ -63,6 +64,7 @@ export function WebPortfolio({
       link: "https://hunterswear.vercel.app/",
       image: "/hunters.png",
       mobileImage: "/iphone-layout/hunters.png",
+      desktopImagePosition: "center top",
       description: projects?.hunters || "Urban streetwear e-commerce platform offering premium graphic tees and shorts with a street-culture aesthetic and mobile-optimized shopping."
     },
     {
@@ -72,6 +74,7 @@ export function WebPortfolio({
       link: "https://kayatourseg.pythonanywhere.com",
       image: "/desktop-layout/sahari-desktop.png",
       mobileImage: "/iphone-layout/sahari.png",
+      desktopImagePosition: "center center",
       description: "A dedicated Kaya Tours experience for Sahari desert expeditions, designed around immersive storytelling, premium visuals, and conversion-focused journey discovery."
     },
     {
@@ -81,6 +84,7 @@ export function WebPortfolio({
       link: "https://kayatourseg.pythonanywhere.com",
       image: "/kayatours.png",
       mobileImage: "/iphone-layout/kayatours.png",
+      desktopImagePosition: "center top",
       description: projects?.kaya || "Boutique travel platform showcasing curated desert and cultural tours across Egypt with immersive destination experiences."
     },
     {
@@ -91,6 +95,7 @@ export function WebPortfolio({
       image: "/desktop-layout/pocket-desktop.png",
       mobileImage: "/iphone-layout/pocket.png",
       mobileStatus: "Pre-production",
+      desktopImagePosition: "68% center",
       description: "An in-progress SaaS platform built around an agentic RAG assistant, focused on intelligent customer support flows, knowledge-grounded answers, and scalable product UX."
     },
     {
@@ -100,6 +105,7 @@ export function WebPortfolio({
       link: "https://powercem-nine.vercel.app/",
       image: "/powercem.png",
       mobileImage: "/iphone-layout/cemex.png",
+      desktopImagePosition: "center center",
       description: projects?.powercem || "Professional infrastructure landing page highlighting sustainable cement-based soil stabilization solutions for global construction projects."
     },
     // {
@@ -117,6 +123,7 @@ export function WebPortfolio({
       link: "https://nassersgallery.vercel.app/",
       image: "/nassergallery.png",
       mobileImage: "/iphone-layout/nassersgallery.png",
+      desktopImagePosition: "center center",
       description: projects?.nasser || "Elegant digital art gallery presenting curated fine art collections with a clean, immersive browsing experience."
     },
     {
@@ -126,6 +133,7 @@ export function WebPortfolio({
       link: "https://novello.vercel.app/",
       image: "/novello.png",
       mobileImage: "/iphone-layout/novello.png",
+      desktopImagePosition: "center top",
       description: projects?.novello || "Premium aesthetic clinic website offering dermatology, laser, and cosmetic services with seamless appointment booking."
     },
     {
@@ -135,6 +143,7 @@ export function WebPortfolio({
       link: "https://elle-shines.vercel.app/",
       image: "/elleshines.png",
       mobileImage: "/iphone-layout/elleshines.png",
+      desktopImagePosition: "center top",
       description: projects?.elleshines || "Modern skincare e-commerce store featuring professional beauty tools with seamless UX and conversion-optimized design."
     }
   ];
@@ -143,7 +152,7 @@ export function WebPortfolio({
     const container = carouselRef.current;
     if (!container) return;
 
-    const scrollAmount = Math.round(container.clientWidth * 0.78);
+    const scrollAmount = Math.round(container.clientWidth);
     container.scrollBy({
       left: direction === "right" ? scrollAmount : -scrollAmount,
       behavior: "smooth",
@@ -157,9 +166,30 @@ export function WebPortfolio({
     const updateScrollState = () => {
       const maxScrollLeft = container.scrollWidth - container.clientWidth;
       const threshold = 8;
+      const slides = Array.from(
+        container.querySelectorAll<HTMLElement>("[data-desktop-slide='true']")
+      );
 
       setCanScrollLeft(container.scrollLeft > threshold);
       setCanScrollRight(container.scrollLeft < maxScrollLeft - threshold);
+
+      if (!slides.length) return;
+
+      const containerCenter = container.scrollLeft + container.clientWidth / 2;
+      let nearestIndex = 0;
+      let nearestDistance = Number.POSITIVE_INFINITY;
+
+      slides.forEach((slide, index) => {
+        const slideCenter = slide.offsetLeft + slide.offsetWidth / 2;
+        const distance = Math.abs(slideCenter - containerCenter);
+
+        if (distance < nearestDistance) {
+          nearestDistance = distance;
+          nearestIndex = index;
+        }
+      });
+
+      setDesktopIndex(nearestIndex);
     };
 
     updateScrollState();
@@ -322,6 +352,82 @@ export function WebPortfolio({
     </a>
   );
 
+  const renderDesktopShowcaseSlide = (project: typeof projectsList[number], index: number) => (
+    <a
+      key={index}
+      href={project.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      data-desktop-slide="true"
+      onClick={() => {
+        trackEvent({
+          action: "project_click",
+          category: "portfolio_desktop",
+          label: project.title,
+        })
+      }}
+      className="group relative block h-full w-full shrink-0 snap-center overflow-hidden"
+    >
+      <div className="relative h-full w-full overflow-hidden bg-[radial-gradient(circle_at_center,#f7f4ef_0%,#ebe6de_100%)]">
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
+          sizes="(min-width: 1280px) 1000px, 100vw"
+          style={{ objectPosition: project.desktopImagePosition ?? "center center" }}
+          className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.05)_0%,rgba(255,255,255,0.01)_18%,rgba(0,0,0,0.04)_100%)]" />
+        <div className="absolute inset-x-0 top-0 h-9 bg-[linear-gradient(180deg,rgba(255,255,255,0.12)_0%,rgba(255,255,255,0.03)_52%,transparent_100%)]" />
+        <div className="absolute inset-y-0 left-0 z-10 flex w-[30%] min-w-[250px] max-w-[320px] translate-x-[-102%] flex-col justify-between border-r border-white/8 bg-[linear-gradient(180deg,rgba(23,24,28,0.94)_0%,rgba(18,19,23,0.88)_100%)] p-7 text-white opacity-0 backdrop-blur-[6px] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0 group-hover:opacity-100">
+          <div className="space-y-5">
+            <div className="flex items-center gap-3">
+              <span className="text-[10px] font-mono uppercase tracking-[0.24em] text-emerald-400/90">
+                {project.category}
+              </span>
+              <span className="text-[10px] font-mono uppercase tracking-[0.24em] text-white/28">
+                {String(index + 1).padStart(2, "0")} / {String(projectsList.length).padStart(2, "0")}
+              </span>
+            </div>
+            <div>
+              <h4 className="text-[2rem] font-bold leading-[0.98] tracking-tight text-white">
+                {project.title}
+              </h4>
+              <p className="mt-4 max-w-[20rem] text-sm leading-7 text-white/68">
+                {project.description}
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-5">
+            <div className="rounded-[1.25rem] border border-white/10 bg-white/[0.03] px-4 py-3">
+              <div className="text-[10px] font-mono uppercase tracking-[0.24em] text-white/36">
+                Stack
+              </div>
+              <div className="mt-2 text-[11px] font-mono uppercase tracking-[0.16em] text-white/72">
+                {project.tech}
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              {projectsList.map((item, dotIndex) => (
+                <span
+                  key={`${project.title}-${item.title}`}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${dotIndex === index ? "w-10 bg-white" : "w-1.5 bg-white/22"}`}
+                />
+              ))}
+            </div>
+
+            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-white/12 bg-white px-4 py-2.5 text-[11px] font-bold uppercase tracking-[0.18em] text-black shadow-[0_18px_36px_rgba(0,0,0,0.16)]">
+              {viewProject}
+              <ArrowUpRight className="h-4 w-4" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  );
+
   return (
     <section id="portfolio" className="relative w-full pt-0 md:pt-0 pb-28 md:pb-32 bg-background overflow-hidden">
 
@@ -374,32 +480,52 @@ export function WebPortfolio({
           {projectsList.map((project, index) => renderProjectCard(project, index))}
         </div>
 
-        <div className="hidden xl:block relative xl:-mx-10 2xl:-mx-14">
+        <div className="hidden xl:block relative">
           <button
             type="button"
             onClick={() => scrollCarousel("left")}
-            className={`absolute left-0 top-1/2 z-20 inline-flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-black bg-black shadow-[0_16px_40px_rgba(0,0,0,0.18)] transition-all duration-300 ${canScrollLeft ? "opacity-100 hover:scale-105 hover:bg-zinc-900" : "pointer-events-none opacity-0 scale-90"}`}
+            className={`absolute left-0 top-1/2 z-20 inline-flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[0.9rem] border border-[#272a31] bg-[linear-gradient(180deg,#363940_0%,#17191e_100%)] shadow-[0_12px_22px_rgba(0,0,0,0.24),inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-1px_1px_rgba(0,0,0,0.34)] transition-all duration-200 ${canScrollLeft ? "opacity-100 hover:-translate-y-[52%] hover:bg-[linear-gradient(180deg,#3b3f47_0%,#1b1d22_100%)] hover:shadow-[0_16px_26px_rgba(0,0,0,0.26),inset_0_1px_0_rgba(255,255,255,0.1),inset_0_-1px_1px_rgba(0,0,0,0.32)]" : "pointer-events-none scale-95 opacity-0"}`}
             aria-label="Scroll portfolio left"
             disabled={!canScrollLeft}
           >
+            <span className="pointer-events-none absolute inset-[2px] rounded-[0.78rem] border border-white/6" />
             <CarouselArrow direction="left" />
           </button>
           <button
             type="button"
             onClick={() => scrollCarousel("right")}
-            className={`absolute right-0 top-1/2 z-20 inline-flex h-12 w-12 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-black bg-black shadow-[0_16px_40px_rgba(0,0,0,0.18)] transition-all duration-300 ${canScrollRight ? "opacity-100 hover:scale-105 hover:bg-zinc-900" : "pointer-events-none opacity-0 scale-90"}`}
+            className={`absolute right-0 top-1/2 z-20 inline-flex h-11 w-11 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[0.9rem] border border-[#272a31] bg-[linear-gradient(180deg,#363940_0%,#17191e_100%)] shadow-[0_12px_22px_rgba(0,0,0,0.24),inset_0_1px_0_rgba(255,255,255,0.08),inset_0_-1px_1px_rgba(0,0,0,0.34)] transition-all duration-200 ${canScrollRight ? "opacity-100 hover:-translate-y-[52%] hover:bg-[linear-gradient(180deg,#3b3f47_0%,#1b1d22_100%)] hover:shadow-[0_16px_26px_rgba(0,0,0,0.26),inset_0_1px_0_rgba(255,255,255,0.1),inset_0_-1px_1px_rgba(0,0,0,0.32)]" : "pointer-events-none scale-95 opacity-0"}`}
             aria-label="Scroll portfolio right"
             disabled={!canScrollRight}
           >
+            <span className="pointer-events-none absolute inset-[2px] rounded-[0.78rem] border border-white/6" />
             <CarouselArrow direction="right" />
           </button>
 
-          <div className="px-12 2xl:px-16">
-            <div
-              ref={carouselRef}
-              className="flex snap-x snap-mandatory gap-8 overflow-x-auto scroll-smooth pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-            >
-              {projectsList.map((project, index) => renderProjectCard(project, index, true))}
+          <div className="mx-auto max-w-6xl px-12 2xl:px-16">
+            <div className="mx-auto max-w-[68rem]">
+              <div className="group/macbook relative rounded-[2rem] bg-[linear-gradient(180deg,#202124_0%,#17181b_100%)] p-3 shadow-[0_38px_90px_rgba(0,0,0,0.2)] ring-1 ring-black/10">
+                <div className="absolute left-1/2 top-2.5 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-zinc-700 shadow-[0_0_0_2px_rgba(255,255,255,0.03)]" />
+                <div className="relative aspect-[16/10] overflow-hidden rounded-[1.35rem] border border-white/10 bg-[#0f1012] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
+                  <div className="absolute left-4 top-4 z-20 flex items-center gap-2 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/macbook:-translate-x-2 group-hover/macbook:opacity-0">
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+                  </div>
+                  <div className="absolute right-4 top-3.5 z-20 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.22em] text-white/60">
+                    {String(desktopIndex + 1).padStart(2, "0")} / {String(projectsList.length).padStart(2, "0")}
+                  </div>
+                  <div
+                    ref={carouselRef}
+                    className="flex h-full snap-x snap-mandatory overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                  >
+                    {projectsList.map((project, index) => renderDesktopShowcaseSlide(project, index))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="mx-auto h-4 w-[18%] rounded-b-[999px] bg-[linear-gradient(180deg,#d2d4d9_0%,#b2b6be_100%)] shadow-[0_10px_16px_rgba(0,0,0,0.08)]" />
+              <div className="mx-auto h-4 w-[58%] rounded-b-[1.4rem] bg-[linear-gradient(180deg,#dfe2e8_0%,#c3c8d0_100%)] shadow-[0_18px_32px_rgba(0,0,0,0.08)]" />
             </div>
           </div>
         </div>
