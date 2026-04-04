@@ -559,7 +559,7 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
                   }}
                   rows={3}
                   placeholder={copy.placeholder}
-                  className="w-full resize-none bg-transparent px-4 py-3 pr-26 text-sm text-foreground outline-none"
+                  className="w-full resize-none bg-transparent px-4 py-3 pr-26 text-base text-foreground outline-none md:text-sm"
                 />
                 <Button
                   type="submit"
