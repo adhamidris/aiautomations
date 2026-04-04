@@ -365,21 +365,26 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
     const previousHtmlScrollBehavior = document.documentElement.style.scrollBehavior
     const previousBodyOverflow = document.body.style.overflow
     const previousBodyOverscrollBehavior = document.body.style.overscrollBehavior
-    const previousBodyPosition = document.body.style.position
-    const previousBodyTop = document.body.style.top
-    const previousBodyLeft = document.body.style.left
-    const previousBodyRight = document.body.style.right
-    const previousBodyWidth = document.body.style.width
 
     document.documentElement.style.overflow = "hidden"
     document.documentElement.style.overscrollBehavior = "none"
+    document.documentElement.style.scrollBehavior = "auto"
     document.body.style.overflow = "hidden"
     document.body.style.overscrollBehavior = "none"
-    document.body.style.position = "fixed"
-    document.body.style.top = `-${lockedScrollY}px`
-    document.body.style.left = "0"
-    document.body.style.right = "0"
-    document.body.style.width = "100%"
+
+    let restoringScroll = false
+
+    const keepPageLocked = () => {
+      if (restoringScroll) return
+
+      if (Math.abs(window.scrollY - lockedScrollY) > 1) {
+        restoringScroll = true
+        window.scrollTo(0, lockedScrollY)
+        window.requestAnimationFrame(() => {
+          restoringScroll = false
+        })
+      }
+    }
 
     const preventBackgroundScroll = (event: TouchEvent | WheelEvent) => {
       const target = event.target as Node | null
@@ -394,20 +399,17 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
 
     document.addEventListener("touchmove", preventBackgroundScroll, { passive: false })
     document.addEventListener("wheel", preventBackgroundScroll, { passive: false })
+    window.addEventListener("scroll", keepPageLocked, { passive: true })
 
     return () => {
       document.removeEventListener("touchmove", preventBackgroundScroll)
       document.removeEventListener("wheel", preventBackgroundScroll)
+      window.removeEventListener("scroll", keepPageLocked)
       document.documentElement.style.overflow = previousHtmlOverflow
       document.documentElement.style.overscrollBehavior = previousHtmlOverscrollBehavior
       document.documentElement.style.scrollBehavior = "auto"
       document.body.style.overflow = previousBodyOverflow
       document.body.style.overscrollBehavior = previousBodyOverscrollBehavior
-      document.body.style.position = previousBodyPosition
-      document.body.style.top = previousBodyTop
-      document.body.style.left = previousBodyLeft
-      document.body.style.right = previousBodyRight
-      document.body.style.width = previousBodyWidth
 
       if (Math.abs(window.scrollY - lockedScrollY) > 1) {
         window.scrollTo(0, lockedScrollY)
