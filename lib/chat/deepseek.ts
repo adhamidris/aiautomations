@@ -119,9 +119,15 @@ async function readCompletionPayload(
 }
 
 function normalizeExtraction(payload: Partial<DodzieExtraction>): DodzieExtraction {
+  const shouldUpdateLead =
+    typeof payload.shouldUpdateLead === "boolean"
+      ? payload.shouldUpdateLead
+      : String(payload.shouldUpdateLead).toLowerCase() === "true"
+
   return {
     language: payload.language === "ar" ? "ar" : "en",
     handoffSummary: payload.handoffSummary?.trim() || "",
+    shouldUpdateLead,
     extracted: {
       name: payload.extracted?.name?.trim() || "",
       email: payload.extracted?.email?.trim() || "",

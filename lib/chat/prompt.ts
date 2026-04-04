@@ -124,8 +124,17 @@ export function buildDodzieExtractionMessages(params: {
   knowledge: KnowledgeChunk[]
   messages: ChatMessage[]
   knownLead: LeadFields
+  currentSummary?: string
 }) {
-  const { locale, pathname, activeSection, knowledge, messages, knownLead } =
+  const {
+    locale,
+    pathname,
+    activeSection,
+    knowledge,
+    messages,
+    knownLead,
+    currentSummary,
+  } =
     params
 
   const systemPrompt = `
@@ -146,13 +155,17 @@ Current page context:
 Known lead details from earlier extraction:
 ${formatKnownLead(knownLead)}
 
+Current lead summary already stored for the team:
+${currentSummary?.trim() || "(none yet)"}
+
 Site knowledge:
 ${formatKnowledge(knowledge)}
 
 Return JSON with exactly this shape:
 {
   "language": "en" | "ar",
-  "handoffSummary": "brief summary for the team",
+  "handoffSummary": "the desired final cumulative note for the Google Sheets Message cell",
+  "shouldUpdateLead": true,
   "extracted": {
     "name": "string",
     "email": "string",
@@ -163,7 +176,12 @@ Return JSON with exactly this shape:
 
 Rules:
 - use empty strings for unknown extracted values
-- keep handoffSummary brief and factual
+- handoffSummary is NOT a per-turn note; it is the desired team-facing lead note after considering the whole conversation so far
+- if a previous summary exists, preserve the useful earlier context and integrate new relevant details or corrections into one concise cumulative note
+- if the latest turn adds no meaningful lead context, set shouldUpdateLead to false
+- if the user corrected or changed what they want, reflect that correction in handoffSummary
+- keep handoffSummary brief, factual, and useful for a human follow-up
+- never output the latest raw user message as handoffSummary unless the user's message is already a concise lead-ready summary on its own
 `.trim()
 
   return [

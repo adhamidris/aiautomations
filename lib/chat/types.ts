@@ -17,6 +17,7 @@ export interface LeadFields {
 export interface DodzieExtraction {
   language: SupportedLanguage
   handoffSummary: string
+  shouldUpdateLead: boolean
   extracted: LeadFields
 }
 
