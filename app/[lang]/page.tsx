@@ -5,20 +5,19 @@ import { HeroKinetic } from "@/components/sections/hero-kinetic";
 import { ServicesDossier } from "@/components/sections/services-dossier";
 import { DodzieSection } from "@/components/sections/dodzie-section";
 import { WebPortfolio } from "@/components/sections/web-portfolio";
-import { BlogsSection } from "@/components/sections/blogs-section";
+// import { BlogsSection } from "@/components/sections/blogs-section";
 import { ContactForm } from "@/components/sections/contact-form";
 import { Footer } from "@/components/sections/footer";
 import { SectionTracker } from "@/components/analytics/section-tracker";
 import { getDictionary } from "../../get-dictionary";
 import { Locale } from "../../i18n-config";
-import { getAllPosts } from "@/lib/content";
+// import { getAllPosts } from "@/lib/content";
 
 // import { Testimonials } from "@/components/sections/testimonials";
 
 export default async function Home({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang } = await params;
   const dict = await getDictionary(lang);
-  const blogPosts = getAllPosts(lang);
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
@@ -78,14 +77,14 @@ export default async function Home({ params }: { params: Promise<{ lang: Locale 
         />
       </SectionTracker>
 
-      <SectionTracker id="blogs" name="Blogs Section">
+      {/* <SectionTracker id="blogs" name="Blogs Section">
         <BlogsSection
           subtitle={dict.blogs.subtitle}
           title={dict.blogs.title}
           readMore={dict.blogs.readMore}
           posts={blogPosts}
         />
-      </SectionTracker>
+      </SectionTracker> */}
 
       {/* <Testimonials /> */}
 

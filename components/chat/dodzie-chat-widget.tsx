@@ -97,6 +97,8 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
   const [isMobileCtaVisible, setIsMobileCtaVisible] = useState(false)
   const [isMobileContactVisible, setIsMobileContactVisible] = useState(false)
   const [isInputFocused, setIsInputFocused] = useState(false)
+  const [mobileVisibleHeight, setMobileVisibleHeight] = useState<number | null>(null)
+  const [isPanelEntered, setIsPanelEntered] = useState(false)
   const viewportRef = useRef<HTMLDivElement | null>(null)
 
   const storageKey = useMemo(() => getStorageKey(lang), [lang])
@@ -195,6 +197,81 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
       })
     )
   }, [isInputFocused, isOpen])
+
+  useEffect(() => {
+    if (!isOpen) {
+      setIsPanelEntered(false)
+      return
+    }
+
+    const frame = window.requestAnimationFrame(() => {
+      setIsPanelEntered(true)
+    })
+
+    return () => window.cancelAnimationFrame(frame)
+  }, [isOpen])
+
+  useEffect(() => {
+    if (!isMobileViewport || !isOpen) {
+      setMobileVisibleHeight(null)
+      return
+    }
+
+    const updateVisibleHeight = () => {
+      const nextHeight = window.visualViewport?.height ?? window.innerHeight
+      setMobileVisibleHeight(Math.round(nextHeight))
+    }
+
+    updateVisibleHeight()
+    window.visualViewport?.addEventListener("resize", updateVisibleHeight)
+    window.visualViewport?.addEventListener("scroll", updateVisibleHeight)
+    window.addEventListener("resize", updateVisibleHeight)
+
+    return () => {
+      window.visualViewport?.removeEventListener("resize", updateVisibleHeight)
+      window.visualViewport?.removeEventListener("scroll", updateVisibleHeight)
+      window.removeEventListener("resize", updateVisibleHeight)
+    }
+  }, [isMobileViewport, isOpen])
+
+  useEffect(() => {
+    if (!isMobileViewport || !isOpen) {
+      return
+    }
+
+    const previousHtmlOverflow = document.documentElement.style.overflow
+    const previousHtmlOverscrollBehavior = document.documentElement.style.overscrollBehavior
+    const previousBodyOverflow = document.body.style.overflow
+    const previousBodyOverscrollBehavior = document.body.style.overscrollBehavior
+
+    document.documentElement.style.overflow = "hidden"
+    document.documentElement.style.overscrollBehavior = "none"
+    document.body.style.overflow = "hidden"
+    document.body.style.overscrollBehavior = "none"
+
+    const preventBackgroundScroll = (event: TouchEvent | WheelEvent) => {
+      const target = event.target as Node | null
+      const scroller = viewportRef.current
+
+      if (scroller && target && scroller.contains(target)) {
+        return
+      }
+
+      event.preventDefault()
+    }
+
+    document.addEventListener("touchmove", preventBackgroundScroll, { passive: false })
+    document.addEventListener("wheel", preventBackgroundScroll, { passive: false })
+
+    return () => {
+      document.removeEventListener("touchmove", preventBackgroundScroll)
+      document.removeEventListener("wheel", preventBackgroundScroll)
+      document.documentElement.style.overflow = previousHtmlOverflow
+      document.documentElement.style.overscrollBehavior = previousHtmlOverscrollBehavior
+      document.body.style.overflow = previousBodyOverflow
+      document.body.style.overscrollBehavior = previousBodyOverscrollBehavior
+    }
+  }, [isMobileViewport, isOpen])
 
   useEffect(() => {
     const stored = window.localStorage.getItem(storageKey)
@@ -448,14 +525,26 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
     : "translate-y-2 opacity-0"
   const launcherBottomClass =
     isMobileViewport && !isMobileCtaVisible ? "bottom-5" : "bottom-24 md:bottom-6"
+  const isMobileSheet = isMobileViewport && isOpen
+  const mobileSheetHeight =
+    isMobileSheet && mobileVisibleHeight
+      ? Math.max(320, Math.round(mobileVisibleHeight - 32))
+      : undefined
+  const rootClassName = isMobileSheet
+    ? `fixed inset-x-3 bottom-2 z-[70] flex items-stretch ${shouldRenderLauncher ? "opacity-100" : "pointer-events-none opacity-0"}`
+    : `fixed right-4 z-[70] flex max-w-[calc(100vw-1.5rem)] flex-col items-end gap-3 transition-all duration-300 md:right-6 ${launcherBottomClass} ${shouldRenderLauncher ? launcherVisibilityClass : "pointer-events-none opacity-0"}`
+  const openPanelClassName = isMobileSheet
+    ? `flex w-[min(26rem,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-[1.75rem] border border-black/10 bg-white/95 shadow-[0_24px_70px_rgba(0,0,0,0.16)] backdrop-blur-xl max-md:h-full max-md:w-full max-md:origin-bottom max-md:transition-[opacity,transform] max-md:duration-300 ${isPanelEntered ? "max-md:translate-y-0 max-md:opacity-100" : "max-md:translate-y-4 max-md:opacity-0"}`
+    : "flex w-[min(26rem,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-[1.75rem] border border-black/10 bg-white/95 shadow-[0_24px_70px_rgba(0,0,0,0.16)] backdrop-blur-xl max-md:h-full max-md:w-full"
 
   return (
     <div
-      className={`fixed right-4 z-[70] flex max-w-[calc(100vw-1.5rem)] flex-col items-end gap-3 transition-all duration-300 md:right-6 ${launcherBottomClass} ${shouldRenderLauncher ? launcherVisibilityClass : "pointer-events-none opacity-0"}`}
+      className={rootClassName}
       aria-hidden={!shouldRenderLauncher}
+      style={isMobileSheet && mobileSheetHeight ? { height: `${mobileSheetHeight}px` } : undefined}
     >
       {isOpen ? (
-        <div className="w-[min(26rem,calc(100vw-1.5rem))] overflow-hidden rounded-[1.75rem] border border-black/10 bg-white/95 shadow-[0_24px_70px_rgba(0,0,0,0.16)] backdrop-blur-xl">
+        <div className={openPanelClassName}>
           <div className="relative overflow-hidden border-b border-black/8 bg-[radial-gradient(circle_at_top_left,rgba(255,186,92,0.22),transparent_44%),linear-gradient(135deg,#ffffff_0%,#f6f1ea_100%)] px-5 py-4">
             <div className="relative flex items-start justify-between gap-3">
               <div className="flex min-w-0 gap-3">
@@ -498,7 +587,7 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
 
           <div
             ref={viewportRef}
-            className="max-h-[24rem] space-y-4 overflow-y-auto bg-[linear-gradient(180deg,rgba(250,247,241,0.58)_0%,rgba(255,255,255,0.86)_100%)] px-4 py-4"
+            className="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-contain bg-[linear-gradient(180deg,rgba(250,247,241,0.58)_0%,rgba(255,255,255,0.86)_100%)] px-4 py-4 md:max-h-[24rem]"
           >
             {messages.map((message) => (
               <div
@@ -546,30 +635,27 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
 
             <form onSubmit={handleSubmit} className="space-y-3">
               <div className="relative overflow-hidden rounded-[1.4rem] border border-black/10 bg-[#fcfbf8] transition focus-within:border-black/20 focus-within:bg-white">
-                <textarea
+                <input
                   value={input}
                   onChange={(event) => setInput(event.target.value)}
                   onFocus={() => setIsInputFocused(true)}
                   onBlur={() => setIsInputFocused(false)}
                   onKeyDown={(event) => {
-                    if (event.key === "Enter" && !event.shiftKey) {
+                    if (event.key === "Enter") {
                       event.preventDefault()
                       void sendMessage(input)
                     }
                   }}
-                  rows={3}
                   placeholder={copy.placeholder}
-                  className="w-full resize-none bg-transparent px-4 py-3 pr-26 text-base text-foreground outline-none md:text-sm"
+                  className="h-14 w-full bg-transparent px-4 pr-18 text-base text-foreground outline-none placeholder:text-foreground/45 md:text-sm"
                 />
                 <Button
                   type="submit"
                   disabled={isLoading || !input.trim()}
-                  className="absolute bottom-3 right-3 h-10 rounded-full bg-foreground px-4 text-background hover:bg-foreground/92"
+                  aria-label={copy.send}
+                  className="absolute right-3 top-1/2 h-10 w-10 -translate-y-1/2 rounded-full bg-foreground p-0 text-background hover:bg-foreground/92"
                 >
-                  <span className="flex items-center gap-2">
-                    {copy.send}
-                    <Send className="h-4 w-4" />
-                  </span>
+                  <Send className="h-4 w-4" />
                 </Button>
               </div>
             </form>
