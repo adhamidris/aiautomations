@@ -78,6 +78,7 @@ export function DodzieSection({
 }: DodzieSectionProps) {
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
   const [isDemoOpen, setIsDemoOpen] = useState(false);
+  const [mobileViewportHeight, setMobileViewportHeight] = useState<number | null>(null);
 
   const activeVideo = demoVideos[activeVideoIndex];
 
@@ -101,6 +102,7 @@ export function DodzieSection({
   };
 
   const openDemo = () => {
+    setMobileViewportHeight(null);
     setIsDemoOpen(true);
     trackEvent({
       action: "dodzie_demo_open",
@@ -110,6 +112,7 @@ export function DodzieSection({
   };
 
   const closeDemo = () => {
+    setMobileViewportHeight(null);
     setIsDemoOpen(false);
     trackEvent({
       action: "dodzie_demo_close",
@@ -123,15 +126,57 @@ export function DodzieSection({
     if (typeof window === "undefined") return;
     if (window.innerWidth >= 1024) return;
 
+    const scrollY = window.scrollY;
     const originalBodyOverflow = document.body.style.overflow;
+    const originalBodyPosition = document.body.style.position;
+    const originalBodyTop = document.body.style.top;
+    const originalBodyWidth = document.body.style.width;
+    const originalBodyLeft = document.body.style.left;
+    const originalBodyRight = document.body.style.right;
     const originalHtmlOverflow = document.documentElement.style.overflow;
 
     document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
     document.documentElement.style.overflow = "hidden";
 
     return () => {
       document.body.style.overflow = originalBodyOverflow;
+      document.body.style.position = originalBodyPosition;
+      document.body.style.top = originalBodyTop;
+      document.body.style.left = originalBodyLeft;
+      document.body.style.right = originalBodyRight;
+      document.body.style.width = originalBodyWidth;
       document.documentElement.style.overflow = originalHtmlOverflow;
+      window.scrollTo(0, scrollY);
+    };
+  }, [isDemoOpen]);
+
+  useEffect(() => {
+    if (!isDemoOpen) return;
+    if (typeof window === "undefined") return;
+    if (window.innerWidth >= 1024) return;
+
+    const syncViewportHeight = () => {
+      const nextHeight = window.visualViewport?.height ?? window.innerHeight;
+      setMobileViewportHeight(Math.round(nextHeight));
+    };
+
+    syncViewportHeight();
+
+    window.visualViewport?.addEventListener("resize", syncViewportHeight);
+    window.visualViewport?.addEventListener("scroll", syncViewportHeight);
+    window.addEventListener("resize", syncViewportHeight);
+    window.addEventListener("orientationchange", syncViewportHeight);
+
+    return () => {
+      window.visualViewport?.removeEventListener("resize", syncViewportHeight);
+      window.visualViewport?.removeEventListener("scroll", syncViewportHeight);
+      window.removeEventListener("resize", syncViewportHeight);
+      window.removeEventListener("orientationchange", syncViewportHeight);
     };
   }, [isDemoOpen]);
 
@@ -251,17 +296,28 @@ export function DodzieSection({
               </div>
 
               <div
-                className={`fixed inset-0 z-50 lg:absolute ${isDemoOpen ? "pointer-events-auto" : "pointer-events-none"}`}
+                className={`fixed inset-x-0 top-0 z-50 overflow-hidden lg:absolute lg:inset-0 ${isDemoOpen ? "pointer-events-auto" : "pointer-events-none"}`}
                 aria-hidden={!isDemoOpen}
                 onClick={closeDemo}
+                style={
+                  mobileViewportHeight
+                    ? { height: `${mobileViewportHeight}px` }
+                    : undefined
+                }
               >
                 <div
                   className={`absolute inset-0 transition-all duration-300 ${isDemoOpen ? "bg-white/76 opacity-100 backdrop-blur-xl" : "opacity-0"}`}
                 />
 
-                <div className="absolute inset-0 flex items-center justify-center px-5 py-8 lg:px-8 lg:py-10">
+                <div
+                  className="absolute inset-0 flex items-center justify-center px-5 lg:px-8 lg:py-10"
+                  style={{
+                    paddingTop: "max(1.25rem, env(safe-area-inset-top))",
+                    paddingBottom: "max(1.25rem, env(safe-area-inset-bottom))",
+                  }}
+                >
                   <div
-                    className={`flex w-full max-w-[38rem] flex-col items-center justify-center gap-5 px-2 py-3 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:flex-row lg:gap-10 lg:px-8 lg:py-8 ${isDemoOpen ? "scale-100 opacity-100" : "scale-[0.96] opacity-0"}`}
+                    className={`flex w-full max-w-[38rem] flex-col items-center justify-center gap-4 px-2 py-2 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:flex-row lg:gap-10 lg:px-8 lg:py-8 ${isDemoOpen ? "scale-100 opacity-100" : "scale-[0.96] opacity-0"}`}
                   >
                     <div
                       className="order-2 flex w-full max-w-[17rem] shrink-0 flex-wrap justify-center gap-2 lg:order-1 lg:w-[9.75rem] lg:flex-col lg:flex-nowrap lg:justify-start"
@@ -292,20 +348,26 @@ export function DodzieSection({
                     </div>
 
                     <div
-                      className="order-1 relative aspect-[9/19] w-full max-w-[260px] rounded-[2.95rem] bg-[#111111] p-[6px] shadow-[0_24px_50px_rgba(0,0,0,0.22)] ring-1 ring-black/20 lg:order-2 lg:max-w-[290px]"
+                      className="order-1 relative aspect-[9/19] w-full max-w-[220px] rounded-[2.95rem] bg-[#111111] p-[6px] shadow-[0_24px_50px_rgba(0,0,0,0.22)] ring-1 ring-black/20 sm:max-w-[238px] lg:order-2 lg:max-w-[290px]"
                       onClick={(event) => event.stopPropagation()}
                     >
-                      <div className="relative h-full overflow-hidden rounded-[2.55rem] bg-black">
-                        <div className="absolute left-1/2 top-3 z-20 h-7 w-28 -translate-x-1/2 rounded-full bg-black/90 ring-1 ring-white/10" />
+                      <div
+                        className="relative h-full isolate overflow-hidden rounded-[2.55rem] bg-black"
+                        style={{ WebkitMaskImage: "-webkit-radial-gradient(white, black)" }}
+                      >
                         <video
                           key={activeVideo.src}
-                          className="h-full w-full object-cover"
-                          controls
+                          className="absolute inset-0 block h-full w-full object-cover"
                           autoPlay
                           loop
                           muted
                           playsInline
                           preload="auto"
+                          disablePictureInPicture
+                          style={{
+                            borderRadius: "2.55rem",
+                            WebkitTransform: "translateZ(0)",
+                          }}
                         >
                           <source src={activeVideo.src} type="video/mp4" />
                         </video>
