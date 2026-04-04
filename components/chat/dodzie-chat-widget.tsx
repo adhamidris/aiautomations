@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import Image from "next/image"
 import { Send, X } from "lucide-react"
 import { trackEvent } from "@/lib/analytics"
@@ -98,8 +98,14 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
   const [isMobileContactVisible, setIsMobileContactVisible] = useState(false)
   const [isInputFocused, setIsInputFocused] = useState(false)
   const [mobileVisibleHeight, setMobileVisibleHeight] = useState<number | null>(null)
+  const [mobileViewportTop, setMobileViewportTop] = useState<number | null>(null)
   const [isPanelEntered, setIsPanelEntered] = useState(false)
   const viewportRef = useRef<HTMLDivElement | null>(null)
+  const scrollMetricsRef = useRef<{
+    scrollTop: number
+    scrollHeight: number
+    clientHeight: number
+  } | null>(null)
 
   const storageKey = useMemo(() => getStorageKey(lang), [lang])
   const hasUserMessages = messages.some((message) => message.role === "user")
@@ -214,12 +220,15 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
   useEffect(() => {
     if (!isMobileViewport || !isOpen) {
       setMobileVisibleHeight(null)
+      setMobileViewportTop(null)
       return
     }
 
     const updateVisibleHeight = () => {
       const nextHeight = window.visualViewport?.height ?? window.innerHeight
+      const nextTop = window.visualViewport?.offsetTop ?? 0
       setMobileVisibleHeight(Math.round(nextHeight))
+      setMobileViewportTop(Math.round(nextTop))
     }
 
     updateVisibleHeight()
@@ -233,6 +242,42 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
       window.removeEventListener("resize", updateVisibleHeight)
     }
   }, [isMobileViewport, isOpen])
+
+  useLayoutEffect(() => {
+    if (!isMobileSheet) {
+      scrollMetricsRef.current = null
+      return
+    }
+
+    const scroller = viewportRef.current
+    if (!scroller) {
+      return
+    }
+
+    const previousMetrics = scrollMetricsRef.current
+    const currentMetrics = {
+      scrollTop: scroller.scrollTop,
+      scrollHeight: scroller.scrollHeight,
+      clientHeight: scroller.clientHeight,
+    }
+
+    if (
+      previousMetrics &&
+      previousMetrics.clientHeight !== currentMetrics.clientHeight
+    ) {
+      const previousBottomOffset =
+        previousMetrics.scrollHeight - previousMetrics.scrollTop - previousMetrics.clientHeight
+      const nextScrollTop = Math.max(
+        0,
+        scroller.scrollHeight - scroller.clientHeight - previousBottomOffset
+      )
+
+      scroller.scrollTop = nextScrollTop
+      currentMetrics.scrollTop = nextScrollTop
+    }
+
+    scrollMetricsRef.current = currentMetrics
+  }, [isMobileSheet, mobileVisibleHeight, mobileViewportTop])
 
   useEffect(() => {
     if (!isMobileViewport || !isOpen) {
@@ -328,9 +373,16 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
     window.localStorage.setItem(storageKey, JSON.stringify(messages.slice(-20)))
     viewportRef.current?.scrollTo({
       top: viewportRef.current.scrollHeight,
-      behavior: "smooth",
+      behavior: isMobileSheet ? "auto" : "smooth",
     })
-  }, [messages, storageKey])
+    if (viewportRef.current) {
+      scrollMetricsRef.current = {
+        scrollTop: viewportRef.current.scrollTop,
+        scrollHeight: viewportRef.current.scrollHeight,
+        clientHeight: viewportRef.current.clientHeight,
+      }
+    }
+  }, [isMobileSheet, messages, storageKey])
 
   useEffect(() => {
     if (!consentResolved || isDodzieDemoOpen || !isMobileViewport || isOpen || mobileNudgeDismissed) {
@@ -530,8 +582,12 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
     isMobileSheet && mobileVisibleHeight
       ? Math.max(320, Math.round(mobileVisibleHeight - 32))
       : undefined
+  const mobileSheetTop =
+    isMobileSheet
+      ? Math.max(8, (mobileViewportTop ?? 0) + 8)
+      : undefined
   const rootClassName = isMobileSheet
-    ? `fixed inset-x-3 bottom-2 z-[70] flex items-stretch ${shouldRenderLauncher ? "opacity-100" : "pointer-events-none opacity-0"}`
+    ? `fixed inset-x-3 z-[70] flex items-stretch ${shouldRenderLauncher ? "opacity-100" : "pointer-events-none opacity-0"}`
     : `fixed right-4 z-[70] flex max-w-[calc(100vw-1.5rem)] flex-col items-end gap-3 transition-all duration-300 md:right-6 ${launcherBottomClass} ${shouldRenderLauncher ? launcherVisibilityClass : "pointer-events-none opacity-0"}`
   const openPanelClassName = isMobileSheet
     ? `flex w-[min(26rem,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-[1.75rem] border border-black/10 bg-white/95 shadow-[0_24px_70px_rgba(0,0,0,0.16)] backdrop-blur-xl max-md:h-full max-md:w-full max-md:origin-bottom max-md:transition-[opacity,transform] max-md:duration-300 ${isPanelEntered ? "max-md:translate-y-0 max-md:opacity-100" : "max-md:translate-y-4 max-md:opacity-0"}`
@@ -541,7 +597,14 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
     <div
       className={rootClassName}
       aria-hidden={!shouldRenderLauncher}
-      style={isMobileSheet && mobileSheetHeight ? { height: `${mobileSheetHeight}px` } : undefined}
+      style={
+        isMobileSheet && mobileSheetHeight && mobileSheetTop !== undefined
+          ? {
+              top: `${mobileSheetTop}px`,
+              height: `${mobileSheetHeight}px`,
+            }
+          : undefined
+      }
     >
       {isOpen ? (
         <div className={openPanelClassName}>
@@ -587,6 +650,14 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
 
           <div
             ref={viewportRef}
+            onScroll={(event) => {
+              const scroller = event.currentTarget
+              scrollMetricsRef.current = {
+                scrollTop: scroller.scrollTop,
+                scrollHeight: scroller.scrollHeight,
+                clientHeight: scroller.clientHeight,
+              }
+            }}
             className="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-contain bg-[linear-gradient(180deg,rgba(250,247,241,0.58)_0%,rgba(255,255,255,0.86)_100%)] px-4 py-4 md:max-h-[24rem]"
           >
             {messages.map((message) => (
