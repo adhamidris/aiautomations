@@ -362,6 +362,7 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
     const lockedScrollY = window.scrollY
     const previousHtmlOverflow = document.documentElement.style.overflow
     const previousHtmlOverscrollBehavior = document.documentElement.style.overscrollBehavior
+    const previousHtmlScrollBehavior = document.documentElement.style.scrollBehavior
     const previousBodyOverflow = document.body.style.overflow
     const previousBodyOverscrollBehavior = document.body.style.overscrollBehavior
     const previousBodyPosition = document.body.style.position
@@ -399,6 +400,7 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
       document.removeEventListener("wheel", preventBackgroundScroll)
       document.documentElement.style.overflow = previousHtmlOverflow
       document.documentElement.style.overscrollBehavior = previousHtmlOverscrollBehavior
+      document.documentElement.style.scrollBehavior = "auto"
       document.body.style.overflow = previousBodyOverflow
       document.body.style.overscrollBehavior = previousBodyOverscrollBehavior
       document.body.style.position = previousBodyPosition
@@ -410,6 +412,10 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
       if (Math.abs(window.scrollY - lockedScrollY) > 1) {
         window.scrollTo(0, lockedScrollY)
       }
+
+      window.requestAnimationFrame(() => {
+        document.documentElement.style.scrollBehavior = previousHtmlScrollBehavior
+      })
     }
   }, [isMobileViewport, isOpen])
 
