@@ -82,7 +82,7 @@ export function DodzieSection({
 
   const activeVideo = demoVideos[activeVideoIndex];
   const resolvedMobileViewportHeight = mobileViewportHeight ?? 760;
-  const mobilePhoneHeight = Math.min(Math.max(resolvedMobileViewportHeight - 300, 380), 520);
+  const mobilePhoneHeight = Math.min(Math.max(resolvedMobileViewportHeight - 255, 420), 575);
   const mobilePhoneWidth = Math.round((mobilePhoneHeight * 888) / 1834);
 
   const handlePrimaryClick = () => {
@@ -395,7 +395,7 @@ export function DodzieSection({
                   </div>
 
                   <div
-                    className={`flex h-full w-full max-w-[21rem] flex-col items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:hidden ${isDemoOpen ? "scale-100 opacity-100" : "scale-[0.96] opacity-0"}`}
+                    className={`flex h-full w-full max-w-[23rem] flex-col items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:hidden ${isDemoOpen ? "scale-100 opacity-100" : "scale-[0.96] opacity-0"}`}
                   >
                     <div className="flex min-h-0 w-full flex-1 items-center justify-center">
                       <div
@@ -431,7 +431,7 @@ export function DodzieSection({
                     </div>
 
                     <div
-                      className="w-full max-w-[19rem] pt-8 pb-3"
+                      className="w-full max-w-[20rem] pt-9 pb-3"
                       onPointerDown={(event) => event.stopPropagation()}
                     >
                       <div className="grid grid-cols-3 gap-2.5">
