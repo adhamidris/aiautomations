@@ -133,7 +133,11 @@ export function DodzieSection({
     const originalBodyWidth = document.body.style.width;
     const originalBodyLeft = document.body.style.left;
     const originalBodyRight = document.body.style.right;
+    const originalBodyTouchAction = document.body.style.touchAction;
+    const originalBodyOverscrollBehavior = document.body.style.overscrollBehavior;
     const originalHtmlOverflow = document.documentElement.style.overflow;
+    const originalHtmlOverscrollBehavior = document.documentElement.style.overscrollBehavior;
+    const originalHtmlScrollBehavior = document.documentElement.style.scrollBehavior;
 
     document.body.style.overflow = "hidden";
     document.body.style.position = "fixed";
@@ -141,17 +145,27 @@ export function DodzieSection({
     document.body.style.left = "0";
     document.body.style.right = "0";
     document.body.style.width = "100%";
+    document.body.style.touchAction = "none";
+    document.body.style.overscrollBehavior = "none";
     document.documentElement.style.overflow = "hidden";
+    document.documentElement.style.overscrollBehavior = "none";
 
     return () => {
+      document.documentElement.style.scrollBehavior = "auto";
       document.body.style.overflow = originalBodyOverflow;
       document.body.style.position = originalBodyPosition;
       document.body.style.top = originalBodyTop;
       document.body.style.left = originalBodyLeft;
       document.body.style.right = originalBodyRight;
       document.body.style.width = originalBodyWidth;
+      document.body.style.touchAction = originalBodyTouchAction;
+      document.body.style.overscrollBehavior = originalBodyOverscrollBehavior;
       document.documentElement.style.overflow = originalHtmlOverflow;
+      document.documentElement.style.overscrollBehavior = originalHtmlOverscrollBehavior;
       window.scrollTo(0, scrollY);
+      requestAnimationFrame(() => {
+        document.documentElement.style.scrollBehavior = originalHtmlScrollBehavior;
+      });
     };
   }, [isDemoOpen]);
 
@@ -298,7 +312,7 @@ export function DodzieSection({
               <div
                 className={`fixed inset-x-0 top-0 z-50 overflow-hidden lg:absolute lg:inset-0 ${isDemoOpen ? "pointer-events-auto" : "pointer-events-none"}`}
                 aria-hidden={!isDemoOpen}
-                onClick={closeDemo}
+                onPointerDown={closeDemo}
                 style={
                   mobileViewportHeight
                     ? { height: `${mobileViewportHeight}px` }
@@ -320,18 +334,20 @@ export function DodzieSection({
                     className={`flex w-full max-w-[38rem] flex-col items-center justify-center gap-4 px-2 py-2 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:flex-row lg:gap-10 lg:px-8 lg:py-8 ${isDemoOpen ? "scale-100 opacity-100" : "scale-[0.96] opacity-0"}`}
                   >
                     <div
-                      className="order-2 flex w-full max-w-[17rem] shrink-0 flex-wrap justify-center gap-2 lg:order-1 lg:w-[9.75rem] lg:flex-col lg:flex-nowrap lg:justify-start"
-                      onClick={(event) => event.stopPropagation()}
+                      className="order-2 grid w-full max-w-[18rem] shrink-0 grid-cols-3 gap-2 lg:order-1 lg:w-[9.75rem] lg:grid-cols-1"
+                      onPointerDown={(event) => event.stopPropagation()}
                     >
                       {demoVideos.map((video, index) => {
                         const isActive = index === activeVideoIndex;
+                        const mobilePositionClassName =
+                          index === demoVideos.length - 1 ? "col-start-2" : "";
 
                         return (
                           <button
                             key={video.src}
                             type="button"
                             onClick={() => handleVideoChange(index)}
-                            className={`rounded-[1.15rem] px-3 py-3 text-center text-xs font-semibold uppercase tracking-[0.14em] transition-all duration-200 lg:min-w-0 lg:text-left ${isActive ? "bg-foreground text-background shadow-[0_10px_20px_rgba(15,23,42,0.16)]" : "bg-white text-foreground/62 ring-1 ring-black/8 hover:text-foreground"}`}
+                            className={`rounded-[1.05rem] px-2 py-2.5 text-center text-[11px] font-semibold tracking-[0.08em] transition-all duration-200 lg:min-w-0 lg:rounded-[1.15rem] lg:px-3 lg:py-3 lg:text-left lg:text-xs lg:uppercase lg:tracking-[0.14em] ${mobilePositionClassName} ${isActive ? "bg-foreground text-background shadow-[0_10px_20px_rgba(15,23,42,0.16)]" : "bg-white text-foreground/62 ring-1 ring-black/8 hover:text-foreground"}`}
                           >
                             <span className="block lg:hidden">
                               {video.label}
@@ -348,8 +364,8 @@ export function DodzieSection({
                     </div>
 
                     <div
-                      className="order-1 relative aspect-[9/19] w-full max-w-[220px] rounded-[2.95rem] bg-[#111111] p-[6px] shadow-[0_24px_50px_rgba(0,0,0,0.22)] ring-1 ring-black/20 sm:max-w-[238px] lg:order-2 lg:max-w-[290px]"
-                      onClick={(event) => event.stopPropagation()}
+                      className="order-1 relative aspect-[888/1834] w-full max-w-[208px] rounded-[2.95rem] bg-[#111111] p-[6px] shadow-[0_24px_50px_rgba(0,0,0,0.22)] ring-1 ring-black/20 sm:max-w-[224px] lg:order-2 lg:max-w-[290px]"
+                      onPointerDown={(event) => event.stopPropagation()}
                     >
                       <div
                         className="relative h-full isolate overflow-hidden rounded-[2.55rem] bg-black"
@@ -357,7 +373,7 @@ export function DodzieSection({
                       >
                         <video
                           key={activeVideo.src}
-                          className="absolute inset-0 block h-full w-full object-cover"
+                          className="absolute inset-0 block h-full w-full object-contain"
                           autoPlay
                           loop
                           muted
