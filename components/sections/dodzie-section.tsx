@@ -81,6 +81,9 @@ export function DodzieSection({
   const [mobileViewportHeight, setMobileViewportHeight] = useState<number | null>(null);
 
   const activeVideo = demoVideos[activeVideoIndex];
+  const resolvedMobileViewportHeight = mobileViewportHeight ?? 760;
+  const mobilePhoneHeight = Math.min(Math.max(resolvedMobileViewportHeight - 300, 380), 520);
+  const mobilePhoneWidth = Math.round((mobilePhoneHeight * 888) / 1834);
 
   const handlePrimaryClick = () => {
     trackEvent({
@@ -331,7 +334,7 @@ export function DodzieSection({
                   }}
                 >
                   <div
-                    className={`flex w-full max-w-[38rem] flex-col items-center justify-center gap-4 px-2 py-2 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:flex-row lg:gap-10 lg:px-8 lg:py-8 ${isDemoOpen ? "scale-100 opacity-100" : "scale-[0.96] opacity-0"}`}
+                    className={`hidden w-full max-w-[38rem] flex-col items-center justify-center gap-4 px-2 py-2 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:flex lg:flex-row lg:gap-10 lg:px-8 lg:py-8 ${isDemoOpen ? "scale-100 opacity-100" : "scale-[0.96] opacity-0"}`}
                   >
                     <div
                       className="order-2 grid w-full max-w-[18rem] shrink-0 grid-cols-3 gap-2 lg:order-1 lg:w-[9.75rem] lg:grid-cols-1"
@@ -373,7 +376,7 @@ export function DodzieSection({
                       >
                         <video
                           key={activeVideo.src}
-                          className="absolute inset-0 block h-full w-full object-contain"
+                          className="absolute inset-0 block h-full w-full object-cover"
                           autoPlay
                           loop
                           muted
@@ -387,6 +390,67 @@ export function DodzieSection({
                         >
                           <source src={activeVideo.src} type="video/mp4" />
                         </video>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    className={`flex h-full w-full max-w-[21rem] flex-col items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:hidden ${isDemoOpen ? "scale-100 opacity-100" : "scale-[0.96] opacity-0"}`}
+                  >
+                    <div className="flex min-h-0 w-full flex-1 items-center justify-center">
+                      <div
+                        className="relative shrink-0 rounded-[3.2rem] bg-[#111111] p-[7px] shadow-[0_28px_58px_rgba(0,0,0,0.22)] ring-1 ring-black/20"
+                        style={{
+                          width: `${mobilePhoneWidth}px`,
+                          height: `${mobilePhoneHeight}px`,
+                        }}
+                        onPointerDown={(event) => event.stopPropagation()}
+                      >
+                        <div
+                          className="absolute inset-[7px] isolate overflow-hidden rounded-[2.8rem] bg-black"
+                          style={{ WebkitMaskImage: "-webkit-radial-gradient(white, black)" }}
+                        >
+                          <video
+                            key={activeVideo.src}
+                            className="absolute inset-0 block h-full w-full object-cover"
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            preload="auto"
+                            disablePictureInPicture
+                            style={{
+                              borderRadius: "2.8rem",
+                              WebkitTransform: "translateZ(0)",
+                            }}
+                          >
+                            <source src={activeVideo.src} type="video/mp4" />
+                          </video>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      className="w-full max-w-[19rem] pt-8 pb-3"
+                      onPointerDown={(event) => event.stopPropagation()}
+                    >
+                      <div className="grid grid-cols-3 gap-2.5">
+                        {demoVideos.map((video, index) => {
+                          const isActive = index === activeVideoIndex;
+                          const mobilePositionClassName =
+                            index === demoVideos.length - 1 ? "col-start-2" : "";
+
+                          return (
+                            <button
+                              key={`${video.src}-mobile`}
+                              type="button"
+                              onClick={() => handleVideoChange(index)}
+                              className={`rounded-[1.05rem] px-2 py-2.5 text-center text-[11px] font-semibold tracking-[0.08em] transition-all duration-200 ${mobilePositionClassName} ${isActive ? "bg-foreground text-background shadow-[0_10px_20px_rgba(15,23,42,0.16)]" : "bg-white text-foreground/62 ring-1 ring-black/8 hover:text-foreground"}`}
+                            >
+                              {video.label}
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
                   </div>
