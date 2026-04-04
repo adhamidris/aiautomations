@@ -31,6 +31,7 @@ const sessionLeadStore = new Map<
   string,
   {
     lead: LeadFields
+    stableSummary: string
     submitted: boolean
     rowNumber: number | null
     persistedFingerprint: string | null
@@ -135,12 +136,150 @@ function sanitizeMessages(messages: unknown): ChatMessage[] {
 }
 
 function mergeLeadFields(previous: LeadFields, incoming: LeadFields) {
+  const currentName = previous.name?.trim() || ""
+  const incomingName = incoming.name?.trim() || ""
+  const currentEmail = previous.email?.trim() || ""
+  const incomingEmail = incoming.email?.trim() || ""
+  const currentPhone = previous.phone?.trim() || ""
+  const incomingPhone = incoming.phone?.trim() || ""
+
   return {
-    name: incoming.name || previous.name || "",
-    email: incoming.email || previous.email || "",
-    phone: incoming.phone || previous.phone || "",
-    projectNeed: incoming.projectNeed || previous.projectNeed || "",
+    name: pickBetterName(currentName, incomingName),
+    email:
+      incomingEmail && isValidEmail(incomingEmail)
+        ? incomingEmail
+        : currentEmail,
+    phone:
+      incomingPhone && isValidPhone(incomingPhone)
+        ? incomingPhone
+        : currentPhone,
+    projectNeed: pickBetterLeadText(previous.projectNeed, incoming.projectNeed),
   }
+}
+
+function pickBetterName(current?: string, incoming?: string) {
+  const currentValue = normalizeLeadText(current, 120)
+  const incomingValue = normalizeLeadText(incoming, 120)
+
+  if (!incomingValue) {
+    return currentValue
+  }
+
+  if (!currentValue) {
+    return incomingValue
+  }
+
+  const currentLower = currentValue.toLowerCase()
+  const incomingLower = incomingValue.toLowerCase()
+
+  if (currentLower === incomingLower) {
+    return currentValue
+  }
+
+  if (incomingLower.includes(currentLower) && incomingValue.length > currentValue.length) {
+    return incomingValue
+  }
+
+  return currentValue
+}
+
+function normalizeLeadText(value?: string, maxLength = 1200) {
+  return value?.trim().replace(/\s+/g, " ").slice(0, maxLength) ?? ""
+}
+
+function getLeadTextScore(value?: string) {
+  const normalized = normalizeLeadText(value).toLowerCase()
+
+  if (!normalized) {
+    return -1
+  }
+
+  const words = normalized.split(/\s+/).filter(Boolean)
+  const keywordMatches = new Set(
+    (
+      normalized.match(
+        /\b(ai|assistant|automation|website|web\s?app|saas|mvp|crm|analytics|hubspot|telegram|codex|dashboard|lead|report|reports|follow[- ]?up|workflow|sheets?|excel)\b/g
+      ) ?? []
+    ).map((match) => match.toLowerCase())
+  ).size
+
+  let score = Math.min(words.length, 16) + keywordMatches * 2
+
+  if (normalized.length >= 80) {
+    score += 2
+  } else if (normalized.length < 24) {
+    score -= 3
+  }
+
+  return score
+}
+
+function hasCorrectionSignal(value?: string) {
+  const normalized = normalizeLeadText(value).toLowerCase()
+
+  if (!normalized) {
+    return false
+  }
+
+  return /\b(actually|rather|instead|correction|update|changed?|not that|not really|ignore that|scratch that)\b/.test(
+    normalized
+  )
+}
+
+function pickBetterLeadText(current?: string, incoming?: string) {
+  const currentValue = normalizeLeadText(current)
+  const incomingValue = normalizeLeadText(incoming)
+
+  if (!incomingValue) {
+    return currentValue
+  }
+
+  if (!currentValue) {
+    return incomingValue
+  }
+
+  const currentLower = currentValue.toLowerCase()
+  const incomingLower = incomingValue.toLowerCase()
+
+  if (currentLower === incomingLower) {
+    return currentValue
+  }
+
+  if (currentLower.includes(incomingLower)) {
+    return currentValue
+  }
+
+  if (incomingLower.includes(currentLower)) {
+    return incomingValue
+  }
+
+  if (hasCorrectionSignal(incomingValue)) {
+    return incomingValue
+  }
+
+  const currentScore = getLeadTextScore(currentValue)
+  const incomingScore = getLeadTextScore(incomingValue)
+
+  return incomingScore > currentScore ? incomingValue : currentValue
+}
+
+function buildFallbackLeadSummary(locale: SupportedLanguage) {
+  return locale === "ar"
+    ? "مهتم بخدمات AUTOM8ED عبر دردشة دودزي."
+    : "Interested in AUTOM8ED services via Dodzie chat."
+}
+
+function buildStableSummary(params: {
+  currentSummary?: string
+  extractedSummary?: string
+  projectNeed?: string
+}) {
+  const { currentSummary, extractedSummary, projectNeed } = params
+
+  return pickBetterLeadText(
+    pickBetterLeadText(currentSummary, projectNeed),
+    extractedSummary
+  )
 }
 
 function buildPersistenceFingerprint(params: {
@@ -242,6 +381,7 @@ export async function POST(request: Request) {
 
     const sessionState = sessionLeadStore.get(sessionId) ?? {
       lead: {},
+      stableSummary: "",
       submitted: false,
       rowNumber: null,
       persistedFingerprint: null,
@@ -300,6 +440,11 @@ export async function POST(request: Request) {
       mergeLeadFields(sessionState.lead, extraction?.extracted ?? {}),
       deterministicLeadFields
     )
+    const stableSummary = buildStableSummary({
+      currentSummary: sessionState.stableSummary,
+      extractedSummary: extraction?.handoffSummary,
+      projectNeed: mergedLead.projectNeed,
+    })
 
     let leadSubmitted = false
     let leadPersisted = sessionState.submitted
@@ -310,9 +455,10 @@ export async function POST(request: Request) {
       (mergedLead.email && isValidEmail(mergedLead.email)) ||
         (mergedLead.phone && isValidPhone(mergedLead.phone))
     )
+    const summaryForWrite = stableSummary || buildFallbackLeadSummary(locale)
     const nextFingerprint = buildPersistenceFingerprint({
       lead: mergedLead,
-      handoffSummary: extraction?.handoffSummary || latestUserMessage,
+      handoffSummary: summaryForWrite,
     })
 
     if (shouldPersistLead && nextFingerprint !== sessionState.persistedFingerprint) {
@@ -324,10 +470,10 @@ export async function POST(request: Request) {
           name: mergedLead.name,
           email: mergedLead.email,
           phone: mergedLead.phone,
-          message: mergedLead.projectNeed || latestUserMessage,
+          message: summaryForWrite,
           locale,
           pathname,
-          conversationSummary: extraction?.handoffSummary || latestUserMessage,
+          conversationSummary: summaryForWrite,
         })
         leadSubmitted = !sessionState.submitted
         leadPersisted = true
@@ -340,6 +486,7 @@ export async function POST(request: Request) {
 
     sessionLeadStore.set(sessionId, {
       lead: mergedLead,
+      stableSummary,
       submitted: leadPersisted,
       rowNumber,
       persistedFingerprint,
