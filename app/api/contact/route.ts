@@ -4,7 +4,7 @@ import { NextResponse } from "next/server"
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { name, email, phone, message, source, serviceInterest, locale, pathname } = body
+    const { name, email, phone, message, source, locale, pathname } = body
 
     if (!email || (!name && source !== "chatbot") || (!message && source !== "chatbot")) {
       return NextResponse.json(
@@ -19,7 +19,6 @@ export async function POST(request: Request) {
       email,
       phone,
       message,
-      serviceInterest,
       locale,
       pathname,
     })

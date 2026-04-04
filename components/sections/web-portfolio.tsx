@@ -287,6 +287,7 @@ export function WebPortfolio({
           src={project.image}
           alt={project.title}
           fill
+          sizes={carousel ? "(max-width: 768px) 340px, (max-width: 1280px) 380px, 420px" : "(max-width: 768px) 100vw, 50vw"}
           className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-background/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -401,7 +402,7 @@ export function WebPortfolio({
           src={project.image}
           alt={project.title}
           fill
-          sizes="(min-width: 1280px) 1000px, 100vw"
+          sizes="(min-width: 1280px) 900px, (min-width: 768px) 70vw, 100vw"
           style={{ objectPosition: project.desktopImagePosition ?? "center center" }}
           className="object-cover transition-transform duration-700 group-hover:scale-[1.02]"
         />

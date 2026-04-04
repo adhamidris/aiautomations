@@ -109,6 +109,7 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
 
   const storageKey = useMemo(() => getStorageKey(lang), [lang])
   const hasUserMessages = messages.some((message) => message.role === "user")
+  const isMobileSheet = isMobileViewport && isOpen
   const activeMobileNudge =
     copy.mobileNudges[
       Math.min(Math.max(mobileNudgeShows - 1, 0), Math.max(copy.mobileNudges.length - 1, 0))
@@ -119,6 +120,27 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
     setMobileNudgeDismissed(true)
     window.sessionStorage.setItem(`${storageKey}:mobile-nudge-dismissed`, "true")
   }, [storageKey])
+
+  const syncMobileViewportState = useCallback(() => {
+    const nextHeight = window.visualViewport?.height ?? window.innerHeight
+    const nextTop = window.visualViewport?.offsetTop ?? 0
+    setMobileVisibleHeight(Math.round(nextHeight))
+    setMobileViewportTop(Math.round(nextTop))
+  }, [])
+
+  const openChat = useCallback(() => {
+    if (window.innerWidth < 768) {
+      syncMobileViewportState()
+    }
+
+    setIsOpen(true)
+    setShowMobileNudge(false)
+    trackEvent({
+      action: "dodzie_chat_open",
+      category: "assistant",
+      label: lang,
+    })
+  }, [lang, syncMobileViewportState])
 
   useEffect(() => {
     const syncViewport = () => setIsMobileViewport(window.innerWidth < 768)
@@ -224,24 +246,17 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
       return
     }
 
-    const updateVisibleHeight = () => {
-      const nextHeight = window.visualViewport?.height ?? window.innerHeight
-      const nextTop = window.visualViewport?.offsetTop ?? 0
-      setMobileVisibleHeight(Math.round(nextHeight))
-      setMobileViewportTop(Math.round(nextTop))
-    }
-
-    updateVisibleHeight()
-    window.visualViewport?.addEventListener("resize", updateVisibleHeight)
-    window.visualViewport?.addEventListener("scroll", updateVisibleHeight)
-    window.addEventListener("resize", updateVisibleHeight)
+    syncMobileViewportState()
+    window.visualViewport?.addEventListener("resize", syncMobileViewportState)
+    window.visualViewport?.addEventListener("scroll", syncMobileViewportState)
+    window.addEventListener("resize", syncMobileViewportState)
 
     return () => {
-      window.visualViewport?.removeEventListener("resize", updateVisibleHeight)
-      window.visualViewport?.removeEventListener("scroll", updateVisibleHeight)
-      window.removeEventListener("resize", updateVisibleHeight)
+      window.visualViewport?.removeEventListener("resize", syncMobileViewportState)
+      window.visualViewport?.removeEventListener("scroll", syncMobileViewportState)
+      window.removeEventListener("resize", syncMobileViewportState)
     }
-  }, [isMobileViewport, isOpen])
+  }, [isMobileViewport, isOpen, syncMobileViewportState])
 
   useLayoutEffect(() => {
     if (!isMobileSheet) {
@@ -383,6 +398,19 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
       }
     }
   }, [isMobileSheet, messages, storageKey])
+
+  useEffect(() => {
+    if (!isOpen || !messages.length || !viewportRef.current) {
+      return
+    }
+
+    viewportRef.current.scrollTop = viewportRef.current.scrollHeight
+    scrollMetricsRef.current = {
+      scrollTop: viewportRef.current.scrollTop,
+      scrollHeight: viewportRef.current.scrollHeight,
+      clientHeight: viewportRef.current.clientHeight,
+    }
+  }, [isOpen, messages.length])
 
   useEffect(() => {
     if (!consentResolved || isDodzieDemoOpen || !isMobileViewport || isOpen || mobileNudgeDismissed) {
@@ -577,7 +605,6 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
     : "translate-y-2 opacity-0"
   const launcherBottomClass =
     isMobileViewport && !isMobileCtaVisible ? "bottom-5" : "bottom-24 md:bottom-6"
-  const isMobileSheet = isMobileViewport && isOpen
   const mobileSheetHeight =
     isMobileSheet && mobileVisibleHeight
       ? Math.max(320, Math.round(mobileVisibleHeight - 32))
@@ -751,15 +778,7 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
 
             <button
               type="button"
-              onClick={() => {
-                setIsOpen(true)
-                setShowMobileNudge(false)
-                trackEvent({
-                  action: "dodzie_chat_open",
-                  category: "assistant",
-                  label: lang,
-                })
-              }}
+              onClick={openChat}
               aria-label={copy.openLabel}
               className="group absolute inset-x-0 bottom-0 z-10 inline-flex items-center gap-3 rounded-full border border-black/10 bg-white/95 px-4 py-3 shadow-[0_16px_40px_rgba(0,0,0,0.16)] transition hover:-translate-y-0.5 hover:bg-white"
             >
@@ -782,15 +801,7 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
 
           <button
             type="button"
-            onClick={() => {
-              setIsOpen(true)
-              setShowMobileNudge(false)
-              trackEvent({
-                action: "dodzie_chat_open",
-                category: "assistant",
-                label: lang,
-              })
-            }}
+            onClick={openChat}
             aria-label={copy.openLabel}
             className="group relative inline-flex items-center gap-3 rounded-full border border-black/10 bg-white/95 px-3 py-3 shadow-[0_16px_40px_rgba(0,0,0,0.16)] transition hover:-translate-y-0.5 hover:bg-white md:hidden"
           >

@@ -29,10 +29,10 @@ export const HeroKinetic = ({
       <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(circle_at_center,black_45%,transparent_95%)]" />
 
       {/* Ambient Ceiling Light */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[360px] w-[80vw] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-foreground/7 via-foreground/3 to-transparent blur-3xl pointer-events-none z-0 will-change-transform" />
+      <div className="absolute top-0 left-1/2 z-0 hidden h-[360px] w-[80vw] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-foreground/7 via-foreground/3 to-transparent blur-3xl pointer-events-none will-change-transform md:block" />
 
       {/* Direct Spotlight - Root Level */}
-      <div className="absolute left-1/2 top-[15%] z-0 h-[320px] w-[70vw] max-w-[600px] -translate-x-1/2 rounded-full bg-foreground/[0.04] blur-[120px] pointer-events-none will-change-transform" />
+      <div className="absolute left-1/2 top-[15%] z-0 hidden h-[320px] w-[70vw] max-w-[600px] -translate-x-1/2 rounded-full bg-foreground/[0.04] blur-[120px] pointer-events-none will-change-transform md:block" />
       <div className="absolute inset-x-0 top-0 z-0 h-40 bg-[linear-gradient(180deg,rgba(255,255,255,0.55)_0%,rgba(255,255,255,0.16)_45%,transparent_100%)] pointer-events-none" />
       <div className="absolute inset-x-0 bottom-0 z-0 h-28 bg-[linear-gradient(180deg,transparent_0%,rgba(255,255,255,0.3)_38%,rgba(255,255,255,0.82)_78%,var(--background)_100%)] pointer-events-none md:h-40" />
       <div className="absolute inset-x-[14%] bottom-0 z-0 h-px bg-gradient-to-r from-transparent via-black/8 to-transparent pointer-events-none" />
@@ -48,7 +48,7 @@ export const HeroKinetic = ({
 
             <h1 dir="ltr" className="font-heading font-black text-[14vw] md:text-[12vw] leading-none text-foreground select-none pointer-events-none opacity-100 tracking-tighter flex flex-col items-center md:flex-row md:items-baseline md:justify-center w-full px-4">
               <span>AUTOM8ED</span>
-              <span className="self-end md:self-auto text-[0.25em] md:text-[0.15em] text-muted-foreground font-mono tracking-normal opacity-80 animate-glitch mt-0 md:mt-0" data-text=".space">.space</span>
+              <span className="self-end md:self-auto mt-0 text-[0.25em] text-muted-foreground font-mono tracking-normal opacity-80 md:mt-0 md:text-[0.15em] md:animate-glitch" data-text=".space">.space</span>
             </h1>
           </div>
           <StreamingText phrases={phrases} />
