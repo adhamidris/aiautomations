@@ -445,7 +445,6 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
       {isOpen ? (
         <div className="w-[min(26rem,calc(100vw-1.5rem))] overflow-hidden rounded-[1.75rem] border border-black/10 bg-white/95 shadow-[0_24px_70px_rgba(0,0,0,0.16)] backdrop-blur-xl">
           <div className="relative overflow-hidden border-b border-black/8 bg-[radial-gradient(circle_at_top_left,rgba(255,186,92,0.22),transparent_44%),linear-gradient(135deg,#ffffff_0%,#f6f1ea_100%)] px-5 py-4">
-            <div className="absolute inset-y-0 right-0 w-32 bg-[linear-gradient(135deg,rgba(0,0,0,0.04),transparent)]" />
             <div className="relative flex items-start justify-between gap-3">
               <div className="flex min-w-0 gap-3">
                 <div className="relative h-14 w-14 overflow-hidden rounded-2xl bg-white/70">
