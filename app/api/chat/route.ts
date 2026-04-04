@@ -158,15 +158,6 @@ function buildPersistenceFingerprint(params: {
   })
 }
 
-function appendSubmissionNote(reply: string, language: SupportedLanguage) {
-  const note =
-    language === "ar"
-      ? "تم تسجيل التفاصيل. سيقوم الفريق بمراجعتها والرد عليك."
-      : "Your details are logged. The team can review them and follow up."
-
-  return reply.includes(note) ? reply : `${reply}\n\n${note}`
-}
-
 function promptAbuseResponse(language: SupportedLanguage) {
   if (language === "ar") {
     return {
@@ -356,9 +347,7 @@ export async function POST(request: Request) {
     })
 
     return NextResponse.json({
-      reply: leadSubmitted
-        ? appendSubmissionNote(reply, extraction?.language ?? locale)
-        : reply,
+      reply,
       language: extraction?.language ?? locale,
       knowledgeUsed: knowledge.map((chunk) => chunk.id),
       leadSubmitted,

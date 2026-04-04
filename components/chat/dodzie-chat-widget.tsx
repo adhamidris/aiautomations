@@ -96,6 +96,7 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
   const [isLauncherVisible, setIsLauncherVisible] = useState(false)
   const [isMobileCtaVisible, setIsMobileCtaVisible] = useState(false)
   const [isMobileContactVisible, setIsMobileContactVisible] = useState(false)
+  const [isInputFocused, setIsInputFocused] = useState(false)
   const viewportRef = useRef<HTMLDivElement | null>(null)
 
   const storageKey = useMemo(() => getStorageKey(lang), [lang])
@@ -183,6 +184,17 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
       )
     }
   }, [])
+
+  useEffect(() => {
+    window.dispatchEvent(
+      new CustomEvent("autom8ed:chat-visibility", {
+        detail: {
+          isOpen,
+          isInputFocused,
+        },
+      })
+    )
+  }, [isInputFocused, isOpen])
 
   useEffect(() => {
     const stored = window.localStorage.getItem(storageKey)
@@ -537,6 +549,8 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
                 <textarea
                   value={input}
                   onChange={(event) => setInput(event.target.value)}
+                  onFocus={() => setIsInputFocused(true)}
+                  onBlur={() => setIsInputFocused(false)}
                   onKeyDown={(event) => {
                     if (event.key === "Enter" && !event.shiftKey) {
                       event.preventDefault()

@@ -15,6 +15,7 @@ export function StickyNav({ ctaText = "BOOK A MEETING" }: StickyNavProps) {
   const [visible, setVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isContactVisible, setIsContactVisible] = useState(false);
+  const [isChatBlockingCta, setIsChatBlockingCta] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -43,6 +44,31 @@ export function StickyNav({ ctaText = "BOOK A MEETING" }: StickyNavProps) {
     };
   }, []);
 
+  useEffect(() => {
+    const handleChatVisibility = (event: Event) => {
+      const customEvent = event as CustomEvent<{
+        isOpen?: boolean;
+        isInputFocused?: boolean;
+      }>;
+
+      setIsChatBlockingCta(
+        Boolean(customEvent.detail?.isOpen || customEvent.detail?.isInputFocused)
+      );
+    };
+
+    window.addEventListener(
+      "autom8ed:chat-visibility",
+      handleChatVisibility as EventListener
+    );
+
+    return () => {
+      window.removeEventListener(
+        "autom8ed:chat-visibility",
+        handleChatVisibility as EventListener
+      );
+    };
+  }, []);
+
   useMotionValueEvent(scrollY, "change", (latest) => {
     // Show navbar after scrolling down 600px (past widely assumed hero height)
     if (latest > 600) {
@@ -52,7 +78,8 @@ export function StickyNav({ ctaText = "BOOK A MEETING" }: StickyNavProps) {
     }
   });
 
-  const shouldShow = visible && (!isMobile || !isContactVisible);
+  const shouldShow =
+    visible && (!isMobile || (!isContactVisible && !isChatBlockingCta));
 
   useEffect(() => {
     if (typeof window === "undefined") return;
