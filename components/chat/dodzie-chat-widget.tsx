@@ -98,7 +98,6 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
   const [isMobileContactVisible, setIsMobileContactVisible] = useState(false)
   const [isInputFocused, setIsInputFocused] = useState(false)
   const [mobileVisibleHeight, setMobileVisibleHeight] = useState<number | null>(null)
-  const [mobileViewportTop, setMobileViewportTop] = useState<number | null>(null)
   const [isPanelEntered, setIsPanelEntered] = useState(false)
   const viewportRef = useRef<HTMLDivElement | null>(null)
   const scrollMetricsRef = useRef<{
@@ -123,10 +122,74 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
 
   const syncMobileViewportState = useCallback(() => {
     const nextHeight = window.visualViewport?.height ?? window.innerHeight
-    const nextTop = window.visualViewport?.offsetTop ?? 0
     setMobileVisibleHeight(Math.round(nextHeight))
-    setMobileViewportTop(Math.round(nextTop))
   }, [])
+
+  const closeChat = useCallback(() => {
+    const finalizeClose = () => {
+      setIsInputFocused(false)
+      syncMobileViewportState()
+      setIsOpen(false)
+    }
+
+    trackEvent({
+      action: "dodzie_chat_close",
+      category: "assistant",
+      label: lang,
+    })
+
+    if (window.innerWidth >= 768) {
+      finalizeClose()
+      return
+    }
+
+    const activeElement = document.activeElement
+    if (
+      activeElement instanceof HTMLElement &&
+      (activeElement.tagName === "INPUT" || activeElement.tagName === "TEXTAREA")
+    ) {
+      activeElement.blur()
+    }
+
+    const viewport = window.visualViewport
+    if (!viewport) {
+      window.setTimeout(finalizeClose, 140)
+      return
+    }
+
+    const targetHeight = Math.round(window.innerHeight)
+    let lastHeight = Math.round(viewport.height)
+    let stableFrames = 0
+    let finished = false
+
+    const finish = () => {
+      if (finished) return
+      finished = true
+      viewport.removeEventListener("resize", checkViewport)
+      viewport.removeEventListener("scroll", checkViewport)
+      window.clearTimeout(fallbackTimer)
+      finalizeClose()
+    }
+
+    const checkViewport = () => {
+      const currentHeight = Math.round(viewport.height)
+      const nearRestored = currentHeight >= targetHeight - 6
+      const unchanged = Math.abs(currentHeight - lastHeight) <= 1
+
+      stableFrames = nearRestored || unchanged ? stableFrames + 1 : 0
+      lastHeight = currentHeight
+
+      if (nearRestored || stableFrames >= 2) {
+        finish()
+      }
+    }
+
+    const fallbackTimer = window.setTimeout(finish, 420)
+
+    viewport.addEventListener("resize", checkViewport)
+    viewport.addEventListener("scroll", checkViewport)
+    window.requestAnimationFrame(checkViewport)
+  }, [lang, syncMobileViewportState])
 
   const openChat = useCallback(() => {
     if (window.innerWidth < 768) {
@@ -242,18 +305,15 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
   useEffect(() => {
     if (!isMobileViewport || !isOpen) {
       setMobileVisibleHeight(null)
-      setMobileViewportTop(null)
       return
     }
 
     syncMobileViewportState()
     window.visualViewport?.addEventListener("resize", syncMobileViewportState)
-    window.visualViewport?.addEventListener("scroll", syncMobileViewportState)
     window.addEventListener("resize", syncMobileViewportState)
 
     return () => {
       window.visualViewport?.removeEventListener("resize", syncMobileViewportState)
-      window.visualViewport?.removeEventListener("scroll", syncMobileViewportState)
       window.removeEventListener("resize", syncMobileViewportState)
     }
   }, [isMobileViewport, isOpen, syncMobileViewportState])
@@ -292,22 +352,33 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
     }
 
     scrollMetricsRef.current = currentMetrics
-  }, [isMobileSheet, mobileVisibleHeight, mobileViewportTop])
+  }, [isMobileSheet, mobileVisibleHeight])
 
   useEffect(() => {
     if (!isMobileViewport || !isOpen) {
       return
     }
 
+    const lockedScrollY = window.scrollY
     const previousHtmlOverflow = document.documentElement.style.overflow
     const previousHtmlOverscrollBehavior = document.documentElement.style.overscrollBehavior
     const previousBodyOverflow = document.body.style.overflow
     const previousBodyOverscrollBehavior = document.body.style.overscrollBehavior
+    const previousBodyPosition = document.body.style.position
+    const previousBodyTop = document.body.style.top
+    const previousBodyLeft = document.body.style.left
+    const previousBodyRight = document.body.style.right
+    const previousBodyWidth = document.body.style.width
 
     document.documentElement.style.overflow = "hidden"
     document.documentElement.style.overscrollBehavior = "none"
     document.body.style.overflow = "hidden"
     document.body.style.overscrollBehavior = "none"
+    document.body.style.position = "fixed"
+    document.body.style.top = `-${lockedScrollY}px`
+    document.body.style.left = "0"
+    document.body.style.right = "0"
+    document.body.style.width = "100%"
 
     const preventBackgroundScroll = (event: TouchEvent | WheelEvent) => {
       const target = event.target as Node | null
@@ -330,6 +401,15 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
       document.documentElement.style.overscrollBehavior = previousHtmlOverscrollBehavior
       document.body.style.overflow = previousBodyOverflow
       document.body.style.overscrollBehavior = previousBodyOverscrollBehavior
+      document.body.style.position = previousBodyPosition
+      document.body.style.top = previousBodyTop
+      document.body.style.left = previousBodyLeft
+      document.body.style.right = previousBodyRight
+      document.body.style.width = previousBodyWidth
+
+      if (Math.abs(window.scrollY - lockedScrollY) > 1) {
+        window.scrollTo(0, lockedScrollY)
+      }
     }
   }, [isMobileViewport, isOpen])
 
@@ -607,11 +687,7 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
     isMobileViewport && !isMobileCtaVisible ? "bottom-5" : "bottom-24 md:bottom-6"
   const mobileSheetHeight =
     isMobileSheet && mobileVisibleHeight
-      ? Math.max(320, Math.round(mobileVisibleHeight - 32))
-      : undefined
-  const mobileSheetTop =
-    isMobileSheet
-      ? Math.max(8, (mobileViewportTop ?? 0) + 8)
+      ? Math.max(320, Math.round(mobileVisibleHeight - 16))
       : undefined
   const rootClassName = isMobileSheet
     ? `fixed inset-x-3 z-[70] flex items-stretch ${shouldRenderLauncher ? "opacity-100" : "pointer-events-none opacity-0"}`
@@ -625,9 +701,9 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
       className={rootClassName}
       aria-hidden={!shouldRenderLauncher}
       style={
-        isMobileSheet && mobileSheetHeight && mobileSheetTop !== undefined
+        isMobileSheet && mobileSheetHeight
           ? {
-              top: `${mobileSheetTop}px`,
+              top: "8px",
               height: `${mobileSheetHeight}px`,
             }
           : undefined
@@ -659,14 +735,7 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
 
               <button
                 type="button"
-                onClick={() => {
-                  setIsOpen(false)
-                  trackEvent({
-                    action: "dodzie_chat_close",
-                    category: "assistant",
-                    label: lang,
-                  })
-                }}
+                onClick={closeChat}
                 aria-label={copy.closeLabel}
                 className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-black text-white transition hover:bg-black/90"
               >
