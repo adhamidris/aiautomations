@@ -54,6 +54,19 @@ export function StickyNav({ ctaText = "BOOK A MEETING" }: StickyNavProps) {
 
   const shouldShow = visible && (!isMobile || !isContactVisible);
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    window.dispatchEvent(
+      new CustomEvent("autom8ed:mobile-cta-visibility", {
+        detail: {
+          isVisible: Boolean(isMobile && shouldShow),
+          isContactVisible: Boolean(isMobile && isContactVisible),
+        },
+      })
+    );
+  }, [isContactVisible, isMobile, shouldShow]);
+
   return (
     <AnimatePresence mode="wait">
       {shouldShow && (
@@ -62,7 +75,7 @@ export function StickyNav({ ctaText = "BOOK A MEETING" }: StickyNavProps) {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: isMobile ? 100 : -100, opacity: 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="fixed bottom-6 md:bottom-auto md:top-0 left-0 right-0 z-50 flex justify-center md:block pointer-events-none will-change-transform"
+          className="fixed bottom-6 md:bottom-auto md:top-0 left-0 right-0 z-[90] flex justify-center md:block pointer-events-none will-change-transform"
         >
           <div className="pointer-events-auto flex items-center justify-between gap-4 md:gap-0 rounded-full md:rounded-none border border-border md:border-x-0 md:border-t-0 md:border-b bg-background/80 backdrop-blur-xl px-6 py-3 md:px-12 lg:px-24 md:py-4 shadow-lg ring-1 ring-border/50 md:ring-0 md:shadow-none w-auto md:w-full max-w-[90%] md:max-w-none mx-auto md:mx-0">
             {/* Logo */}

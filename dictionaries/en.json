@@ -4,6 +4,7 @@
         "description": "We build AI agents that work for you.",
         "ctaAutomation": "SERVICES",
         "ctaWebDev": "PORTFOLIO",
+        "ctaAssistants": "ASSISTANTS",
         "phrases": [
             "WEB DEVELOPMENT",
             "AI INTEGRATIONS",
@@ -79,8 +80,8 @@
                 "description": "Custom SaaS development & MVP services. We build scalable, secure, and user-friendly software solutions using top-notch technologies."
             },
             {
-                "title": "AI Integrations",
-                "description": "Custom AI integrations tailored to your workflows, helping you automate operations and improve efficiency."
+                "title": "AI Assistants & Integrations",
+                "description": "Custom AI assistants and integrations tailored to your workflows, helping you automate operations, connect your tools, and improve efficiency."
             },
             {
                 "title": "RAG",
@@ -95,6 +96,11 @@
     "dodzie": {
         "title": "Meet Dodzie",
         "summary": "A custom AI assistant built into your setup. Connected to your tools. Ready to act.",
+        "mobileSummary": [
+            "AI Assistant built into your setup",
+            "Connected to your tools",
+            "Ready to act"
+        ],
         "points": [
             "Run it through Telegram, anywhere.",
             "Connected to your local workspace and files.",
@@ -190,6 +196,29 @@
             "submitButton": "Send Message",
             "sendingButton": "Sending..."
         }
+    },
+    "chat": {
+        "badge": "DODZIE LIVE",
+        "title": "Talk to Dodzie",
+        "subtitle": "Ask anything about our services",
+        "mobileNudges": [
+            "Need help? Ask Dodzie.",
+            "Still deciding? Ask Dodzie."
+        ],
+        "placeholder": "Ask Dodzie something sharp...",
+        "send": "Send",
+        "thinking": "Dodzie is thinking...",
+        "openLabel": "Open Dodzie chat",
+        "closeLabel": "Close Dodzie chat",
+        "statusReady": "Site-aware and ready to talk.",
+        "statusCaptured": "Lead captured. The team can follow up.",
+        "intro": "I’m Dodzie. Ask me about AI assistant systems, automations, websites and SaaS builds.",
+        "prompts": [
+            "What exactly is your AI assistant setup service?",
+            "What is basically a RAG?",
+            "I wanna build a website for my business",
+            "I'm looking to build a SaaS/MVP"
+        ]
     },
     "cookie": {
         "title": "Cookie Usage",

@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 export function Footer() {
   return (
     <footer className="border-t border-muted bg-background py-6 md:py-0">
@@ -9,9 +11,9 @@ export function Footer() {
           </p>
         </div>
         <div className="flex flex-col items-center gap-4 md:flex-row">
-            <a href="/privacy-policy" className="text-sm text-muted-foreground hover:underline underline-offset-4">
+            <Link href="/privacy-policy" className="text-sm text-muted-foreground hover:underline underline-offset-4">
                 Privacy Policy
-            </a>
+            </Link>
             <p className="text-center text-sm text-muted-foreground md:text-left">
                 &copy; {new Date().getFullYear()} All rights reserved.
             </p>

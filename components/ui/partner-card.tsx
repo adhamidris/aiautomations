@@ -13,7 +13,6 @@ interface PartnerCardProps {
 
 export const PartnerCard = ({ name, icon, category, description, className }: PartnerCardProps) => {
   const divRef = React.useRef<HTMLDivElement>(null);
-  const [isFocused, setIsFocused] = React.useState(false);
   const [position, setPosition] = React.useState({ x: 0, y: 0 });
   const [opacity, setOpacity] = React.useState(0);
 
@@ -27,12 +26,10 @@ export const PartnerCard = ({ name, icon, category, description, className }: Pa
   };
 
   const handleFocus = () => {
-    setIsFocused(true);
     setOpacity(1);
   };
 
   const handleBlur = () => {
-    setIsFocused(false);
     setOpacity(0);
   };
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ArrowLeftRight, ArrowUpRight } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
@@ -8,6 +8,7 @@ import { trackEvent } from "@/lib/analytics";
 interface DodzieSectionProps {
   title: string;
   summary: string;
+  mobileSummary: string[];
   points: string[];
   llmsLabel: string;
   primaryCta: string;
@@ -70,6 +71,7 @@ function InlineBrandIcon({
 export function DodzieSection({
   title,
   summary,
+  mobileSummary,
   points,
   llmsLabel,
   primaryCta,
@@ -79,6 +81,8 @@ export function DodzieSection({
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
   const [isDemoOpen, setIsDemoOpen] = useState(false);
   const [mobileViewportHeight, setMobileViewportHeight] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const demoDesktopContentRef = useRef<HTMLDivElement | null>(null);
 
   const activeVideo = demoVideos[activeVideoIndex];
   const resolvedMobileViewportHeight = mobileViewportHeight ?? 760;
@@ -104,7 +108,7 @@ export function DodzieSection({
     });
   };
 
-  const openDemo = () => {
+  const openDemo = useCallback(() => {
     setMobileViewportHeight(null);
     setIsDemoOpen(true);
     trackEvent({
@@ -112,9 +116,9 @@ export function DodzieSection({
       category: "assistant",
       label: demoTitle,
     });
-  };
+  }, [demoTitle]);
 
-  const closeDemo = () => {
+  const closeDemo = useCallback(() => {
     setMobileViewportHeight(null);
     setIsDemoOpen(false);
     trackEvent({
@@ -122,7 +126,16 @@ export function DodzieSection({
       category: "assistant",
       label: demoTitle,
     });
-  };
+  }, [demoTitle]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    window.dispatchEvent(
+      new CustomEvent("autom8ed:dodzie-demo-visibility", {
+        detail: { isOpen: isDemoOpen },
+      })
+    );
+  }, [closeDemo, isDemoOpen]);
 
   useEffect(() => {
     if (!isDemoOpen) return;
@@ -170,7 +183,7 @@ export function DodzieSection({
         document.documentElement.style.scrollBehavior = originalHtmlScrollBehavior;
       });
     };
-  }, [isDemoOpen]);
+  }, [closeDemo, isDemoOpen]);
 
   useEffect(() => {
     if (!isDemoOpen) return;
@@ -195,10 +208,60 @@ export function DodzieSection({
       window.removeEventListener("resize", syncViewportHeight);
       window.removeEventListener("orientationchange", syncViewportHeight);
     };
-  }, [isDemoOpen]);
+  }, [closeDemo, isDemoOpen]);
+
+  useEffect(() => {
+    if (!isDemoOpen) return;
+    if (typeof window === "undefined") return;
+    if (window.innerWidth < 1024) return;
+
+    const handleScroll = () => {
+      const section = sectionRef.current;
+      if (!section) return;
+
+      const rect = section.getBoundingClientRect();
+      const isSectionOutOfView =
+        rect.bottom < window.innerHeight * 0.58 || rect.top > window.innerHeight * 0.6;
+
+      if (isSectionOutOfView) {
+        closeDemo();
+      }
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, [closeDemo, isDemoOpen]);
+
+  useEffect(() => {
+    if (!isDemoOpen) return;
+    if (typeof window === "undefined") return;
+    if (window.innerWidth < 1024) return;
+
+    const handlePointerDown = (event: PointerEvent) => {
+      const target = event.target as Node | null;
+      const desktopContent = demoDesktopContentRef.current;
+
+      if (!desktopContent || !target) return;
+      if (desktopContent.contains(target)) return;
+
+      closeDemo();
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown, true);
+
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown, true);
+    };
+  }, [closeDemo, isDemoOpen]);
 
   return (
-    <section id="assistant" className="relative w-full overflow-hidden bg-background">
+    <section ref={sectionRef} id="assistant" className="relative w-full overflow-hidden bg-background">
       <div className="mx-auto max-w-7xl px-4 pt-0 pb-20 sm:px-6 lg:px-8 lg:pt-0 lg:pb-24">
         <div className="grid items-start gap-12 lg:grid-cols-[minmax(15rem,18rem)_1fr] xl:grid-cols-[minmax(16rem,20rem)_1fr] xl:gap-16">
           <div className="relative mx-auto hidden w-full max-w-[16rem] lg:mx-0 lg:block lg:sticky lg:top-24 lg:max-w-[18rem]">
@@ -228,9 +291,11 @@ export function DodzieSection({
                 />
               </div>
               <p className="mx-auto mt-6 text-center text-base leading-8 text-foreground/74 lg:hidden">
-                <span className="block">AI Assistant built into your setup</span>
-                <span className="block">Connected to your tools</span>
-                <span className="block">Ready to act</span>
+                {mobileSummary.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
               </p>
               <p className="mt-6 hidden max-w-[40rem] text-base leading-8 text-foreground/74 lg:block lg:text-lg">
                 {summary}
@@ -294,7 +359,7 @@ export function DodzieSection({
                 </div>
               </div>
 
-              <div className="mt-10 flex flex-wrap gap-3 pl-5 md:pl-6 lg:pl-0">
+              <div className="mt-10 flex flex-wrap justify-center gap-3 lg:justify-start lg:pl-0">
                 <a
                   href="#contact"
                   onClick={handlePrimaryClick}
@@ -323,7 +388,7 @@ export function DodzieSection({
                 }
               >
                 <div
-                  className={`absolute inset-0 transition-all duration-300 ${isDemoOpen ? "bg-white/76 opacity-100 backdrop-blur-xl" : "opacity-0"}`}
+                  className={`absolute inset-0 transition-all duration-500 ease-out ${isDemoOpen ? "bg-white/76 opacity-100 backdrop-blur-xl" : "opacity-0"}`}
                 />
 
                 <div
@@ -334,7 +399,8 @@ export function DodzieSection({
                   }}
                 >
                   <div
-                    className={`hidden w-full max-w-[38rem] flex-col items-center justify-center gap-4 px-2 py-2 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:flex lg:flex-row lg:gap-10 lg:px-8 lg:py-8 ${isDemoOpen ? "scale-100 opacity-100" : "scale-[0.96] opacity-0"}`}
+                    ref={demoDesktopContentRef}
+                    className={`hidden w-full max-w-[38rem] flex-col items-center justify-center gap-4 px-2 py-2 transition-all duration-650 ease-[cubic-bezier(0.22,1,0.36,1)] lg:flex lg:flex-row lg:gap-10 lg:px-8 lg:py-8 ${isDemoOpen ? "scale-100 opacity-100" : "scale-[0.97] opacity-0"}`}
                   >
                     <div
                       className="order-1 hidden w-[10.5rem] shrink-0 flex-col gap-2 lg:flex"
@@ -390,7 +456,7 @@ export function DodzieSection({
                   </div>
 
                   <div
-                    className={`flex h-full w-full max-w-[24.5rem] flex-col items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] lg:hidden ${isDemoOpen ? "scale-100 opacity-100" : "scale-[0.96] opacity-0"}`}
+                    className={`flex h-full w-full max-w-[24.5rem] flex-col items-center justify-center transition-all duration-650 ease-[cubic-bezier(0.22,1,0.36,1)] lg:hidden ${isDemoOpen ? "scale-100 opacity-100" : "scale-[0.97] opacity-0"}`}
                   >
                     <div className="flex min-h-0 w-full flex-1 items-center justify-center">
                       <div

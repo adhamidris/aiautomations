@@ -27,6 +27,7 @@ export default async function Home({ params }: { params: Promise<{ lang: Locale 
           phrases={dict.hero.phrases}
           ctaAutomation={dict.hero.ctaAutomation}
           ctaWebDev={dict.hero.ctaWebDev}
+          ctaAssistants={dict.hero.ctaAssistants}
         />
       </SectionTracker>
 
@@ -59,6 +60,7 @@ export default async function Home({ params }: { params: Promise<{ lang: Locale 
         <DodzieSection
           title={dict.dodzie.title}
           summary={dict.dodzie.summary}
+          mobileSummary={dict.dodzie.mobileSummary}
           points={dict.dodzie.points}
           llmsLabel={dict.dodzie.llmsLabel}
           primaryCta={dict.dodzie.primaryCta}

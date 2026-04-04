@@ -16,13 +16,6 @@ const PremiumBullet = () => (
   </span>
 );
 
-interface PartnerData {
-  id: string;
-  name: string;
-  category: string;
-  description: string[];
-}
-
 interface EcosystemGridProps {
   titleLine1?: string;
   titleLine2?: string;
@@ -162,4 +155,3 @@ export const EcosystemGrid = ({
     </section>
   );
 };
-

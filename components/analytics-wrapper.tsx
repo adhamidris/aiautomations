@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import { GoogleAnalytics } from "@next/third-parties/google"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { X } from "lucide-react"
 
 
 interface AnalyticsWrapperProps {
@@ -43,12 +42,22 @@ export function AnalyticsWrapper({
     localStorage.setItem("cookie_consent", "granted")
     setConsent(true)
     setShowBanner(false)
+    window.dispatchEvent(
+      new CustomEvent("autom8ed:cookie-consent-resolved", {
+        detail: { consent: "granted" },
+      })
+    )
   }
 
   const handleDecline = () => {
     localStorage.setItem("cookie_consent", "denied")
     setConsent(false)
     setShowBanner(false)
+    window.dispatchEvent(
+      new CustomEvent("autom8ed:cookie-consent-resolved", {
+        detail: { consent: "denied" },
+      })
+    )
   }
 
   return (
@@ -94,4 +103,3 @@ export function AnalyticsWrapper({
     </>
   )
 }
-

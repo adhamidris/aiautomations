@@ -33,10 +33,12 @@ export async function GET() {
     })
 
     return NextResponse.json(response.data)
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : "Failed to fetch analytics data"
     console.error("Analytics Error:", error)
     return NextResponse.json(
-      { error: error.message || "Failed to fetch analytics data" },
+      { error: message },
       { status: 500 }
     )
   }

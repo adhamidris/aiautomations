@@ -33,7 +33,7 @@ export const CyberPanel = ({
     stiffness: 120, 
     damping: 28, 
     mass: 1.15 
-  } as any;
+  } as const;
 
   const panelPose = {
     initial: { opacity: 0, y: 16, scale: 0.985 },

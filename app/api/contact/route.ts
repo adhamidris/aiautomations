@@ -1,28 +1,28 @@
-import { appendLead } from "@/lib/sheets"
+import { submitLead } from "@/lib/leads"
 import { NextResponse } from "next/server"
 
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { name, email, phone, message } = body
+    const { name, email, phone, message, source, serviceInterest, locale, pathname } = body
 
-    if (!name || !email || !message) {
+    if (!email || (!name && source !== "chatbot") || (!message && source !== "chatbot")) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
       )
     }
 
-    // Connect to Google Sheets
-    // Note: This will fail if env vars are not set, but we catch the error.
-    if (process.env.GOOGLE_SHEET_ID) {
-        await appendLead({ name, email, phone, message })
-    } else {
-        console.warn("Skipping Google Sheets write: GOOGLE_SHEET_ID not set.")
-    }
-
-    // In a real scenario, you might also trigger a webhook here:
-    // await fetch(process.env.N8N_WEBHOOK_URL, { ... })
+    await submitLead({
+      source: source === "chatbot" ? "chatbot" : "contact_form",
+      name,
+      email,
+      phone,
+      message,
+      serviceInterest,
+      locale,
+      pathname,
+    })
 
     return NextResponse.json({ success: true })
   } catch (error) {

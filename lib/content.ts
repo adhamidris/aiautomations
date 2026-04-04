@@ -93,9 +93,14 @@ export function getAllPosts(lang: Locale): Omit<BlogPost, "content">[] {
         .map((slug) => {
             const post = getPostBySlug(slug, lang);
             if (!post) return null;
-            // Destructure to omit full content for listing
-            const { content, ...metadata } = post;
-            return metadata;
+            return {
+                slug: post.slug,
+                publishedAt: post.publishedAt,
+                seo: post.seo,
+                title: post.title,
+                category: post.category,
+                excerpt: post.excerpt,
+            };
         })
         .filter((post): post is Omit<BlogPost, "content"> => post !== null);
 

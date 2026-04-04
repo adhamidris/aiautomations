@@ -7,6 +7,7 @@ import { getDictionary } from "../../get-dictionary";
 import { GrainOverlay } from "@/components/ui/grain-overlay";
 import { StickyNav } from "@/components/ui/sticky-nav";
 import JsonLd from "@/components/seo/json-ld";
+import { DodzieChatWidget } from "@/components/chat/dodzie-chat-widget";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -107,6 +108,7 @@ export default async function RootLayout({
         <GrainOverlay />
         <StickyNav ctaText={dict.nav.bookMeeting} />
         {children}
+        <DodzieChatWidget lang={lang} copy={dict.chat} />
         <AnalyticsWrapper
           gaId={process.env.NEXT_PUBLIC_GA_ID || ""}
           consentTitle={dict.cookie.title}

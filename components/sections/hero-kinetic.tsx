@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Bot, Code2 } from "lucide-react";
+import { Bot, Code2, Cpu } from "lucide-react";
 
 
 
@@ -9,12 +9,14 @@ interface HeroKineticProps {
   phrases?: string[];
   ctaAutomation?: string;
   ctaWebDev?: string;
+  ctaAssistants?: string;
 }
 
 export const HeroKinetic = ({
   phrases,
   ctaAutomation = "SERVICES",
-  ctaWebDev = "PORTFOLIO"
+  ctaWebDev = "PORTFOLIO",
+  ctaAssistants = "ASSISTANTS"
 }: HeroKineticProps) => {
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
@@ -54,39 +56,90 @@ export const HeroKinetic = ({
 
         {/* Standard Tech CTA */}
         <div className="relative mt-8 md:mt-12 z-20">
-          <div className="flex items-center p-1 md:p-1.5 rounded-full border border-border bg-background shadow-[0_0_25px_rgba(0,0,0,0.1)]">
-
-            {/* Automation Pill */}
+          <div className="grid grid-cols-2 gap-2 md:hidden">
             <a
               href="#services"
-              className="group relative px-4 py-2.5 md:px-8 md:py-4 rounded-full hover:bg-muted transition-all duration-300 flex items-center justify-center gap-1.5 md:gap-2.5"
+              className="group relative flex items-center justify-center gap-2 rounded-full border border-border bg-background px-4 py-3 shadow-[0_0_25px_rgba(0,0,0,0.08)] transition-all duration-300 hover:bg-muted"
             >
-              <Bot className="w-3.5 h-3.5 md:w-5 md:h-5 text-violet-600 md:text-muted-foreground md:group-hover:text-violet-600 group-hover:scale-110 transition-all duration-300" />
+              <Bot className="h-4 w-4 text-violet-600 transition-all duration-300 group-hover:scale-110" />
               <span
-                className="font-heading font-black text-xs md:text-base tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600 md:text-foreground md:bg-clip-border md:bg-none md:group-hover:text-transparent md:group-hover:bg-clip-text md:group-hover:bg-gradient-to-r md:group-hover:from-violet-600 md:group-hover:to-indigo-600 transition-all duration-300 animate-glitch-subtle md:animate-glitch-subtle md:group-hover:animate-none"
+                className="animate-glitch-subtle font-heading text-xs font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600"
                 data-text={ctaAutomation}
               >
                 {ctaAutomation}
               </span>
             </a>
 
-            {/* Angle Divider */}
-            <div className="w-px h-4 md:h-6 bg-border rotate-12 mx-0.5 md:mx-1" />
-
-            {/* Web Dev Pill */}
             <a
               href="#portfolio"
-              className="group relative px-4 py-2.5 md:px-8 md:py-4 rounded-full hover:bg-muted transition-all duration-300 flex items-center justify-center gap-1.5 md:gap-2.5"
+              className="group relative flex items-center justify-center gap-2 rounded-full border border-border bg-background px-4 py-3 shadow-[0_0_25px_rgba(0,0,0,0.08)] transition-all duration-300 hover:bg-muted"
             >
               <span
-                className="font-heading font-black text-xs md:text-base tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-500 md:text-foreground md:bg-clip-border md:bg-none md:group-hover:text-transparent md:group-hover:bg-clip-text md:group-hover:bg-gradient-to-r md:group-hover:from-emerald-500 md:group-hover:to-teal-500 transition-all duration-300 animate-glitch-subtle md:animate-glitch-subtle md:group-hover:animate-none"
+                className="animate-glitch-subtle font-heading text-xs font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-500"
                 data-text={ctaWebDev}
               >
                 {ctaWebDev}
               </span>
-              <Code2 className="w-3.5 h-3.5 md:w-5 md:h-5 text-emerald-500 md:text-muted-foreground md:group-hover:text-emerald-500 group-hover:scale-110 transition-all duration-300" />
+              <Code2 className="h-4 w-4 text-emerald-500 transition-all duration-300 group-hover:scale-110" />
             </a>
 
+            <a
+              href="#assistant"
+              className="group relative col-span-2 mx-auto flex w-full max-w-[12rem] items-center justify-center gap-2 rounded-full border border-border bg-background px-4 py-3 shadow-[0_0_25px_rgba(0,0,0,0.08)] transition-all duration-300 hover:bg-[#fff4e7]"
+            >
+              <Cpu className="h-4 w-4 text-orange-500 transition-all duration-300 group-hover:scale-110" />
+              <span
+                className="animate-glitch-subtle font-heading text-xs font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500"
+                data-text={ctaAssistants}
+              >
+                {ctaAssistants}
+              </span>
+            </a>
+          </div>
+
+          <div className="hidden items-center rounded-full border border-border bg-background p-1.5 shadow-[0_0_25px_rgba(0,0,0,0.1)] md:flex">
+            <a
+              href="#services"
+              className="group relative flex items-center justify-center gap-2.5 rounded-full px-8 py-4 transition-all duration-300 hover:bg-muted"
+            >
+              <Bot className="h-5 w-5 text-muted-foreground transition-all duration-300 group-hover:scale-110 group-hover:text-violet-600" />
+              <span
+                className="animate-glitch-subtle font-heading text-base font-black tracking-wider text-foreground transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-violet-600 group-hover:to-indigo-600 group-hover:bg-clip-text group-hover:text-transparent group-hover:animate-none"
+                data-text={ctaAutomation}
+              >
+                {ctaAutomation}
+              </span>
+            </a>
+
+            <div className="mx-1 h-6 w-px rotate-12 bg-border" />
+
+            <a
+              href="#portfolio"
+              className="group relative flex items-center justify-center gap-2.5 rounded-full px-8 py-4 transition-all duration-300 hover:bg-muted"
+            >
+              <span
+                className="animate-glitch-subtle font-heading text-base font-black tracking-wider text-foreground transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-emerald-500 group-hover:to-teal-500 group-hover:bg-clip-text group-hover:text-transparent group-hover:animate-none"
+                data-text={ctaWebDev}
+              >
+                {ctaWebDev}
+              </span>
+              <Code2 className="h-5 w-5 text-muted-foreground transition-all duration-300 group-hover:scale-110 group-hover:text-emerald-500" />
+            </a>
+
+            <div className="mx-1 h-6 w-px rotate-12 bg-border" />
+
+            <a
+              href="#assistant"
+              className="group relative flex items-center justify-center gap-2.5 rounded-full px-8 py-4 transition-all duration-300 hover:bg-[#fff5eb]"
+            >
+              <Cpu className="h-5 w-5 text-muted-foreground transition-all duration-300 group-hover:scale-110 group-hover:text-orange-500" />
+              <span
+                className="animate-glitch-subtle font-heading text-base font-black tracking-wider text-foreground transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-orange-500 group-hover:to-amber-500 group-hover:bg-clip-text group-hover:text-transparent group-hover:animate-none"
+                data-text={ctaAssistants}
+              >
+                {ctaAssistants}
+              </span>
+            </a>
           </div>
         </div>
 
