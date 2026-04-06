@@ -57,7 +57,9 @@ function buildSessionId() {
 }
 
 function getActiveSectionId() {
-  const sections = Array.from(document.querySelectorAll<HTMLElement>("section[id]"))
+  const sections = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-analytics-section], section[id]")
+  )
 
   if (!sections.length) {
     return undefined
@@ -68,13 +70,19 @@ function getActiveSectionId() {
   let bestDistance = Number.POSITIVE_INFINITY
 
   for (const section of sections) {
+    const sectionId = section.dataset.analyticsSection || section.id
+
+    if (!sectionId) {
+      continue
+    }
+
     const rect = section.getBoundingClientRect()
     const sectionCenter = rect.top + rect.height / 2
     const distance = Math.abs(sectionCenter - viewportCenter)
 
     if (rect.bottom > 0 && rect.top < window.innerHeight && distance < bestDistance) {
       bestDistance = distance
-      bestId = section.id
+      bestId = sectionId
     }
   }
 
@@ -585,6 +593,7 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
   async function sendMessage(content: string) {
     const trimmed = content.trim()
     if (!trimmed || isLoading || !sessionId) return
+    const activeSectionId = getActiveSectionId()
 
     const nextUserMessage: UiMessage = {
       id: `${Date.now()}-user`,
@@ -600,7 +609,8 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
     trackEvent({
       action: "dodzie_chat_send",
       category: "assistant",
-      label: trimmed.slice(0, 80),
+      label: activeSectionId ?? lang,
+      value: trimmed.length,
     })
 
     try {
@@ -613,7 +623,7 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
           sessionId,
           locale: lang,
           pathname: window.location.pathname,
-          activeSection: getActiveSectionId(),
+          activeSection: activeSectionId,
           messages: nextMessages.map(({ role, content: messageContent }) => ({
             role,
             content: messageContent,

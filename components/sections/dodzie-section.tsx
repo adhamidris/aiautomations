@@ -261,7 +261,7 @@ export function DodzieSection({
   }, [closeDemo, isDemoOpen]);
 
   return (
-    <section ref={sectionRef} id="assistant" className="relative w-full overflow-hidden bg-background">
+    <section ref={sectionRef} className="relative w-full overflow-hidden bg-background">
       <div className="mx-auto max-w-7xl px-4 pt-0 pb-20 sm:px-6 lg:px-8 lg:pt-0 lg:pb-24">
         <div className="grid items-start gap-12 lg:grid-cols-[minmax(15rem,18rem)_1fr] xl:grid-cols-[minmax(16rem,20rem)_1fr] xl:gap-16">
           <div className="relative mx-auto hidden w-full max-w-[16rem] lg:mx-0 lg:block lg:sticky lg:top-24 lg:max-w-[18rem]">

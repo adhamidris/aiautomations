@@ -58,6 +58,7 @@ export function ContactForm({
   }
 }: ContactFormProps) {
   const [status, setStatus] = useState<"IDLE" | "PLOTTING" | "TRANSMIT" | "SUCCESS" | "ERROR">("IDLE")
+  const [hasStartedForm, setHasStartedForm] = useState(false)
 
   // Simulated "boot up" lines for the left panel terminal
   // const [terminalLines, setTerminalLines] = useState<string[]>([
@@ -99,6 +100,11 @@ export function ContactForm({
       setStatus("SUCCESS")
     } catch (error) {
       console.error(error)
+      trackEvent({
+        action: "form_error",
+        category: "contact",
+        label: "lead_generation",
+      })
       // setTerminalLines(prev => [...prev, "> ERROR: CONNECTION_REFUSED.", "> RETRY_ADVISED."])
       setStatus("ERROR")
       setTimeout(() => setStatus("IDLE"), 4000)
@@ -107,7 +113,6 @@ export function ContactForm({
 
   return (
     <section
-      id="contact"
       className="relative w-full pt-8 pb-32 md:pt-24 md:pb-64 overflow-hidden"
     >
       {/* Technical Background Grid - uses CSS variable for color */}
@@ -200,6 +205,18 @@ export function ContactForm({
                       exit={{ opacity: 0, x: 20 }}
                       transition={{ duration: 0.3 }}
                       onSubmit={handleSubmit}
+                      onFocusCapture={() => {
+                        if (hasStartedForm) {
+                          return
+                        }
+
+                        setHasStartedForm(true)
+                        trackEvent({
+                          action: "form_start",
+                          category: "contact",
+                          label: "lead_generation",
+                        })
+                      }}
                       className="w-full max-w-md mx-auto space-y-6"
                     >
                       <CyberInput

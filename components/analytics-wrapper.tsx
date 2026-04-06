@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { GoogleAnalytics } from "@next/third-parties/google"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
+import { isAnalyticsReady } from "@/lib/analytics"
 
 
 interface AnalyticsWrapperProps {
@@ -38,6 +39,46 @@ export function AnalyticsWrapper({
     return () => clearTimeout(timer);
   }, [])
 
+  useEffect(() => {
+    if (!consent || !gaId) {
+      return
+    }
+
+    let cancelled = false
+    let attempts = 0
+
+    const notifyAnalyticsReady = () => {
+      window.dispatchEvent(
+        new CustomEvent("autom8ed:analytics-ready", {
+          detail: { gaId },
+        })
+      )
+    }
+
+    const waitForAnalytics = () => {
+      if (cancelled) {
+        return
+      }
+
+      if (isAnalyticsReady()) {
+        notifyAnalyticsReady()
+        return
+      }
+
+      attempts += 1
+
+      if (attempts < 20) {
+        window.setTimeout(waitForAnalytics, 50)
+      }
+    }
+
+    waitForAnalytics()
+
+    return () => {
+      cancelled = true
+    }
+  }, [consent, gaId])
+
   const handleAccept = () => {
     localStorage.setItem("cookie_consent", "granted")
     setConsent(true)
@@ -62,7 +103,7 @@ export function AnalyticsWrapper({
 
   return (
     <>
-      {consent && <GoogleAnalytics gaId={gaId} />}
+      {consent && gaId ? <GoogleAnalytics gaId={gaId} /> : null}
 
       <AnimatePresence>
         {showBanner && (

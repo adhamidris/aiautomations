@@ -198,6 +198,12 @@ export function WebPortfolio({
       left: slides[nextIndex].offsetLeft,
       behavior: "smooth",
     });
+
+    trackEvent({
+      action: "portfolio_nav_click",
+      category: "portfolio_desktop",
+      label: direction,
+    })
   };
 
   useEffect(() => {
@@ -458,7 +464,7 @@ export function WebPortfolio({
   );
 
   return (
-    <section id="portfolio" className="relative w-full overflow-hidden bg-[#fcfcfb] pt-0 md:pt-0 pb-28 md:pb-32">
+    <section className="relative w-full overflow-hidden bg-[#fcfcfb] pt-0 md:pt-0 pb-28 md:pb-32">
 
       {/* Star Field & Meteors Background */}
       <StarField density={1500} speed={0.2} className="opacity-12" />

@@ -1,8 +1,8 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useInView } from "framer-motion"
-import { trackEvent } from "@/lib/analytics"
+import { isAnalyticsReady, trackEvent } from "@/lib/analytics"
 
 interface SectionTrackerProps {
     id: string
@@ -23,19 +23,36 @@ export function SectionTracker({
 }: SectionTrackerProps) {
     const ref = useRef<HTMLDivElement>(null)
     const isInView = useInView(ref, { amount: threshold })
-    const timerRef = useRef<NodeJS.Timeout | null>(null)
+    const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
     const hasTrackedRef = useRef(false) // Track only once per session/mount? Or every time? Let's do once per mount for now to avoid spam.
+    const [analyticsReady, setAnalyticsReady] = useState(() => isAnalyticsReady())
 
     useEffect(() => {
-        if (isInView && !hasTrackedRef.current) {
+        const handleAnalyticsReady = () => {
+            setAnalyticsReady(isAnalyticsReady())
+        }
+
+        handleAnalyticsReady()
+        window.addEventListener("autom8ed:analytics-ready", handleAnalyticsReady as EventListener)
+
+        return () => {
+            window.removeEventListener("autom8ed:analytics-ready", handleAnalyticsReady as EventListener)
+        }
+    }, [])
+
+    useEffect(() => {
+        if (isInView && analyticsReady && !hasTrackedRef.current) {
             // Start timer
             timerRef.current = setTimeout(() => {
-                trackEvent({
+                const didTrack = trackEvent({
                     action: "section_view",
                     category: "navigation",
                     label: name,
                 })
-                hasTrackedRef.current = true
+
+                if (didTrack) {
+                    hasTrackedRef.current = true
+                }
             }, minDuration)
         } else {
             // Clear timer if user scrolls away quickly
@@ -49,10 +66,10 @@ export function SectionTracker({
                 clearTimeout(timerRef.current)
             }
         }
-    }, [isInView, name, minDuration])
+    }, [analyticsReady, isInView, name, minDuration])
 
     return (
-        <div ref={ref} id={id} className={className}>
+        <div ref={ref} id={id} data-analytics-section={id} className={className}>
             {children}
         </div>
     )

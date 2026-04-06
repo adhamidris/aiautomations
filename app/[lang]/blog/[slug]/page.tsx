@@ -5,6 +5,7 @@ import { ArrowLeft, Calendar, Tag } from "lucide-react";
 import { getPostBySlug, getAllPostSlugs } from "@/lib/content";
 import { Locale, i18n } from "@/i18n-config";
 import { Metadata } from "next";
+import { SectionTracker } from "@/components/analytics/section-tracker";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://autom8ed.space";
 
@@ -132,41 +133,45 @@ export default async function BlogPostPage({
             </div>
 
             {/* Hero Header */}
-            <header className="relative z-10 w-full max-w-4xl mx-auto px-6 mb-12 md:mb-16 text-center md:text-start">
-                <div className="flex flex-col md:flex-row items-center md:items-start gap-4 mb-6 text-xs font-mono uppercase tracking-widest text-muted-foreground">
-                    <span className="flex items-center gap-2 px-3 py-1 rounded-full border border-border/50 bg-background/50 backdrop-blur-sm">
-                        <Tag className="w-3 h-3" />
-                        {post.category}
-                    </span>
-                    <span className="flex items-center gap-2">
-                        <Calendar className="w-3 h-3" />
-                        {new Date(post.publishedAt).toLocaleDateString(
-                            lang === "ar" ? "ar-EG" : "en-US",
-                            { year: "numeric", month: "long", day: "numeric" }
-                        )}
-                    </span>
-                </div>
+            <SectionTracker id="blog-hero" name="Blog Header" minDuration={1500}>
+                <header className="relative z-10 w-full max-w-4xl mx-auto px-6 mb-12 md:mb-16 text-center md:text-start">
+                    <div className="flex flex-col md:flex-row items-center md:items-start gap-4 mb-6 text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                        <span className="flex items-center gap-2 px-3 py-1 rounded-full border border-border/50 bg-background/50 backdrop-blur-sm">
+                            <Tag className="w-3 h-3" />
+                            {post.category}
+                        </span>
+                        <span className="flex items-center gap-2">
+                            <Calendar className="w-3 h-3" />
+                            {new Date(post.publishedAt).toLocaleDateString(
+                                lang === "ar" ? "ar-EG" : "en-US",
+                                { year: "numeric", month: "long", day: "numeric" }
+                            )}
+                        </span>
+                    </div>
 
-                <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold font-heading tracking-tight text-foreground leading-tight mb-8">
-                    {post.title}
-                </h1>
+                    <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold font-heading tracking-tight text-foreground leading-tight mb-8">
+                        {post.title}
+                    </h1>
 
-                <div className="w-24 h-1 bg-gradient-to-r from-foreground to-transparent rounded-full mx-auto md:mx-0 opacity-50" />
-            </header>
+                    <div className="w-24 h-1 bg-gradient-to-r from-foreground to-transparent rounded-full mx-auto md:mx-0 opacity-50" />
+                </header>
+            </SectionTracker>
 
             {/* Article Content */}
-            <div className="relative z-10 w-full max-w-3xl mx-auto px-6 pb-24">
-                <div
-                    className="prose prose-zinc max-w-none 
+            <SectionTracker id="blog-content" name="Blog Content" minDuration={2000}>
+                <div className="relative z-10 w-full max-w-3xl mx-auto px-6 pb-24">
+                    <div
+                        className="prose prose-zinc max-w-none 
                        prose-headings:font-heading prose-headings:tracking-tight
                        prose-h3:text-2xl prose-h3:mt-12 prose-h3:mb-6
                        prose-p:text-lg prose-p:leading-relaxed prose-p:text-muted-foreground
                        prose-strong:text-foreground prose-strong:font-semibold
                        prose-li:text-muted-foreground
                        "
-                    dangerouslySetInnerHTML={{ __html: post.content }}
-                />
-            </div>
+                        dangerouslySetInnerHTML={{ __html: post.content }}
+                    />
+                </div>
+            </SectionTracker>
         </article>
     );
 }

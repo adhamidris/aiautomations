@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { LanguageToggle } from "@/components/ui/language-toggle";
+import { trackEvent } from "@/lib/analytics";
 
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
 
@@ -126,6 +127,13 @@ export function StickyNav({ ctaText = "BOOK A MEETING" }: StickyNavProps) {
               <LanguageToggle />
               <a
                 href="#contact"
+                onClick={() => {
+                  trackEvent({
+                    action: "sticky_nav_cta_click",
+                    category: "navigation",
+                    label: "contact",
+                  })
+                }}
                 className="group relative overflow-hidden rounded-full bg-foreground px-6 md:px-8 py-2.5 transition-all hover:opacity-90 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] active:scale-95 cursor-pointer"
               >
                 <div className="absolute inset-0 bg-[linear-gradient(110deg,transparent,45%,rgba(255,255,255,0.1),55%,transparent)] bg-[length:200%_100%] transition-all duration-500 group-hover:bg-[position:100%_0] bg-no-repeat bg-[position:-100%_0]" />

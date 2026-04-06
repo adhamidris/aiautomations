@@ -1,6 +1,7 @@
 import React from "react";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { SectionTracker } from "@/components/analytics/section-tracker";
 
 export default function PrivacyPolicy() {
   return (
@@ -11,13 +12,16 @@ export default function PrivacyPolicy() {
           Privacy Policy
         </h1>
         <div className="prose prose-invert max-w-none space-y-8">
+          <SectionTracker id="privacy-introduction" name="Privacy Introduction" minDuration={1200}>
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-primary">Introduction</h2>
             <p className="text-muted-foreground leading-relaxed">
               At Autom8ed, we respect your privacy and are committed to protecting the personal information you share with us. This Privacy Policy explains how we collect, use, and safeguard your information when you visit our website or use our services.
             </p>
           </section>
+          </SectionTracker>
 
+          <SectionTracker id="privacy-collection" name="Privacy Collection" minDuration={1200}>
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-primary">Information We Collect</h2>
             <p className="text-muted-foreground leading-relaxed">
@@ -32,7 +36,9 @@ export default function PrivacyPolicy() {
               The types of information we may collect include your name, email address, phone number, and any other information you choose to provide.
             </p>
           </section>
+          </SectionTracker>
 
+          <SectionTracker id="privacy-use" name="Privacy Use" minDuration={1200}>
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-primary">How We Use Your Information</h2>
             <p className="text-muted-foreground leading-relaxed">
@@ -45,7 +51,9 @@ export default function PrivacyPolicy() {
               <li>Process transactions and manage your orders.</li>
             </ul>
           </section>
+          </SectionTracker>
 
+          <SectionTracker id="privacy-meta-automation" name="Privacy Meta Automation" minDuration={1200}>
           <section className="bg-muted/30 p-6 rounded-lg border border-primary/10">
             <h2 className="text-xl font-semibold mb-4 text-primary">Meta & Instagram Automation</h2>
             <p className="text-muted-foreground leading-relaxed">
@@ -57,20 +65,25 @@ export default function PrivacyPolicy() {
               <li>No data collected via these automated interactions is sold, shared with third parties for marketing purposes, or used for profiling outside the context of your direct service request.</li>
             </ul>
           </section>
+          </SectionTracker>
 
+          <SectionTracker id="privacy-security" name="Privacy Security" minDuration={1200}>
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-primary">Data Security</h2>
             <p className="text-muted-foreground leading-relaxed">
               We presume standard security measures to protect your personal information. However, please be aware that no method of transmission over the internet or method of electronic storage is 100% secure.
             </p>
           </section>
+          </SectionTracker>
 
+          <SectionTracker id="privacy-contact" name="Privacy Contact" minDuration={1200}>
           <section>
             <h2 className="text-2xl font-semibold mb-4 text-primary">Contact Us</h2>
             <p className="text-muted-foreground leading-relaxed">
               If you have any questions about this Privacy Policy, please contact us through our website contact form.
             </p>
           </section>
+          </SectionTracker>
         </div>
       </div>
       <Footer />
