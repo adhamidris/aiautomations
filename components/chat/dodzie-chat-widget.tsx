@@ -430,8 +430,8 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
   }, [isMobileViewport, isOpen])
 
   useEffect(() => {
-    const stored = window.localStorage.getItem(storageKey)
-    const storedSessionId = window.localStorage.getItem(`${storageKey}:session`)
+    const stored = window.sessionStorage.getItem(storageKey)
+    const storedSessionId = window.sessionStorage.getItem(`${storageKey}:session`)
     const storedDismissed = window.sessionStorage.getItem(
       `${storageKey}:mobile-nudge-dismissed`
     )
@@ -454,7 +454,7 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
       setSessionId(storedSessionId)
     } else {
       const nextSessionId = buildSessionId()
-      window.localStorage.setItem(`${storageKey}:session`, nextSessionId)
+      window.sessionStorage.setItem(`${storageKey}:session`, nextSessionId)
       setSessionId(nextSessionId)
     }
 
@@ -481,7 +481,7 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
 
   useEffect(() => {
     if (!messages.length) return
-    window.localStorage.setItem(storageKey, JSON.stringify(messages.slice(-20)))
+    window.sessionStorage.setItem(storageKey, JSON.stringify(messages.slice(-20)))
     viewportRef.current?.scrollTo({
       top: viewportRef.current.scrollHeight,
       behavior: isMobileSheet ? "auto" : "smooth",
@@ -631,40 +631,70 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
         }),
       })
 
-      const payload = (await response.json()) as ChatApiResponse
-
       if (!response.ok) {
-        const systemMessage =
-          payload.code === "MODEL_FORMAT_ERROR"
-            ? lang === "ar"
-              ? "حصلت مشكلة تقنية في تنسيق رد النموذج. أعد إرسال آخر رسالة، وسأكمل من نفس النقطة."
-              : "There was a model-format issue on that turn. Resend your last message and I’ll continue from the same point."
-            : payload.error ||
-              (lang === "ar"
-                ? "تعذر إكمال الرد حالياً. جرّب مرة أخرى بعد لحظة."
-                : "Unable to complete that reply right now. Try again in a moment.")
-
-        setMessages((current) => [
-          ...current,
-          {
-            id: `${Date.now()}-system`,
-            role: "system",
-            content: systemMessage,
-          },
-        ])
-        return
+        throw new Error(`Server returned status ${response.status}`)
       }
 
-      setMessages((current) => [
-        ...current,
-        {
-          id: `${Date.now()}-assistant`,
-          role: "assistant",
-          content: payload.reply,
-        },
-      ])
+      const reader = response.body?.getReader()
+      if (!reader) {
+        throw new Error("Response body is not readable")
+      }
 
-      if (payload.leadSubmitted) {
+      const decoder = new TextDecoder()
+      let buffer = ""
+      let partialReply = ""
+      let leadSubmitted = false
+      let assistantMessageId: string | null = null
+
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+
+        buffer += decoder.decode(value, { stream: true })
+        const lines = buffer.split("\n")
+        buffer = lines.pop() || ""
+
+        for (const line of lines) {
+          const cleanLine = line.trim()
+          if (!cleanLine) continue
+
+          try {
+            const chunk = JSON.parse(cleanLine)
+            if (chunk.type === "text") {
+              partialReply += chunk.content
+              
+              if (!assistantMessageId) {
+                setIsLoading(false)
+                assistantMessageId = `${Date.now()}-assistant`
+                setMessages((current) => [
+                  ...current,
+                  {
+                    id: assistantMessageId!,
+                    role: "assistant",
+                    content: chunk.content,
+                  },
+                ])
+              } else {
+                setMessages((current) =>
+                  current.map((msg) =>
+                    msg.id === assistantMessageId
+                      ? { ...msg, content: partialReply }
+                      : msg
+                  )
+                )
+              }
+            } else if (chunk.type === "meta") {
+              leadSubmitted = chunk.leadSubmitted
+            } else if (chunk.type === "error") {
+              throw new Error(chunk.error)
+            }
+          } catch (e) {
+            console.error("Error parsing stream chunk:", e)
+          }
+        }
+      }
+
+      if (leadSubmitted) {
         trackEvent({
           action: "dodzie_chat_lead_captured",
           category: "assistant",
@@ -673,17 +703,33 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
       }
     } catch (error) {
       console.error(error)
-      setMessages((current) => [
-        ...current,
-        {
-          id: `${Date.now()}-error`,
-          role: "system",
-          content:
-            lang === "ar"
-              ? "تعذر إكمال الرد حالياً. جرّب مرة أخرى بعد لحظة."
-              : "Unable to complete that reply right now. Try again in a moment.",
-        },
-      ])
+      setMessages((current) => {
+        const lastMsg = current[current.length - 1]
+        if (lastMsg && lastMsg.role === "assistant" && !lastMsg.content) {
+          return [
+            ...current.slice(0, -1),
+            {
+              id: `${Date.now()}-error`,
+              role: "system",
+              content:
+                lang === "ar"
+                  ? "تعذر إكمال الرد حالياً. جرّب مرة أخرى بعد لحظة."
+                  : "Unable to complete that reply right now. Try again in a moment.",
+            },
+          ]
+        }
+        return [
+          ...current,
+          {
+            id: `${Date.now()}-error`,
+            role: "system",
+            content:
+              lang === "ar"
+                ? "تعذر إكمال الرد حالياً. جرّب مرة أخرى بعد لحظة."
+                : "Unable to complete that reply right now. Try again in a moment.",
+          },
+        ]
+      })
     } finally {
       setIsLoading(false)
     }
@@ -795,8 +841,15 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
 
             {isLoading ? (
               <div className="flex justify-start">
-                <div className="rounded-[1.3rem] border border-black/8 bg-white px-4 py-3 text-sm text-foreground/70 shadow-sm">
-                  {copy.thinking}
+                <div className="flex items-center gap-3 rounded-[1.3rem] border border-black/8 bg-white/90 backdrop-blur-md px-4 py-3 text-sm text-foreground/80 shadow-sm">
+                  <div className="relative flex h-5 w-5 items-center justify-center">
+                    <div className="absolute inset-0 rounded-full border border-t-2 border-r-2 border-transparent border-t-[#ff2ea0] border-r-[#2e6cff] animate-spin" style={{ animationDuration: "1.2s" }} />
+                    <div className="absolute inset-0.5 rounded-full border border-t-2 border-l-2 border-transparent border-t-[#a855f7] border-l-[#ff2ea0] animate-spin" style={{ animationDuration: "1.8s", animationDirection: "reverse" }} />
+                    <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-tr from-[#ff2ea0] to-[#2e6cff] animate-pulse" />
+                  </div>
+                  <span className="font-semibold bg-gradient-to-r from-[#ff2ea0] via-[#a855f7] to-[#2e6cff] bg-clip-text text-transparent animate-pulse" style={{ animationDuration: "2s" }}>
+                    {lang === "ar" ? "دودزي يجهّز الرد..." : "Dodzie is crafting a response..."}
+                  </span>
                 </div>
               </div>
             ) : null}

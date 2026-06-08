@@ -4,10 +4,11 @@ import {
   buildDodzieReplyMessages,
 } from "@/lib/chat/prompt"
 import {
-  DeepSeekFormatError,
+  OpenRouterFormatError,
   getDodzieExtraction,
   getDodzieReply,
-} from "@/lib/chat/deepseek"
+  callOpenRouterStream,
+} from "@/lib/chat/openrouter"
 import { retrieveKnowledge } from "@/lib/chat/knowledge"
 import type {
   ChatMessage,
@@ -319,147 +320,214 @@ export async function POST(request: Request) {
       activeSection,
     })
 
-    const reply = await getDodzieReply(
-      buildDodzieReplyMessages({
-        locale,
-        pathname,
-        activeSection,
-        knowledge,
-        messages,
-        knownLead: sessionState.lead,
-      })
-    )
-
-    let extraction: DodzieExtraction | null = null
-
-    try {
-      extraction = await getDodzieExtraction(
-        buildDodzieExtractionMessages({
-          locale,
-          pathname,
-          activeSection,
-          knowledge,
-          messages,
-          knownLead: sessionState.lead,
-          currentSummary: sessionState.stableSummary,
-        })
-      )
-    } catch (error) {
-      if (error instanceof DeepSeekFormatError) {
-        console.error("Chat extraction format error:", error.details)
-      } else {
-        console.error("Chat extraction error:", error)
-      }
-    }
-
-    const deterministicLeadFields: LeadFields = {
-      email:
-        extractEmailFromText(latestUserMessage) ||
-        extractEmailFromText(messages.map((message) => message.content).join("\n")),
-      phone:
-        extractPhoneFromText(latestUserMessage) ||
-        extractPhoneFromText(messages.map((message) => message.content).join("\n")),
-    }
-
-    const mergedLead = mergeLeadFields(
-      mergeLeadFields(sessionState.lead, extraction?.extracted ?? {}),
-      deterministicLeadFields
-    )
-    const candidateSummary = normalizeLeadText(extraction?.handoffSummary)
-    const hasSafeCandidateSummary = isSafeLeadSummary({
-      summary: candidateSummary,
-      latestUserMessage,
-    })
-    const stableSummary =
-      extraction?.shouldUpdateLead && hasSafeCandidateSummary
-        ? candidateSummary
-        : sessionState.stableSummary
-
-    let leadSubmitted = false
-    let leadPersisted = sessionState.submitted
-    let persistedFingerprint = sessionState.persistedFingerprint
-    let rowNumber = sessionState.rowNumber
-
-    const shouldPersistLead = Boolean(
-      (mergedLead.email && isValidEmail(mergedLead.email)) ||
-        (mergedLead.phone && isValidPhone(mergedLead.phone))
-    )
-    const summaryForWrite =
-      stableSummary ||
-      (hasSafeCandidateSummary ? candidateSummary : "") ||
-      buildFallbackLeadSummary(locale)
-    const contactSnapshotChanged =
-      normalizeLeadText(sessionState.lead.name, 120) !==
-        normalizeLeadText(mergedLead.name, 120) ||
-      normalizeLeadText(sessionState.lead.email, 200) !==
-        normalizeLeadText(mergedLead.email, 200) ||
-      normalizeLeadText(sessionState.lead.phone, 120) !==
-        normalizeLeadText(mergedLead.phone, 120)
-    const shouldUpdatePersistedLead = Boolean(
-      !sessionState.submitted ||
-        contactSnapshotChanged ||
-        (extraction?.shouldUpdateLead && hasSafeCandidateSummary)
-    )
-    const nextFingerprint = buildPersistenceFingerprint({
-      lead: mergedLead,
-      handoffSummary: summaryForWrite,
+    const replyMessages = buildDodzieReplyMessages({
+      locale,
+      pathname,
+      activeSection,
+      knowledge,
+      messages,
+      knownLead: sessionState.lead,
     })
 
-    if (
-      shouldPersistLead &&
-      shouldUpdatePersistedLead &&
-      nextFingerprint !== sessionState.persistedFingerprint
-    ) {
+    const extractionPromise = (async () => {
       try {
-        const persistedLead = await submitLead({
-          source: "chatbot",
-          sessionId,
-          rowNumber: sessionState.rowNumber,
-          name: mergedLead.name,
-          email: mergedLead.email,
-          phone: mergedLead.phone,
-          message: summaryForWrite,
-          locale,
-          pathname,
-          conversationSummary: summaryForWrite,
-        })
-        leadSubmitted = !sessionState.submitted
-        leadPersisted = true
-        persistedFingerprint = nextFingerprint
-        rowNumber = persistedLead.rowNumber ?? sessionState.rowNumber
+        return await getDodzieExtraction(
+          buildDodzieExtractionMessages({
+            locale,
+            pathname,
+            activeSection,
+            knowledge,
+            messages,
+            knownLead: sessionState.lead,
+            currentSummary: sessionState.stableSummary,
+          })
+        )
       } catch (error) {
-        console.error("Chat lead submission failed:", error)
+        console.error("Chat background extraction failed:", error)
+        return null
       }
+    })()
+
+    const apiKey = process.env.OPENROUTER_API_KEY
+    if (!apiKey) {
+      throw new Error("Missing OPENROUTER_API_KEY")
     }
 
-    sessionLeadStore.set(sessionId, {
-      lead: mergedLead,
-      stableSummary,
-      submitted: leadPersisted,
-      rowNumber,
-      persistedFingerprint,
-      updatedAt: Date.now(),
+    const stream = new ReadableStream({
+      async start(controller) {
+        const encoder = new TextEncoder()
+        
+        const sendChunk = (data: any) => {
+          controller.enqueue(encoder.encode(JSON.stringify(data) + "\n"))
+        }
+
+        try {
+          const response = await callOpenRouterStream(apiKey, replyMessages)
+          
+          if (!response.ok) {
+            const errText = await response.text()
+            sendChunk({ type: "error", error: `OpenRouter stream error: ${response.status} ${errText}` })
+            controller.close()
+            return
+          }
+
+          const reader = response.body?.getReader()
+          if (!reader) {
+            sendChunk({ type: "error", error: "OpenRouter stream body not readable" })
+            controller.close()
+            return
+          }
+
+          const decoder = new TextDecoder()
+          let buffer = ""
+
+          while (true) {
+            const { done, value } = await reader.read()
+            if (done) break
+
+            buffer += decoder.decode(value, { stream: true })
+            const lines = buffer.split("\n")
+            buffer = lines.pop() || ""
+
+            for (const line of lines) {
+              const cleanLine = line.trim()
+              if (!cleanLine) continue
+              if (!cleanLine.startsWith("data: ")) continue
+
+              const dataContent = cleanLine.slice(6).trim()
+              if (dataContent === "[DONE]") break
+
+              try {
+                const parsed = JSON.parse(dataContent)
+                const content = parsed.choices?.[0]?.delta?.content
+                if (content) {
+                  sendChunk({ type: "text", content })
+                }
+              } catch (e) {
+                // Ignore JSON parse errors for non-JSON lines or keep-alives
+              }
+            }
+          }
+
+          const extraction = await extractionPromise
+
+          const deterministicLeadFields: LeadFields = {
+            email:
+              extractEmailFromText(latestUserMessage) ||
+              extractEmailFromText(messages.map((message) => message.content).join("\n")),
+            phone:
+              extractPhoneFromText(latestUserMessage) ||
+              extractPhoneFromText(messages.map((message) => message.content).join("\n")),
+          }
+
+          const mergedLead = mergeLeadFields(
+            mergeLeadFields(sessionState.lead, extraction?.extracted ?? {}),
+            deterministicLeadFields
+          )
+          const candidateSummary = normalizeLeadText(extraction?.handoffSummary)
+          const hasSafeCandidateSummary = isSafeLeadSummary({
+            summary: candidateSummary,
+            latestUserMessage,
+          })
+          const stableSummary =
+            extraction?.shouldUpdateLead && hasSafeCandidateSummary
+              ? candidateSummary
+              : sessionState.stableSummary
+
+          let leadSubmitted = false
+          let leadPersisted = sessionState.submitted
+          let persistedFingerprint = sessionState.persistedFingerprint
+          let rowNumber = sessionState.rowNumber
+
+          const shouldPersistLead = Boolean(
+            (mergedLead.email && isValidEmail(mergedLead.email)) ||
+              (mergedLead.phone && isValidPhone(mergedLead.phone))
+          )
+          const summaryForWrite =
+            stableSummary ||
+            (hasSafeCandidateSummary ? candidateSummary : "") ||
+            buildFallbackLeadSummary(locale)
+          const contactSnapshotChanged =
+            normalizeLeadText(sessionState.lead.name, 120) !==
+              normalizeLeadText(mergedLead.name, 120) ||
+            normalizeLeadText(sessionState.lead.email, 200) !==
+              normalizeLeadText(mergedLead.email, 200) ||
+            normalizeLeadText(sessionState.lead.phone, 120) !==
+              normalizeLeadText(mergedLead.phone, 120)
+          const shouldUpdatePersistedLead = Boolean(
+            !sessionState.submitted ||
+              contactSnapshotChanged ||
+              (extraction?.shouldUpdateLead && hasSafeCandidateSummary)
+          )
+          const nextFingerprint = buildPersistenceFingerprint({
+            lead: mergedLead,
+            handoffSummary: summaryForWrite,
+          })
+
+          if (
+            shouldPersistLead &&
+            shouldUpdatePersistedLead &&
+            nextFingerprint !== sessionState.persistedFingerprint
+          ) {
+            try {
+              const persistedLead = await submitLead({
+                source: "chatbot",
+                sessionId,
+                rowNumber: sessionState.rowNumber,
+                name: mergedLead.name,
+                email: mergedLead.email,
+                phone: mergedLead.phone,
+                message: summaryForWrite,
+                locale,
+                pathname,
+                conversationSummary: summaryForWrite,
+              })
+              leadSubmitted = !sessionState.submitted
+              leadPersisted = true
+              persistedFingerprint = nextFingerprint
+              rowNumber = persistedLead.rowNumber ?? sessionState.rowNumber
+            } catch (error) {
+              console.error("Chat background lead submission failed:", error)
+            }
+          }
+
+          sessionLeadStore.set(sessionId, {
+            lead: mergedLead,
+            stableSummary,
+            submitted: leadPersisted,
+            rowNumber,
+            persistedFingerprint,
+            updatedAt: Date.now(),
+          })
+
+          sendChunk({
+            type: "meta",
+            leadSubmitted,
+            language: extraction?.language ?? locale,
+            knowledgeUsed: knowledge.map((chunk) => chunk.id),
+          })
+
+        } catch (err) {
+          sendChunk({ type: "error", error: String(err) })
+        } finally {
+          if (sessionId) {
+            activeSessionStore.delete(sessionId)
+          }
+          controller.close()
+        }
+      }
     })
 
-    return NextResponse.json({
-      reply,
-      language: extraction?.language ?? locale,
-      knowledgeUsed: knowledge.map((chunk) => chunk.id),
-      leadSubmitted,
+    lockedSessionId = null
+
+    return new Response(stream, {
+      headers: {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+      },
     })
   } catch (error) {
-    if (error instanceof DeepSeekFormatError) {
-      console.error("Chat model format error:", error.details)
-      return NextResponse.json(
-        {
-          error: "Dodzie hit a model formatting issue. Please resend your last message.",
-          code: "MODEL_FORMAT_ERROR",
-          diagnostics: error.details,
-        },
-        { status: 502 }
-      )
-    }
-
     console.error("Chat API error:", error)
     return NextResponse.json(
       {
