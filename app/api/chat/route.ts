@@ -4,15 +4,12 @@ import {
   buildDodzieReplyMessages,
 } from "@/lib/chat/prompt"
 import {
-  OpenRouterFormatError,
   getDodzieExtraction,
-  getDodzieReply,
-  callOpenRouterStream,
-} from "@/lib/chat/openrouter"
+  callDeepSeekStream,
+} from "@/lib/chat/deepseek"
 import { retrieveKnowledge } from "@/lib/chat/knowledge"
 import type {
   ChatMessage,
-  DodzieExtraction,
   LeadFields,
   SupportedLanguage,
 } from "@/lib/chat/types"
@@ -88,10 +85,18 @@ function applyRateLimit(key: string) {
   return true
 }
 
-function isPromptAbuse(message: string) {
-  return /(system prompt|developer message|reveal.*instruction|ignore previous|jailbreak|hidden prompt)/i.test(
-    message
-  )
+function hasPastedCode(message: string) {
+  const codeMarkers = [
+    /```/,
+    /\b(import|export)\s+.+\s+from\s+["']/,
+    /\b(function|const|let|var)\s+[a-z0-9_$]+\s*[=(]/i,
+    /\bdef\s+[a-z0-9_]+\s*\(/i,
+    /\bclass\s+[a-z0-9_]+\b/i,
+    /\bSELECT\s+.+\s+FROM\b/i,
+    /<\/?[a-z][\s\S]*>/i,
+  ]
+
+  return codeMarkers.filter((pattern) => pattern.test(message)).length >= 2
 }
 
 function extractEmailFromText(value: string) {
@@ -222,20 +227,56 @@ function buildPersistenceFingerprint(params: {
   })
 }
 
-function promptAbuseResponse(language: SupportedLanguage) {
+function scopedChatResponse(language: SupportedLanguage) {
   if (language === "ar") {
     return {
       reply:
-        "الجزء هذا يبقى خلف الستار. لكن إذا أردت معرفة ما يمكن لـ AUTOM8ED بناؤه فعلاً، أنا حاضر.",
+        "أنا هنا لمساعدتك في خدمات AUTOM8ED، مواقع الويب، الأتمتة، وكلاء الذكاء الاصطناعي، التسعير، ومدى مناسبة المشروع. إذا كنت تبني شيئاً لعملك، أخبرني بما تريد إطلاقه أو أتمتته.",
       language: "ar" as const,
     }
   }
 
   return {
     reply:
-      "That part stays behind the curtain. If you want to know what AUTOM8ED can actually build, I’m useful there.",
+      "I’m here to help with AUTOM8ED services, web projects, automations, AI agents, pricing, and project fit. If you’re building something for your business, tell me what you want to automate or launch.",
     language: "en" as const,
   }
+}
+
+function createScopedChatStreamResponse(params: {
+  reply: string
+  language: SupportedLanguage
+  leadSubmitted?: boolean
+  blockedReason?: string
+}) {
+  const encoder = new TextEncoder()
+  const stream = new ReadableStream({
+    start(controller) {
+      controller.enqueue(
+        encoder.encode(JSON.stringify({ type: "text", content: params.reply }) + "\n")
+      )
+      controller.enqueue(
+        encoder.encode(
+          JSON.stringify({
+            type: "meta",
+            leadSubmitted: params.leadSubmitted ?? false,
+            language: params.language,
+            blockedReason: params.blockedReason,
+            knowledgeUsed: [],
+          }) + "\n"
+        )
+      )
+      controller.close()
+    },
+  })
+
+  return new Response(stream, {
+    headers: {
+      "Content-Type": "text/event-stream",
+      "Cache-Control": "no-cache",
+      Connection: "keep-alive",
+    },
+  })
 }
 
 export async function POST(request: Request) {
@@ -292,12 +333,13 @@ export async function POST(request: Request) {
       )
     }
 
-    if (isPromptAbuse(latestUserMessage)) {
-      const guarded = promptAbuseResponse(locale)
-      return NextResponse.json({
-        reply: guarded.reply,
-        language: guarded.language,
-        leadSubmitted: false,
+    if (hasPastedCode(latestUserMessage)) {
+      const scoped = scopedChatResponse(locale)
+
+      return createScopedChatStreamResponse({
+        reply: scoped.reply,
+        language: scoped.language,
+        blockedReason: "pasted_code",
       })
     }
 
@@ -348,32 +390,32 @@ export async function POST(request: Request) {
       }
     })()
 
-    const apiKey = process.env.OPENROUTER_API_KEY
+    const apiKey = process.env.DEEPSEEK_API_KEY
     if (!apiKey) {
-      throw new Error("Missing OPENROUTER_API_KEY")
+      throw new Error("Missing DEEPSEEK_API_KEY")
     }
 
     const stream = new ReadableStream({
       async start(controller) {
         const encoder = new TextEncoder()
         
-        const sendChunk = (data: any) => {
+        const sendChunk = (data: Record<string, unknown>) => {
           controller.enqueue(encoder.encode(JSON.stringify(data) + "\n"))
         }
 
         try {
-          const response = await callOpenRouterStream(apiKey, replyMessages)
+          const response = await callDeepSeekStream(apiKey, replyMessages)
           
           if (!response.ok) {
             const errText = await response.text()
-            sendChunk({ type: "error", error: `OpenRouter stream error: ${response.status} ${errText}` })
+            sendChunk({ type: "error", error: `DeepSeek stream error: ${response.status} ${errText}` })
             controller.close()
             return
           }
 
           const reader = response.body?.getReader()
           if (!reader) {
-            sendChunk({ type: "error", error: "OpenRouter stream body not readable" })
+            sendChunk({ type: "error", error: "DeepSeek stream body not readable" })
             controller.close()
             return
           }
@@ -403,7 +445,7 @@ export async function POST(request: Request) {
                 if (content) {
                   sendChunk({ type: "text", content })
                 }
-              } catch (e) {
+              } catch {
                 // Ignore JSON parse errors for non-JSON lines or keep-alives
               }
             }

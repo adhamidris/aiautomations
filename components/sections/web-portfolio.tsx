@@ -16,6 +16,18 @@ interface WebPortfolioProps {
   projects?: Record<string, string>;
 }
 
+type PortfolioProject = {
+  title: string;
+  category: string;
+  tech: string;
+  link: string;
+  image: string;
+  mobileImage: string;
+  desktopImagePosition?: string;
+  mobileStatus?: string;
+  description: string;
+}
+
 function getNearestSlideIndex(
   container: HTMLDivElement,
   selector: string
@@ -85,7 +97,17 @@ export function WebPortfolio({
   const [desktopIndex, setDesktopIndex] = useState(0);
 
   // Need to reconstruct the array properly and inject descriptions
-  const projectsList = [
+  const projectsList: PortfolioProject[] = [
+    {
+      title: "BRC Developments",
+      category: "Real Estate",
+      tech: "WordPress • Elementor • ACF",
+      link: "https://brc.srv1127642.hstgr.cloud/",
+      image: "/brc.png",
+      mobileImage: "/iphone-layout/brc.png",
+      desktopImagePosition: "center top",
+      description: "A polished local real estate website for BRC Developments, presenting residential projects, company credibility, and property discovery through a clear, conversion-focused WordPress experience."
+    },
     {
       title: "Hunters",
       category: "E-Commerce",
@@ -116,17 +138,17 @@ export function WebPortfolio({
       desktopImagePosition: "center top",
       description: projects?.kaya || "Boutique travel platform showcasing curated desert and cultural tours across Egypt with immersive destination experiences."
     },
-    {
-      title: "Pocket AI",
-      category: "Pre-Production SaaS",
-      tech: "Django • Agentic RAG • AI Assistant",
-      link: "#portfolio",
-      image: "/desktop-layout/pocket-desktop.png",
-      mobileImage: "/iphone-layout/pocket.png",
-      mobileStatus: "Pre-production",
-      desktopImagePosition: "68% center",
-      description: "An in-progress SaaS platform built around an agentic RAG assistant, focused on intelligent customer support flows, knowledge-grounded answers, and scalable product UX."
-    },
+    // {
+    //   title: "Pocket AI",
+    //   category: "Pre-Production SaaS",
+    //   tech: "Django • Agentic RAG • AI Assistant",
+    //   link: "#portfolio",
+    //   image: "/desktop-layout/pocket-desktop.png",
+    //   mobileImage: "/iphone-layout/pocket.png",
+    //   mobileStatus: "Pre-production",
+    //   desktopImagePosition: "68% center",
+    //   description: "An in-progress SaaS platform built around an agentic RAG assistant, focused on intelligent customer support flows, knowledge-grounded answers, and scalable product UX."
+    // },
     {
       title: "PowerCEM",
       category: "Landing Page",
@@ -517,7 +539,7 @@ export function WebPortfolio({
           {projectsList.map((project, index) => renderProjectCard(project, index))}
         </div>
 
-        <div className="hidden xl:block relative">
+        <div className="relative left-1/2 hidden w-[min(92vw,95rem)] -translate-x-1/2 xl:block">
           <div className="absolute right-0 top-1/2 z-20 flex translate-x-1/2 -translate-y-1/2 flex-col gap-2">
             <button
               type="button"
@@ -541,11 +563,11 @@ export function WebPortfolio({
             </button>
           </div>
 
-          <div className="mx-auto max-w-[82rem] px-10 2xl:px-14">
-            <div className="mx-auto max-w-[72rem]">
+          <div className="mx-auto px-10 2xl:px-14">
+            <div className="mx-auto">
               <div className="group/macbook relative rounded-[2rem] bg-[linear-gradient(180deg,#202124_0%,#17181b_100%)] p-3 shadow-[0_38px_90px_rgba(0,0,0,0.2)] ring-1 ring-black/10">
                 <div className="absolute left-1/2 top-2.5 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-zinc-700 shadow-[0_0_0_2px_rgba(255,255,255,0.03)]" />
-                <div className="relative aspect-[16/10] overflow-hidden rounded-[1.35rem] border border-white/10 bg-[#0f1012] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
+                <div className="relative aspect-[1905/855] overflow-hidden rounded-[1.35rem] border border-white/10 bg-[#0f1012] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
                   <div className="absolute left-4 top-4 z-20 flex items-center gap-2 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/macbook:-translate-x-2 group-hover/macbook:opacity-0">
                     <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
                     <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />

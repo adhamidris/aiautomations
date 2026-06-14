@@ -34,14 +34,6 @@ interface UiMessage {
   content: string
 }
 
-interface ChatApiResponse {
-  reply: string
-  language: "en" | "ar"
-  leadSubmitted?: boolean
-  code?: string
-  error?: string
-}
-
 function getStorageKey(lang: Locale) {
   return `autom8ed:dodzie-chat:${lang}`
 }
@@ -54,6 +46,15 @@ function buildSessionId() {
   }
 
   return `session-${Date.now()}`
+}
+
+function normalizeAssistantText(content: string) {
+  return content
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/__([^_]+)__/g, "$1")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/^#{1,6}\s+/gm, "")
+    .replace(/^\s*[-*]\s+/gm, "")
 }
 
 function getActiveSectionId() {
@@ -826,7 +827,7 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
                 className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 <div
-                  className={`max-w-[85%] rounded-[1.3rem] px-4 py-3 text-sm leading-6 shadow-sm ${
+                  className={`max-w-[85%] whitespace-pre-wrap break-words rounded-[1.3rem] px-4 py-3 text-sm leading-6 shadow-sm [overflow-wrap:anywhere] ${
                     message.role === "user"
                       ? "bg-foreground text-background"
                       : message.role === "system"
@@ -834,20 +835,22 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
                       : "border border-black/8 bg-white text-foreground"
                   }`}
                 >
-                  {message.content}
+                  {message.role === "assistant"
+                    ? normalizeAssistantText(message.content)
+                    : message.content}
                 </div>
               </div>
             ))}
 
             {isLoading ? (
               <div className="flex justify-start">
-                <div className="flex items-center gap-3 rounded-[1.3rem] border border-black/8 bg-white/90 backdrop-blur-md px-4 py-3 text-sm text-foreground/80 shadow-sm">
-                  <div className="relative flex h-5 w-5 items-center justify-center">
-                    <div className="absolute inset-0 rounded-full border border-t-2 border-r-2 border-transparent border-t-[#ff2ea0] border-r-[#2e6cff] animate-spin" style={{ animationDuration: "1.2s" }} />
-                    <div className="absolute inset-0.5 rounded-full border border-t-2 border-l-2 border-transparent border-t-[#a855f7] border-l-[#ff2ea0] animate-spin" style={{ animationDuration: "1.8s", animationDirection: "reverse" }} />
-                    <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-tr from-[#ff2ea0] to-[#2e6cff] animate-pulse" />
+                <div className="flex items-center gap-3 rounded-[1.3rem] border border-black/8 bg-white px-4 py-3 text-sm text-foreground/72 shadow-sm">
+                  <div className="flex h-5 items-center gap-1.5" aria-hidden="true">
+                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-foreground/35 [animation-delay:-0.24s]" />
+                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-foreground/45 [animation-delay:-0.12s]" />
+                    <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-foreground/55" />
                   </div>
-                  <span className="font-semibold bg-gradient-to-r from-[#ff2ea0] via-[#a855f7] to-[#2e6cff] bg-clip-text text-transparent animate-pulse" style={{ animationDuration: "2s" }}>
+                  <span className="font-medium">
                     {lang === "ar" ? "دودزي يجهّز الرد..." : "Dodzie is crafting a response..."}
                   </span>
                 </div>
@@ -873,19 +876,20 @@ export function DodzieChatWidget({ lang, copy }: DodzieChatWidgetProps) {
 
             <form onSubmit={handleSubmit} className="space-y-3">
               <div className="relative overflow-hidden rounded-[1.4rem] border border-black/10 bg-[#fcfbf8] transition focus-within:border-black/20 focus-within:bg-white">
-                <input
+                <textarea
                   value={input}
                   onChange={(event) => setInput(event.target.value)}
                   onFocus={() => setIsInputFocused(true)}
                   onBlur={() => setIsInputFocused(false)}
                   onKeyDown={(event) => {
-                    if (event.key === "Enter") {
+                    if (event.key === "Enter" && !event.shiftKey) {
                       event.preventDefault()
                       void sendMessage(input)
                     }
                   }}
                   placeholder={copy.placeholder}
-                  className="h-14 w-full bg-transparent px-4 pr-18 text-base text-foreground outline-none placeholder:text-foreground/45 md:text-sm"
+                  rows={1}
+                  className="max-h-32 min-h-14 w-full resize-none bg-transparent px-4 py-4 pr-18 text-base leading-6 text-foreground outline-none placeholder:text-foreground/45 md:text-sm"
                 />
                 <Button
                   type="submit"

@@ -2,7 +2,6 @@ import { sendGAEvent } from "@next/third-parties/google"
 
 declare global {
   interface Window {
-    dataLayer?: Object[]
     gtag?: (...args: unknown[]) => void
   }
 }
