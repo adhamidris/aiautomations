@@ -538,8 +538,9 @@ export function WebPortfolio({
         <div className="hidden md:grid xl:hidden grid-cols-1 md:grid-cols-2 gap-8">
           {projectsList.map((project, index) => renderProjectCard(project, index))}
         </div>
+      </div>
 
-        <div className="relative left-1/2 hidden w-[min(92vw,95rem)] -translate-x-1/2 xl:block">
+        <div dir="ltr" className="relative z-20 mx-auto hidden w-[min(92vw,95rem)] xl:block">
           <div className="absolute right-0 top-1/2 z-20 flex translate-x-1/2 -translate-y-1/2 flex-col gap-2">
             <button
               type="button"
@@ -611,8 +612,6 @@ export function WebPortfolio({
             </div>
           </div>
         </div>
-
-      </div>
     </section>
   );
 }
